@@ -1,6 +1,6 @@
 var express = require('express');
 var commonUtils = require("../utils/commonUtils");
-//var Promise = require('promise');
+var Promise = require('promise');
 var router = express.Router();
 
 //根据手机号获取短信验证码 
@@ -17,20 +17,22 @@ router.get('/smsapi', function(req, res, next){
             url: commonUtils.smsUrl,
             text: commonUtils.text + code
         }
-        // var promise = new Promise(function(resolve, reject){
-        //     // 2、请求短信验证码第三方平台，发送验证，node后台获取返回的验证码
-        //     setTimeout(function(){
-        //         // 模拟耗时操作
-        //         // 将验证码和手机号存入redis
-        //         resolve({code: 200, msg: "短信验证码获取成功", phcode: telphone});
-        //     }, 2000);
-        // })
-        // promise.then(function(value){
-        //     res.json(value);
-        // }).catch(function(err){
-        //     res.json(value);
-        // })
+        var promise = new Promise(function(resolve, reject){
+            // 2、请求短信验证码第三方平台，发送验证，node后台获取返回的验证码
+            setTimeout(function(){
+                // 模拟耗时操作
+                // 将验证码和手机号存入redis
+                resolve({code: 200, msg: "短信验证码获取成功", phcode: telphone});
+            }, 2000);
+        })
+        promise.then(function(value){
+            res.json(value);
+        }).catch(function(err){
+            res.json(err);
+        })
         
+        // 验证码获取成功
+        //res.json({code: 200, msg: "验证码获取成功"});
     }else if(!telphone){
         // 手机号码为空
         res.json({code: 201, msg: "手机号码不能为空"});
