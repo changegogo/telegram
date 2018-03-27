@@ -4,7 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('./lib/db');
-//var session = require("session");
+var session = require('express-session');
+var FileStore = require('session-file-store')(session);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -21,6 +22,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// 配置session
+var identityKey = "can";
+app.use(session({
+  name: identityKey,
+  secret: 'youlan',
+  store: new FileStore(),
+  saveUninitialized: false,
+  resave: false,
+  cookie: {
+    maxAge: 60 * 1000 //单位时ms
+  }
+}));
 
 //设置跨域访问
 app.all('*', function(req, res, next) {  

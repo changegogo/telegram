@@ -11,11 +11,12 @@ router.get('/smsapi', function(req, res, next){
     // 1、获取手机号码
     var telphone = req.query.telphone;
     // 2、获取IP地址
-    var ip = commonUtils.getIp(req);
+    //var ip = commonUtils.getIp(req);
     //同ip地址获取的code  10-20个为上限，超出将无法绑定
     if(telphone && commonUtils.verifyPhone(telphone)){
         // 后台随机生成验证码
         var code = commonUtils.generateCode();
+        req.session.smscode = code;
         // 封装请求体
         var postData = {
             apikey: commonUtils.apikey,
@@ -28,7 +29,7 @@ router.get('/smsapi', function(req, res, next){
             setTimeout(function(){
                 // 模拟耗时操作
                 // 将验证码和手机号存入session
-                resolve({code: 200, msg: "短信验证码获取成功", phcode: telphone});
+                resolve({code: 200, msg: "短信验证码获取成功", phcode: telphone, smscode: code});
             }, 2000);
         })
         promise.then(function(value){
@@ -48,13 +49,19 @@ router.get('/smsapi', function(req, res, next){
 // 通过手机号、短信验证码和imtoken进行绑定
 router.get('/smsbind', function(req, res, next){
     // 1、获取手机号、短信验证码、imtoken，进行绑定
+    /**
+     * 判断是否有邀请码
+     * 如果有邀请码，其他人绑定成功之后，相应邀请码对应的账户，执行一定操作
+     */
     var telphone = req.query.telphone;
     var smscode = req.query.smscode;
     var imtoken = req.query.imtoken;
     if(telphone && smscode && imtoken){
         // 数据完整
         // 数据验证
-        var isSmscode = commonUtils.verifySmscode(smscode);
+        var isSmscode = commonUtils.verifySmscode(smscode,req.session.smscode);
+        // 清除短信验证码
+        req.session.smscode = null;
         if(!isSmscode){
             res.json({code: 202, msg: "验证码不正确"});
             return;
@@ -105,19 +112,19 @@ router.get('/smsbind', function(req, res, next){
             Player.count(query, function(err, count){
                 if(!err){
                     if(count === 0){
-                        // 生成邀请码
-                        var invitcode = commonUtils.generateinvitCode(telphone, imtoken);
+                        // 生成身份识别码
+                        var identitycode = commonUtils.generateidentitycode(telphone, imtoken);
                         var playerObj = {
                             telphone: telphone,
                             smscode: smscode,
                             imtoken: imtoken,
-                            invitcode: invitcode,
+                            identitycode: identitycode,
                             bindip: bindip
                         };
                         // 插入数据
                         Player.create(playerObj, function(err, player){
                             if(!err && player){
-                                res.json({code: 200, msg: "绑定成功", invitcode: invitcode});
+                                res.json({code: 200, msg: "绑定成功", identitycode: identitycode});
                             }else{
                                 console.log(err);
                                 res.json({code: 204, msg: "绑定失败"});

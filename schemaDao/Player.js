@@ -16,7 +16,7 @@ var playerSchema = new Schema({
         unique: true
     }
   },
-  invitcode:{ // 邀请码
+  identitycode:{ // 身份识别码
       type: String,
       required: true,
       index: {

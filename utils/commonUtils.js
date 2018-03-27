@@ -5,6 +5,7 @@ function commonUtils(){
     this.text = "[幽兰]您的验证码数: ";
     this.smsUrl = "https://host/api";
     this.suffix = "can_robot";
+    this.key = "youlan123";
 }
 /**
  * 验证手机号码是否合法
@@ -19,14 +20,20 @@ commonUtils.prototype.verifyPhone = function(phone){
 }
 
 /**
+ * 随机生成短信验证码
+ */
+commonUtils.prototype.generateCode = function(){
+    return Math.floor(Math.random()*9000)+1000 + "";
+}
+
+/**
  * 验证短信验证码是否正确
  * @param {*} smscode
  */
-commonUtils.prototype.verifySmscode = function(smscode){
+commonUtils.prototype.verifySmscode = function(smscode, sessioncode){
     console.log("验证码为：",smscode);
+    console.log("session验证码为：",sessioncode);
     // 从session中取出验证码 
-    //TODO
-    var sessioncode = '1234';
     if(sessioncode == smscode){
         return true;
     }
@@ -58,22 +65,48 @@ commonUtils.prototype.getIp = function(req){
 }
 
 /**
- * 随机生成验证码
+ * 按规则生成身份识别码
+ * 使用手机号和imtoken一起生成
  */
-commonUtils.prototype.generateCode = function(){
-    return Math.floor(Math.random()*9000)+1000;
+commonUtils.prototype.generateidentitycode = function(telphone, imtoken){
+    var data = telphone + "|" + imtoken;
+    const cipher = crypto.createCipher('aes192', this.key);
+    var crypted = cipher.update(data, 'utf8', 'base64');
+    crypted += cipher.final('base64');
+    return crypted;
+}
+
+/**
+ * 解析身份识别码
+ */
+commonUtils.prototype.aesidentitycode = function(identitycode){
+    const decipher = crypto.createDecipher('aes192', this.key);
+    var decrypted = decipher.update(identitycode, 'base64', 'utf8');
+    decrypted += decipher.final('utf8');
+    return decrypted.split('|');
 }
 
 /**
  * 按规则生成邀请码
+ * 使用2个人的手机号
  */
-commonUtils.prototype.generateinvitCode = function(telphone, imtoken){
-    var str = telphone + imtoken;
-    var md5sum = crypto.createHash('md5');
-    md5sum.update(str);
-    str = md5sum.digest('hex');
-    console.log("邀请码：",str+this.suffix);
-    return str + this.suffix;
+commonUtils.prototype.generateinvitcode = function(telphone1, telphone2){
+    var data = telphone1 + "|" + telphone2;
+    const cipher = crypto.createCipher('aes192', this.key);
+    var crypted = cipher.update(data, 'utf8', 'base64');
+    crypted += cipher.final('base64');
+    return crypted + this.suffix;
+}
+
+/**
+ * 解析邀请码invitcode
+ */
+commonUtils.prototype.aesinvitcode = function(invitcode){
+    const decipher = crypto.createDecipher('aes192', this.key);
+    var decrypted = decipher.update(invitcode, 'base64', 'utf8');
+    decrypted += decipher.final('utf8');
+    decrypted = decrypted.split(this.suffix)[0];
+    return decrypted.split('|');
 }
 
 
