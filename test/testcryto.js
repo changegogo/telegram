@@ -27,13 +27,13 @@ var commonUtils = require('../utils/commonUtils');
 
 var identitycode = commonUtils.generateidentitycode("15383830596", "qwertyuioplkjhgfdsazxcvbnmnbvcxzaqwsderftg");
 console.log('用户识别码-->'+identitycode);
-var arr = commonUtils.aesidentitycode(identitycode);
+var arr = commonUtils.aesidentitycode('asdadsdsa');
 
 console.log(arr);
 
 
-var invitcode = commonUtils.generateinvitcode("15383830596", "15801419993");
-console.log('邀请码-->'+invitcode);
-var arr2 = commonUtils.aesinvitcode(invitcode);
+// var invitcode = commonUtils.generateinvitcode("153838305965", "158014199937");
+// console.log('邀请码-->'+invitcode);
+// var arr2 = commonUtils.aesinvitcode("3AGwtGR6pbVcXy9iZ80Kax98A93nw3jr6X+Kz1vXLs0=can_robot");
 
-console.log(arr2);
+// console.log(arr2);

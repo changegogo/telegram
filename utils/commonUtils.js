@@ -48,7 +48,7 @@ commonUtils.prototype.verifySmscode = function(smscode, sessioncode){
 commonUtils.prototype.verifyImtoken = function(imtoken){
     console.log("imtoken：",imtoken);
     // TODO
-    if(imtoken.length === 42){
+    if(imtoken.length === 3){
         return true;
     }
     return false;
@@ -78,17 +78,27 @@ commonUtils.prototype.generateidentitycode = function(telphone, imtoken){
 
 /**
  * 解析身份识别码
+ * 屏蔽伪造的邀请码****
  */
 commonUtils.prototype.aesidentitycode = function(identitycode){
-    const decipher = crypto.createDecipher('aes192', this.key);
-    var decrypted = decipher.update(identitycode, 'base64', 'utf8');
-    decrypted += decipher.final('utf8');
-    return decrypted.split('|');
+    try{
+        const decipher = crypto.createDecipher('aes192', this.key);
+        var decrypted = decipher.update(identitycode, 'base64', 'utf8');
+        decrypted += decipher.final('utf8');
+        return decrypted.split('|');
+    }catch(error){
+       // console.log(err);
+       //return "非法用户识别码";
+       return [];
+    }
+    
 }
 
 /**
  * 按规则生成邀请码
  * 使用2个人的手机号
+ * @param telphone1 邀请人
+ * @param telphone2 被邀请人
  */
 commonUtils.prototype.generateinvitcode = function(telphone1, telphone2){
     var data = telphone1 + "|" + telphone2;
@@ -102,11 +112,16 @@ commonUtils.prototype.generateinvitcode = function(telphone1, telphone2){
  * 解析邀请码invitcode
  */
 commonUtils.prototype.aesinvitcode = function(invitcode){
-    const decipher = crypto.createDecipher('aes192', this.key);
-    var decrypted = decipher.update(invitcode, 'base64', 'utf8');
-    decrypted += decipher.final('utf8');
-    decrypted = decrypted.split(this.suffix)[0];
-    return decrypted.split('|');
+    try {
+        const decipher = crypto.createDecipher('aes192', this.key);
+        var decrypted = decipher.update(invitcode, 'base64', 'utf8');
+        decrypted += decipher.final('utf8');
+        return decrypted.split('|');
+    } catch (error) {
+        //return "非法邀请码";
+        return [];
+    }
+    
 }
 
 

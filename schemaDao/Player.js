@@ -16,12 +16,16 @@ var playerSchema = new Schema({
         unique: true
     }
   },
-  identitycode:{ // 身份识别码
+  identitycode: { // 身份识别码
       type: String,
       required: true,
       index: {
           unique: true
       }
+  },
+  invitcode: { // 邀请码
+      type: String,
+      default: ''
   },
   sharecount: {type: Number, default: 0}, // 分享人数
   invitcount: {type: Number, default: 0}, // 邀请人数
