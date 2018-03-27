@@ -10,6 +10,7 @@ var FileStore = require('session-file-store')(session);
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var codeRouter = require('./routes/code');
+var robotRouter = require('./routes/robot');
 
 var app = express();
 
@@ -41,7 +42,7 @@ app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");  
   res.header("Access-Control-Allow-Headers", "X-Requested-With");  
   res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");  
-  res.header("X-Powered-By",' 3.2.1')  
+  res.header("X-Powered-By",' 3.2.1');
   res.header("Content-Type", "application/json;charset=utf-8");  
   next();  
 });
@@ -49,6 +50,7 @@ app.all('*', function(req, res, next) {
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/code', codeRouter);
+app.use('/robot', robotRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

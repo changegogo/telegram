@@ -27,6 +27,10 @@ var playerSchema = new Schema({
       type: String,
       default: ''
   },
+  isusedinvit: { // 标识邀请码是否被使用，默认为未被使用
+      type: Boolean,
+      default: false
+  },
   sharecount: {type: Number, default: 0}, // 分享人数
   invitcount: {type: Number, default: 0}, // 邀请人数
   bindip: {type: String, default: ''}, // 注册ip

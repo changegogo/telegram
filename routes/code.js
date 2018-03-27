@@ -1,3 +1,7 @@
+/**
+ * 验证码
+ * 绑定接口
+ */
 var express = require('express');
 var commonUtils = require("../utils/commonUtils");
 var Promise = require('promise');
