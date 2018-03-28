@@ -121,7 +121,20 @@ commonUtils.prototype.aesinvitcode = function(invitcode){
         //return "非法邀请码";
         return [];
     }
-    
+}
+/**
+ * url转义
+ * + " ' /
+ */
+commonUtils.prototype.URLencode = function(sStr){
+    return sStr.replace(/\+/g, '%2B').replace(/\"/g,'%22').replace(/\'/g, '%27').replace(/\//g,'%2F');
+}
+
+/**
+ * url解析
+ */
+commonUtils.prototype.URLdecode = function(sStr){
+    return sStr.replace(/%2B/g, '+').replace(/%22/g,'"').replace(/%27/g, '\'').replace(/%2F/g,'\/');
 }
 
 

@@ -35,6 +35,7 @@ var playerSchema = new Schema({
   invitcount: {type: Number, default: 0}, // 邀请人数
   bindip: {type: String, default: ''}, // 注册ip
   totalcancount: {type: Number, default: 0}, // 累计赚取CAN数
+  haspickupcount: {type: Number, default: 0}, // 已经提取的CAN数
   ispickup: {type: Boolean, default: false}, // 是否有提币操作，默认为false
   createtime: { type: Date, default: Date.now } //创建时间
 });

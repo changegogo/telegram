@@ -18,7 +18,7 @@ router.get('/smsapi', function(req, res, next){
     //var ip = commonUtils.getIp(req);
     //同ip地址获取的code  10-20个为上限，超出将无法绑定
     if(telphone && commonUtils.verifyPhone(telphone)){
-        // 后台随机生成验证码
+        // 随机生成验证码
         var code = commonUtils.generateCode();
         req.session.smscode = code;
         // 封装请求体
@@ -33,7 +33,7 @@ router.get('/smsapi', function(req, res, next){
             setTimeout(function(){
                 // 模拟耗时操作
                 // 将验证码和手机号存入session
-                resolve({code: 200, msg: "短信验证码获取成功", phcode: telphone, smscode: code});
+                resolve({code: 200, msg: "短信验证码获取成功", results: [],phcode: telphone, smscode: code});
             }, 0);
         })
         promise.then(function(value){
@@ -43,10 +43,10 @@ router.get('/smsapi', function(req, res, next){
         });
     }else if(!telphone){
         // 手机号码为空
-        res.json({code: 201, msg: "手机号码不能为空"});
+        res.json({code: 201, msg: "手机号码不能为空", results: []});
     }else{
         // 输入的手机号码不合法
-        res.json({code: 202, msg: "手机号码不合法"});
+        res.json({code: 202, msg: "手机号码不合法", results: []});
     }
 });
 
@@ -69,17 +69,17 @@ router.get('/smsbind', function(req, res, next){
         // 清除短信验证码
         req.session.smscode = null;
         if(!isSmscode){
-            res.json({code: 202, msg: "验证码不正确"});
+            res.json({code: 202, msg: "验证码不正确", results: []});
             return;
         }
         var isPhone = commonUtils.verifyPhone(telphone);
         if(!isPhone){
-            res.json({code: 202, msg: "手机号码不合法"});
+            res.json({code: 202, msg: "手机号码不合法", results: []});
             return;
         }
         var isImtoken = commonUtils.verifyImtoken(imtoken);
         if(!isImtoken){
-            res.json({code: 202, msg: "imtoken不合法"});
+            res.json({code: 202, msg: "imtoken不合法", results: []});
             return;
         }
         // 获取ip
@@ -98,7 +98,7 @@ router.get('/smsbind', function(req, res, next){
                         resolve();
                     }
                 }else{
-                    res.json({code:"204", msg: "查询错误"});
+                    res.json({code:"204", msg: "查询错误", results: []});
                     return;
                 }
             })
@@ -146,14 +146,14 @@ router.get('/smsbind', function(req, res, next){
                         // 插入数据
                         Player.create(playerObj, function(err, player){
                             if(!err && player){
-                                res.json({code: 200, msg: "绑定成功", invitcode: invitcode});
+                                res.json({code: 200, msg: "绑定成功", invitcode: invitcode, results: []});
                             }else{
                                 console.log(err);
-                                res.json({code: 204, msg: "绑定失败"});
+                                res.json({code: 204, msg: "绑定失败", results: []});
                             }
                         });
                     }else{
-                        res.json({code: 203, msg: "手机号或imtoken已存在"});
+                        res.json({code: 203, msg: "手机号或imtoken已存在", results: []});
                     }
                 }else{
                     console.log('查询失败count');
@@ -163,19 +163,19 @@ router.get('/smsbind', function(req, res, next){
         }).catch(function(){
             console.log("forbid bind");
             // 禁止此ip下再绑定
-            res.json({code: 205, msg: "禁止绑定"});
+            res.json({code: 205, msg: "禁止绑定", results: []});
         });
     }else if(!telphone){
         // 手机号为空
-        res.json({code: 201, msg: "手机号码不能为空"});
+        res.json({code: 201, msg: "手机号码不能为空", results: []});
         return;
     }else if(!smscode){
         // 短信验证码为空
-        res.json({code: 201, msg: "验证码不能为空"});
+        res.json({code: 201, msg: "验证码不能为空", results: []});
         return;
     }else if(!imtoken){
         // imtoken为空
-        res.json({code: 201, msg: "imtoken不能为空"});
+        res.json({code: 201, msg: "imtoken不能为空", results: []});
         return;
     }
 });
