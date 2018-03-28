@@ -31,13 +31,34 @@ var playerSchema = new Schema({
       type: Boolean,
       default: false
   },
-  sharecount: {type: Number, default: 0}, // 分享人数
-  invitcount: {type: Number, default: 0}, // 邀请人数
-  bindip: {type: String, default: ''}, // 注册ip
-  totalcancount: {type: Number, default: 0}, // 累计赚取CAN数
-  haspickupcount: {type: Number, default: 0}, // 已经提取的CAN数
-  ispickup: {type: Boolean, default: false}, // 是否有提币操作，默认为false
-  createtime: { type: Date, default: Date.now } //创建时间
+  sharecount: {// 分享人数
+    type: Number, 
+    default: 0
+  }, 
+  invitcount: {// 邀请人数
+    type: Number, 
+    default: 0
+  }, 
+  bindip: {// 注册ip
+    type: String, 
+    default: ''
+  }, 
+  totalcancount: {// 累计赚取的CAN数
+    type: Number, 
+    default: 0
+  }, 
+  haspickupcount: {// 已经提取的CAN数
+    type: Number, 
+    default: 0
+  }, 
+  ispickup: {// 是否有提币操作，默认为false
+    type: Boolean, 
+    default: false
+  }, 
+  createtime: {//创建时间
+    type: Date, 
+    default: Date.now 
+  } 
 });
 
 /**

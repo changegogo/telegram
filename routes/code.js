@@ -20,6 +20,8 @@ router.get('/smsapi', function(req, res, next){
     if(telphone && commonUtils.verifyPhone(telphone)){
         // 随机生成验证码
         var code = commonUtils.generateCode();
+        
+        // 将验证码存入session
         req.session.smscode = code;
         // 封装请求体
         var postData = {
@@ -146,6 +148,7 @@ router.get('/smsbind', function(req, res, next){
                         // 插入数据
                         Player.create(playerObj, function(err, player){
                             if(!err && player){
+                                req.session.identitycode = identitycodeself;
                                 res.json({code: 200, msg: "绑定成功", invitcode: invitcode, results: []});
                             }else{
                                 console.log(err);
@@ -153,7 +156,10 @@ router.get('/smsbind', function(req, res, next){
                             }
                         });
                     }else{
-                        res.json({code: 203, msg: "手机号或imtoken已存在", results: []});
+                        // 将用户识别码存入session，后面提币操作时要验证
+                        var idencode = commonUtils.generateidentitycode(telphone, imtoken);
+                        req.session.identitycode = idencode;
+                        res.json({code: 200, msg: "手机号和imtoken已存在,登录成功", results: []});
                     }
                 }else{
                     console.log('查询失败count');
