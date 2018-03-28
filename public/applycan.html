@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<p id="asd">测试电报后台接口</p>
+		<p id="qwe">测试电报后台接口</p>
+		
+		验证码：<input id="code" type="text" placeholder="请输入验证码"/><button id="btncode">获取验证码</button><br/>
+		<button id="commit">提币</button>
+		<script>
+			$(function(){
+				function getRequest() {
+					var url = window.location.search; //获取url中"?"符后的字串   
+					var theRequest = new Object();   
+					if (url.indexOf("?") != -1) {   
+						var str = url.substr(1);   
+						strs = str.split("&");   
+						for(var i = 0; i < strs.length; i ++) {   
+							theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);   
+						}
+					}
+					return theRequest;   
+				}
+				var identitycode = getRequest().identitycode;
+				$("#btncode").click(function(){
+					var user = $("#user").val();
+					$.ajax({
+						type:"get",
+						url:"/apply/smsapi?identitycode="+identitycode,
+						async:true,
+						success: function(res){
+							$("#asd").html(JSON.stringify(res));
+							$("#code").val(res.smscode);
+						}
+					});
+				});
+				
+				$("#commit").click(function(){
+					var ma = $("#code").val();
+					//var user = $("#user").val();
+					$.ajax({
+						type:"post",
+						url:"/apply",
+						async:true,
+						data: {
+							smscode: ma,
+							identitycode: identitycode
+						},
+						success: function(res){
+							console.log(res);
+							$("#qwe").html(JSON.stringify(res));
+						}
+					});
+				});
+				
+			});
+		</script>
+	</body>
+</html>

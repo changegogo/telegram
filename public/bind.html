@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>绑定页面</title>
+		<script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<button id="mybtn">我的</button><br />
+		手机号：<input id="phone" type="text" placeholder="手机号"/><br />
+		验证码：<input id="code" type="text" placeholder="验证码" /><input id="getcodebtn" type="button" value="获取验证码"/><br />
+		imtoken: <input id="imtoken" type="text" placeholder="imtoken" /><br />
+		<button id="submitbtn">提交</button>
+		
+		<script>
+			$(function(){
+				//  获取验证码
+				$("#getcodebtn").click(function(){
+					var phone = $("#phone").val();
+					$.ajax({
+						type:"get",
+						url:"/code/smsapi",
+						data: {
+							telphone: phone
+						},
+						async:true,
+						success: function(res){
+							console.log(res);
+							$("#code").val(res.smscode);
+						}
+					});
+				});
+				// 提交绑定数据
+				$("#submitbtn").click(function(){
+					var telphone = $("#phone").val();
+					var code = $("#code").val();
+					var imtoken = $("#imtoken").val();
+					
+					$.ajax({
+						type:"get",
+						url:"/code/smsbind",
+						async:true,
+						data: {
+							telphone: telphone,
+							smscode: code,
+							imtoken: imtoken
+						},
+						success: function(res){
+							console.log(res);
+							if(res.code === 200){
+								console.log(res);
+								window.location.href = 'share.html?identitycode='+res.identitycode;
+							}
+						}
+					});
+				})
+				
+			})
+		</script>
+	</body>
+</html>

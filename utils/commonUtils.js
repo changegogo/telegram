@@ -73,6 +73,7 @@ commonUtils.prototype.generateidentitycode = function(telphone, imtoken){
     const cipher = crypto.createCipher('aes192', this.key);
     var crypted = cipher.update(data, 'utf8', 'base64');
     crypted += cipher.final('base64');
+    //crypted = this.URLencode(crypted);
     return crypted;
 }
 
@@ -81,6 +82,7 @@ commonUtils.prototype.generateidentitycode = function(telphone, imtoken){
  * 屏蔽伪造的邀请码****
  */
 commonUtils.prototype.aesidentitycode = function(identitycode){
+    //identitycode = this.URLdecode(identitycode);
     try{
         const decipher = crypto.createDecipher('aes192', this.key);
         var decrypted = decipher.update(identitycode, 'base64', 'utf8');
@@ -105,6 +107,7 @@ commonUtils.prototype.generateinvitcode = function(telphone1, telphone2){
     const cipher = crypto.createCipher('aes192', this.key);
     var crypted = cipher.update(data, 'utf8', 'base64');
     crypted += cipher.final('base64');
+    //crypted = this.URLencode(crypted);
     return crypted + this.suffix;
 }
 
@@ -112,6 +115,7 @@ commonUtils.prototype.generateinvitcode = function(telphone1, telphone2){
  * 解析邀请码invitcode
  */
 commonUtils.prototype.aesinvitcode = function(invitcode){
+    //invitcode = this.URLdecode(invitcode);
     try {
         const decipher = crypto.createDecipher('aes192', this.key);
         var decrypted = decipher.update(invitcode, 'base64', 'utf8');
@@ -127,14 +131,14 @@ commonUtils.prototype.aesinvitcode = function(invitcode){
  * + " ' /
  */
 commonUtils.prototype.URLencode = function(sStr){
-    return sStr.replace(/\+/g, '%2B').replace(/\"/g,'%22').replace(/\'/g, '%27').replace(/\//g,'%2F');
+    return sStr.replace(/\+/g, '%2B').replace(/\"/g,'%22').replace(/\'/g, '%27').replace(/\//g,'%2F').replace(/\=/g, '%3D');
 }
 
 /**
  * url解析
  */
 commonUtils.prototype.URLdecode = function(sStr){
-    return sStr.replace(/%2B/g, '+').replace(/%22/g,'"').replace(/%27/g, '\'').replace(/%2F/g,'\/');
+    return sStr.replace(/%2B/g, '+').replace(/%22/g,'"').replace(/%27/g, '\'').replace(/%2F/g,'\/').replace(/%3D/g, '\=' );
 }
 
 

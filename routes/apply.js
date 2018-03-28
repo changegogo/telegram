@@ -104,7 +104,7 @@ router.post('/', function(req, res, next){
                     res.json({code: 200, msg: "未达到188枚，不可提币,当前币数"+offsetcount});
                 }
             }else {
-                re.json({code: 10019, msg: "用户不存在"});
+                res.json({code: 10019, msg: "用户不存在"});
             }
         }else{
             res.json({code: 10020, msg: "查询错误"});

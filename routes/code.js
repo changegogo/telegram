@@ -119,7 +119,7 @@ router.get('/smsbind', function(req, res, next){
             };
             Player.count(query, function(err, count){
                 if(!err){
-                    if(count === 0){
+                    if(count === 0){ // 数据库中没有相应的手机号和imtoken,此时进行绑定逻辑
                         var invitcode = '';
                         if(identitycode){ // 用户识别码存在
                             // 临时方案
@@ -149,17 +149,30 @@ router.get('/smsbind', function(req, res, next){
                         Player.create(playerObj, function(err, player){
                             if(!err && player){
                                 req.session.identitycode = identitycodeself;
-                                res.json({code: 200, msg: "绑定成功", invitcode: invitcode, results: []});
+                                var temp = commonUtils.URLencode(identitycodeself);
+                                res.json({code: 200, msg: "绑定成功",identitycode:temp, invitcode: invitcode, results: []});
                             }else{
                                 console.log(err);
                                 res.json({code: 204, msg: "绑定失败", results: []});
                             }
                         });
                     }else{
-                        // 将用户识别码存入session，后面提币操作时要验证
-                        var idencode = commonUtils.generateidentitycode(telphone, imtoken);
-                        req.session.identitycode = idencode;
-                        res.json({code: 200, msg: "手机号和imtoken已存在,登录成功", results: []});
+                        // 查找是否有手机号和imtoken绑定的记录
+                        Player.count({
+                            telphone: telphone,
+                            imtoken: imtoken
+                        }, function(err, count){
+                            if(count >= 1){
+                                // 将用户识别码存入session，后面提币操作时要验证
+                                var idencode = commonUtils.generateidentitycode(telphone, imtoken);
+                                idencode = commonUtils.URLencode(idencode);
+                                req.session.identitycode = idencode;
+                                res.json({code: 200, msg: "手机号和imtoken匹配,登录成功",identitycode:idencode, results: []});
+                            }else {
+                                res.json({code: 201, msg: "手机号和imtoken不匹配", results: []});
+                            }
+                        });
+                        
                     }
                 }else{
                     console.log('查询失败count');
