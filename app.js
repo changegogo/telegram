@@ -39,7 +39,7 @@ app.use(session({
   saveUninitialized: false,
   resave: false,
   cookie: {
-    maxAge: 600 * 1000 //单位时ms
+    maxAge: 5 * 60 * 1000 //单位时ms
   }
 }));
 

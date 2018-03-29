@@ -1,9 +1,9 @@
 var crypto = require('crypto');
 
 function commonUtils(){
-    this.apikey = "xxxxxxxxxxx";// 短信验证码服务的apikey
+    this.accessKeyId = "xxxxxxxxxxx";// 短信验证码服务
+    this.secretAccessKey = "pppppppp";
     this.text = "[幽兰]您的验证码数: ";
-    this.smsUrl = "https://host/api";
     this.suffix = "can_robot";
     this.key = "youlan123";
 }
