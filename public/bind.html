@@ -35,6 +35,22 @@
 					var telphone = $("#phone").val();
 					var code = $("#code").val();
 					var imtoken = $("#imtoken").val();
+					//1.先查找localstrage中是否有用户识别码，如果有，使用这个值
+
+					// 2.从url中查找
+					function getRequest() {
+						var url = window.location.search; //获取url中"?"符后的字串   
+						var theRequest = new Object();   
+						if (url.indexOf("?") != -1) {   
+							var str = url.substr(1);   
+							strs = str.split("&");   
+							for(var i = 0; i < strs.length; i ++) {   
+								theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);   
+							}
+						}
+						return theRequest;   
+					}
+					var identitycode = getRequest().identitycode;// 用户识别码
 					
 					$.ajax({
 						type:"get",
@@ -43,7 +59,8 @@
 						data: {
 							telphone: telphone,
 							smscode: code,
-							imtoken: imtoken
+							imtoken: imtoken,
+							identitycode: identitycode
 						},
 						success: function(res){
 							console.log(res);

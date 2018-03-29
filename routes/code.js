@@ -53,17 +53,17 @@ router.get('/smsapi', function(req, res, next){
 });
 
 // 通过手机号、短信验证码和imtoken进行绑定
-router.get('/smsbind', function(req, res, next){
+router.post('/smsbind', function(req, res, next){
     // 1、获取手机号、短信验证码、imtoken，进行绑定
     /**
      * 判断是否有用户识别码(identitycode)
      * 如果有用户识别码，其他人绑定成功之后，返回邀请码，通过邀请码可以解析出邀请人和被邀请人的账户
      */
-    var identitycode = req.query.identitycode;
+    var identitycode = req.body.identitycode;
     
-    var telphone = req.query.telphone;
-    var smscode = req.query.smscode;
-    var imtoken = req.query.imtoken;
+    var telphone = req.body.telphone;
+    var smscode = req.body.smscode;
+    var imtoken = req.body.imtoken;
     if(telphone && smscode && imtoken){
         // 数据完整
         // 数据验证
