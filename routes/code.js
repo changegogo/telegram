@@ -123,7 +123,7 @@ router.post('/smsbind', function(req, res, next){
                         var invitcode = '';
                         if(identitycode){ // 用户识别码存在
                             // 临时方案
-                            identitycode = identitycode.replace(/ /g, '+');
+                            //identitycode = identitycode.replace(/ /g, '+');
                             // 获取邀请人账户
                             var phone = commonUtils.aesidentitycode(identitycode);
                             if(phone.length>0){
@@ -149,8 +149,8 @@ router.post('/smsbind', function(req, res, next){
                         Player.create(playerObj, function(err, player){
                             if(!err && player){
                                 req.session.identitycode = identitycodeself;
-                                var temp = commonUtils.URLencode(identitycodeself);
-                                res.json({code: 200, msg: "绑定成功",identitycode:temp, invitcode: invitcode, results: []});
+                                //var temp = commonUtils.URLencode(identitycodeself);
+                                res.json({code: 200, msg: "绑定成功",identitycode:identitycodeself, invitcode: invitcode, results: []});
                             }else{
                                 console.log(err);
                                 res.json({code: 204, msg: "绑定失败", results: []});
@@ -165,7 +165,7 @@ router.post('/smsbind', function(req, res, next){
                             if(count >= 1){
                                 // 将用户识别码存入session，后面提币操作时要验证
                                 var idencode = commonUtils.generateidentitycode(telphone, imtoken);
-                                idencode = commonUtils.URLencode(idencode);
+                                //idencode = commonUtils.URLencode(idencode);
                                 req.session.identitycode = idencode;
                                 res.json({code: 200, msg: "手机号和imtoken匹配,登录成功",identitycode:idencode, results: []});
                             }else {

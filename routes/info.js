@@ -9,12 +9,12 @@ var Player = require('../schemaDao/Player');
 /**
  * 获取用户识别码对应的玩家的信息
  */
-router.get('/', function(req, res, next){
+router.post('/', function(req, res, next){
     // 用户识别码
-    var identitycode = req.query.identitycode;
+    var identitycode = req.body.identitycode;
     if(identitycode){
         // 临时方案
-        identitycode = identitycode.replace(/ /g, '+');
+        //identitycode = identitycode.replace(/ /g, '+');
         // 通过用户识别码，获取对应记录的全部信息
         var query = {
             identitycode: identitycode

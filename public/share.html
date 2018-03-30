@@ -28,11 +28,11 @@
             var identitycode = getRequest().identitycode;
             // 获取对应识别码下的数据
             $.ajax({
-                type:"get",
+                type:"post",
                 url:"/info",
                 async:true,
                 data: {
-                    identitycode: identitycode
+                    identitycode: "a+sdsadda=="
                 },
                 success: function(res){
                     console.log(res);

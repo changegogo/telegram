@@ -53,7 +53,7 @@
 					var identitycode = getRequest().identitycode;// 用户识别码
 					
 					$.ajax({
-						type:"get",
+						type:"post",
 						url:"/code/smsbind",
 						async:true,
 						data: {

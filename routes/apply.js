@@ -10,13 +10,13 @@ var threshold = 188; // 提币阀值
 /**
  * 获取验证码
  */
-router.get('/smsapi', function(req, res, next){
+router.post('/smsapi', function(req, res, next){
     // 获取用户识别码
-    var identitycode = req.query.identitycode;
+    var identitycode = req.body.identitycode;
     // 验证用户识别码
     if(identitycode) {
         // 临时方案
-        identitycode = identitycode.replace(/ /g, '+');
+        //identitycode = identitycode.replace(/ /g, '+');
         var aes = commonUtils.aesidentitycode(identitycode);
         if(aes.length === 2) {
             // 用户识别码有效
