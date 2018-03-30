@@ -5,11 +5,13 @@ var Schema = mongoose.Schema;
 var ApplycanSchema = new Schema({
   telphone: {
     type: String,
-    required: true
+    required: true,
+    index: true
   },
   imtoken: {
     type: String,
-    required: true
+    required: true,
+    index: true
   },
   ip: { // 当前IP
     type: String,

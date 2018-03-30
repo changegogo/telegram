@@ -1,21 +1,23 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const logger = require('morgan');
 require('./lib/db');
-var session = require('express-session');
-var FileStore = require('session-file-store')(session);
+const session = require('express-session');
+const FileStore = require('session-file-store')(session);
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var codeRouter = require('./routes/code');
-var robotRouter = require('./routes/robot');
-var infoRouter = require('./routes/info');
-var applyRouter = require('./routes/apply');
+const indexRouter = require('./routes/index');
+const codeRouter = require('./routes/code');
+const robotRouter = require('./routes/robot');
+const infoRouter = require('./routes/playerinfo');
+const applyRouter = require('./routes/apply');
 
-var app = express();
+// 后台管理路由
+const userRouter = require('./routes/admin/user');
+
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,7 +33,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname, 'public')));
 
 // 配置session
-var identityKey = "can";
+const identityKey = "can";
 app.use(session({
   name: identityKey,
   secret: 'youlan',
@@ -54,11 +56,11 @@ app.all('*', function(req, res, next) {
 });
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/code', codeRouter);
 app.use('/robot', robotRouter);
 app.use('/info', infoRouter);
 app.use('/apply', applyRouter);
+app.use('/users', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

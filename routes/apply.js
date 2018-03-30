@@ -85,7 +85,12 @@ router.post('/', function(req, res, next){
                 if(offsetcount >= threshold) {
                     // 修改Player库中的已提币数目
                     var sum = haspickupcount + offsetcount;
-                    Player.updateOne(query, {$set:{haspickupcount: sum}}, function(err, c){
+                    Player.updateOne(query, {
+                        $set:{
+                            haspickupcount: sum,
+                            ispickup: true // 设置为有提币操作
+                        }
+                    }, function(err, c){
                             console.log(c);
                             // 向库中插入提币申请数据
                             var ip = commonUtils.getIp(req);
@@ -96,12 +101,12 @@ router.post('/', function(req, res, next){
                                 cancount: offsetcount
                             };
                             Applycan.create(applycan, function(err, applycan){
-                                res.json({code: 200, msg: "提币成功，提币数目"+offsetcount});
+                                res.json({code: 200, msg: "提币成功",count: offsetcount});
                             });
                     });
                     
                 }else {
-                    res.json({code: 200, msg: "未达到188枚，不可提币,当前币数"+offsetcount});
+                    res.json({code: 201, msg: "未达到188枚，不可提币", count: offsetcount});
                 }
             }else {
                 res.json({code: 10019, msg: "用户不存在"});
