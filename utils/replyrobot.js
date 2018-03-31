@@ -4,7 +4,7 @@ const bottoken = "588581588:AAHcWKRK5ufqyhjgGfgylyuK_RnwlDkhNbI";
 const telegramBaseUrl = 'https://api.telegram.org/bot' + bottoken;
 const sendMessage = '/sendMessage';
 const setWebhook = '/setWebhook';
-const webhook = 'https://ec494969.ngrok.io/robot';
+const webhook = 'https://3a2e83fe.ngrok.io/robot';
 
 axios.defaults.timeout = 5000;
 

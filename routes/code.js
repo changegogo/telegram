@@ -9,6 +9,7 @@ const Promise = require('promise');
 const Player = require('../schemaDao/Player');
 
 const router = express.Router();
+//const log = require('log4js').getLogger("code");
 
 //根据手机号获取短信验证码 
 router.get('/smsapi', function(req, res, next){
