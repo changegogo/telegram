@@ -88,9 +88,12 @@ router.get('/edit', function(req, res, next){
     }else {
         update = {}
     }
-    // TODO
-    res.end();
-     
+    Player.updateById(
+        mongoose.Types.ObjectId('5abdaf500c1d3c054296778b'), 
+        update, 
+        function(err, c){
+            res.json({code: 200, msg: '更新成功'});
+    });
 });
 
 

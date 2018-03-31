@@ -6,7 +6,7 @@ var router = express.Router();
 var commonUtils = require('../utils/commonUtils');
 var Player = require('../schemaDao/Player');
 var Applycan = require('../schemaDao/Applycan');
-var threshold = 188; // 提币阀值
+var threshold = 1880; // 提币阀值
 /**
  * 获取验证码
  */

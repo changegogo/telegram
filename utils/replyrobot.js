@@ -1,28 +1,33 @@
 let axios = require('axios');
-let url = 'https://api.telegram.org/bot588581588:AAHcWKRK5ufqyhjgGfgylyuK_RnwlDkhNbI/sendMessage';
 
-axios.defaults.timeout = 2000;
+const bottoken = "588581588:AAHcWKRK5ufqyhjgGfgylyuK_RnwlDkhNbI";
+const telegramBaseUrl = 'https://api.telegram.org/bot' + bottoken;
+const sendMessage = '/sendMessage';
+const setWebhook = '/setWebhook';
+const webhook = 'https://ec494969.ngrok.io/robot';
+
+axios.defaults.timeout = 5000;
 
 
 /**
  * 设置webhook
  */
-/*(function(url){
-    axios.get("https://api.telegram.org/bot588581588:AAHcWKRK5ufqyhjgGfgylyuK_RnwlDkhNbI/setWebhook",{
+(function(url){
+    axios.get(telegramBaseUrl + setWebhook,{
         params: {
             url: url
         }
     })
     .then(function(res){
-        console.log(res);
+        console.log('set webhook success');
     })
     .catch(function(err){
-        console.log("set webhook fail");
+        console.log('set webhook fail');
     });
-})('https://host/robot');*/
+})(webhook);
 
 let replyrobot = function(chatid, msg, callback) {
-    axios.post(url,{
+    axios.post(telegramBaseUrl + sendMessage ,{
         chat_id: chatid,
         text: msg
     }).then(function(res){

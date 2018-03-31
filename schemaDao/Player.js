@@ -38,10 +38,15 @@ var playerSchema = new Schema({
   invitcount: {// 邀请人数
     type: Number, 
     default: 0
-  }, 
+  },
+  invitedplayers: { // 当前账户邀请的账户列表
+    type: Array,
+    default: []
+  },
   bindip: {// 注册ip
     type: String, 
-    default: ''
+    default: '',
+    index: true
   }, 
   totalcancount: {// 累计赚取的CAN数
     type: Number, 

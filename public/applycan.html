@@ -19,8 +19,11 @@
 					if (url.indexOf("?") != -1) {   
 						var str = url.substr(1);   
 						strs = str.split("&");   
-						for(var i = 0; i < strs.length; i ++) {   
-							theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);   
+						for(var i = 0; i < strs.length; i ++) {
+							var pos = strs[i].indexOf('=');
+							var key = strs[i].substr(0, pos);
+							var value = strs[i].substr(pos + 1);
+							theRequest[key] = unescape(value);
 						}
 					}
 					return theRequest;   
@@ -29,9 +32,12 @@
 				$("#btncode").click(function(){
 					var user = $("#user").val();
 					$.ajax({
-						type:"get",
-						url:"/apply/smsapi?identitycode="+identitycode,
+						type:"post",
+						url:"/apply/smsapi",
 						async:true,
+						data: {
+							identitycode: identitycode
+						},
 						success: function(res){
 							$("#asd").html(JSON.stringify(res));
 							$("#code").val(res.smscode);

@@ -17,7 +17,7 @@ router.post('/', function(req, res, next) {
   // 获取邀请码
   let invitcode = req.body.message.text;
   let chatid = req.body.message.chat.id;
-  if(invitcode && invitcode.indexOf("can_robot")>0){
+  if(invitcode && invitcode.endsWith(commonUtils.suffix)){
     // 解析邀请码
     let player12 = commonUtils.aesinvitcode(invitcode);
     if(player12.length === 2) {//解析成功
@@ -31,21 +31,26 @@ router.post('/', function(req, res, next) {
             if(!err && player){
                 let reward = 0;
                 if(player.invitcount <= 30){
-                    reward = 188;
+                    reward = commonUtils.oneReward;
                 }else if(player.invitcount <= 100){
-                    reward = 108;
+                    reward = commonUtils.twoReward;
                 }else {
-                    reward = 58;
+                    reward = commonUtils.threeReward;
                 }
-                if(!player.isusedinvit){
-                    // 邀请码没有被使用，查询邀请人和被邀请人，分发奖励
+                if(!player.isusedinvit){ // 邀请码没有被使用
+                    // 邀请人发奖励，修改邀请的人数，将被邀请人写入邀请人的队列
                     let p1 = new Promise(function(resolve, reject){
                         Player.updateOne({
                             "telphone": player12[0]
-                        },{"$inc": {
-                            totalcancount: reward,
-                            invitcount: 1 // 邀请的人数+1
-                        }},function(err, c){
+                        },{
+                            "$inc": {
+                                totalcancount: reward,
+                                invitcount: 1 // 邀请的人数+1
+                            },
+                            "$push": {
+                                invitedplayers: player12[1]
+                            }
+                    },function(err, c){
                             resolve(c);
                         });
                     });
@@ -54,7 +59,7 @@ router.post('/', function(req, res, next) {
                         Player.updateOne({
                             "telphone": player12[1]
                         },{"$inc": {
-                            totalcancount: 188
+                            totalcancount: commonUtils.oneReward
                         }},function(err, c){
                             resolve(c);
                         });
@@ -81,7 +86,6 @@ router.post('/', function(req, res, next) {
                         replyrobot(chatid, "奖励发放失败",function(val){
                             res.end(val);
                         });
-                       //res.json({code: 201, msg: "奖励发放失败"});
                     });
                 }else{
                     // 邀请码已经被使用
@@ -89,14 +93,12 @@ router.post('/', function(req, res, next) {
                     replyrobot(chatid, "邀请码已经被使用",function(val){
                         res.end(val);
                     });
-                    //res.json({code: 200, msg: "邀请码已经被使用"});
                 }
             }else{
                 console.log("邀请码查询无效");
                 replyrobot(chatid, "邀请码查询无效",function(val){
                     res.end(val);
                 });
-                //res.json({code: 200, msg: "查询失败"});
             }
         });
         }else {
@@ -105,11 +107,13 @@ router.post('/', function(req, res, next) {
             replyrobot(chatid, "邀请码无效",function(val){
                 res.end(val);
             });
-            //res.json({code: 200, msg: '邀请码无效', results: []});
         }
     }else{
         console.log("不进行处理");
-        res.end();
+        replyrobot(chatid, "你是来搞笑的吗",function(val){
+            res.end(val);
+        });
+        //res.end();
     }
 });
 

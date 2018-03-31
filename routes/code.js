@@ -2,35 +2,35 @@
  * 验证码
  * 绑定接口
  */
-var express = require('express');
-var commonUtils = require("../utils/commonUtils");
-var Promise = require('promise');
+const express = require('express');
+const commonUtils = require("../utils/commonUtils");
+const Promise = require('promise');
 
-var Player = require('../schemaDao/Player');
+const Player = require('../schemaDao/Player');
 
-var router = express.Router();
+const router = express.Router();
 
 //根据手机号获取短信验证码 
 router.get('/smsapi', function(req, res, next){
     // 1、获取手机号码
-    var telphone = req.query.telphone;
+    let telphone = req.query.telphone;
     // 2、获取IP地址
     //var ip = commonUtils.getIp(req);
     //同ip地址获取的code  10-20个为上限，超出将无法绑定
     if(telphone && commonUtils.verifyPhone(telphone)){
         // 随机生成验证码
-        var code = commonUtils.generateCode();
+        let code = commonUtils.generateCode();
         
         // 将验证码存入session
         req.session.smscode = code;
         // 封装请求体
-        var postData = {
+        let postData = {
             apikey: commonUtils.apikey,
             telphone: telphone,
             url: commonUtils.smsUrl,
             text: commonUtils.text + code
         }
-        var promise = new Promise(function(resolve, reject){
+        let promise = new Promise(function(resolve, reject){
             // 2、请求短信验证码第三方平台，发送验证，node后台获取返回的验证码
             setTimeout(function(){
                 // 模拟耗时操作
@@ -59,41 +59,41 @@ router.post('/smsbind', function(req, res, next){
      * 判断是否有用户识别码(identitycode)
      * 如果有用户识别码，其他人绑定成功之后，返回邀请码，通过邀请码可以解析出邀请人和被邀请人的账户
      */
-    var identitycode = req.body.identitycode;
+    let identitycode = req.body.identitycode;
     
-    var telphone = req.body.telphone;
-    var smscode = req.body.smscode;
-    var imtoken = req.body.imtoken;
+    let telphone = req.body.telphone;
+    let smscode = req.body.smscode;
+    let imtoken = req.body.imtoken;
     if(telphone && smscode && imtoken){
         // 数据完整
         // 数据验证
-        var isSmscode = commonUtils.verifySmscode(smscode,req.session.smscode);
+        let isSmscode = commonUtils.verifySmscode(smscode,req.session.smscode);
         // 清除短信验证码
         req.session.smscode = null;
         if(!isSmscode){
             res.json({code: 202, msg: "验证码不正确", results: []});
             return;
         }
-        var isPhone = commonUtils.verifyPhone(telphone);
+        let isPhone = commonUtils.verifyPhone(telphone);
         if(!isPhone){
             res.json({code: 202, msg: "手机号码不合法", results: []});
             return;
         }
-        var isImtoken = commonUtils.verifyImtoken(imtoken);
+        let isImtoken = commonUtils.verifyImtoken(imtoken);
         if(!isImtoken){
             res.json({code: 202, msg: "imtoken不合法", results: []});
             return;
         }
         // 获取ip
-        var bindip = commonUtils.getIp(req);
+        let bindip = commonUtils.getIp(req);
         // 同一个ip最多只能绑定20个手机号
-        var query = {
+        let query = {
             bindip: bindip
         };
         new Promise(function(resolve, reject){
             Player.count(query, function(err, count){
                 if(!err){
-                    if(count>=20){
+                    if(count >= commonUtils.iptop){
                         // 禁止此ip下再绑定
                         reject();
                     }else{
@@ -120,12 +120,12 @@ router.post('/smsbind', function(req, res, next){
             Player.count(query, function(err, count){
                 if(!err){
                     if(count === 0){ // 数据库中没有相应的手机号和imtoken,此时进行绑定逻辑
-                        var invitcode = '';
+                        let invitcode = '';
                         if(identitycode){ // 用户识别码存在
                             // 临时方案
                             //identitycode = identitycode.replace(/ /g, '+');
                             // 获取邀请人账户
-                            var phone = commonUtils.aesidentitycode(identitycode);
+                            let phone = commonUtils.aesidentitycode(identitycode);
                             if(phone.length>0){
                                 phone = phone[0];
                                 // 生成邀请码
@@ -136,20 +136,18 @@ router.post('/smsbind', function(req, res, next){
                         }
                         
                         // 生成身份识别码
-                        var identitycodeself = commonUtils.generateidentitycode(telphone, imtoken);
-                        var playerObj = {
+                        let identitycodeself = commonUtils.generateidentitycode(telphone, imtoken);
+                        let playerObj = {
                             telphone: telphone,
-                            smscode: smscode,
                             imtoken: imtoken,
                             identitycode: identitycodeself,
                             bindip: bindip,
                             invitcode: invitcode
                         };
-                        // 插入数据
+                        // 插入被邀请人数据
                         Player.create(playerObj, function(err, player){
                             if(!err && player){
                                 req.session.identitycode = identitycodeself;
-                                //var temp = commonUtils.URLencode(identitycodeself);
                                 res.json({code: 200, msg: "绑定成功",identitycode:identitycodeself, invitcode: invitcode, results: []});
                             }else{
                                 console.log(err);
@@ -182,7 +180,7 @@ router.post('/smsbind', function(req, res, next){
         }).catch(function(){
             console.log("forbid bind");
             // 禁止此ip下再绑定
-            res.json({code: 205, msg: "禁止绑定", results: []});
+            res.json({code: 205, msg: "已达上限，禁止绑定", results: []});
         });
     }else if(!telphone){
         // 手机号为空

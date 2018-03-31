@@ -1,11 +1,16 @@
-var crypto = require('crypto');
+const crypto = require('crypto');
 
 function commonUtils(){
+    console.log('commonutils');
     this.accessKeyId = "xxxxxxxxxxx";// 短信验证码服务
     this.secretAccessKey = "pppppppp";
     this.text = "[幽兰]您的验证码数: ";
-    this.suffix = "can_robot";
-    this.key = "youlan123";
+    this.suffix = "can_robot"; // 邀请码后缀
+    this.key = "youlan123";    // 密钥
+    this.iptop = 20; // ip绑定上限
+    this.oneReward = 188; // 1-30人
+    this.twoReward = 108; // 31-100人
+    this.threeReward = 58; //100人之后
 }
 /**
  * 验证手机号码是否合法
@@ -47,8 +52,8 @@ commonUtils.prototype.verifySmscode = function(smscode, sessioncode){
  */
 commonUtils.prototype.verifyImtoken = function(imtoken){
     console.log("imtoken：",imtoken);
-    // TODO
-    if(imtoken.length === 3){
+    
+    if(imtoken.startsWith('0x') && imtoken.length === 42){
         return true;
     }
     return false;
@@ -140,6 +145,5 @@ commonUtils.prototype.URLencode = function(sStr){
 commonUtils.prototype.URLdecode = function(sStr){
     return sStr.replace(/%2B/g, '+').replace(/%22/g,'"').replace(/%27/g, '\'').replace(/%2F/g,'\/').replace(/%3D/g, '\=' );
 }
-
 
 module.exports = new commonUtils();
