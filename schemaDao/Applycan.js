@@ -26,9 +26,9 @@ var ApplycanSchema = new Schema({
     type: Date,
     default: Date.now()
   },
-  isdeal: { // 是否已转账,默认没有转账
-    type: Boolean,
-    default: false
+  isdeal: { // 是否未处理、同意、拒绝 0 1 2
+    type: Number,
+    default: 0 // 默认为未处理状态
   }
 });
 

@@ -13,11 +13,14 @@ const codeRouter = require('./routes/code');
 const robotRouter = require('./routes/robot');
 const infoRouter = require('./routes/playerinfo');
 const applyRouter = require('./routes/apply');
+// 后台管理路由
+const userRouter = require('./routes/admin/user');
+const playerRouter = require('./routes/admin/player');
+const reviewRouter = require('./routes/admin/review');
 
 const app = express();
 
-// 后台管理路由
-const userRouter = require('./routes/admin/user');
+
 // 日志log4js
 const log4js = require('log4js');
 var log = log4js.getLogger("app");
@@ -65,7 +68,10 @@ app.use('/code', codeRouter);
 app.use('/robot', robotRouter);
 app.use('/info', infoRouter);
 app.use('/apply', applyRouter);
-app.use('/users', userRouter);
+// admin
+app.use('/admin/user', userRouter);
+app.use('/admin/player', playerRouter);
+app.use('/admin/review', reviewRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
