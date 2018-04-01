@@ -5,7 +5,8 @@ const express = require('express');
 const router = express.Router();
 const Applycan = require('../../schemaDao/Applycan');
 const mongoose = require('mongoose');
-
+const axios = require('axios');
+const Promise = require('promise');
 // 查询发币信息 /admin/review
 router.get('/', function(req, res, next){
     // 手机号，申请日期
@@ -18,8 +19,8 @@ router.get('/', function(req, res, next){
     }
 
     try {
-        new Date(startDate).toISOString();
-        new Date(startDate).toISOString();
+        ''==startDate?'':new Date(startDate).toISOString();
+        ''==endDate?'':new Date(endDate).toISOString();
     } catch (error) {
         res.json({code: 201, msg: '时间格式不正确'});
         return;
@@ -44,7 +45,7 @@ router.get('/', function(req, res, next){
             '$gte': startDate,
             '$lte': endDate
         }
-    }else{
+    }else if(!startDate && endDate){
         res.json({code: 202, msg: '开始时间不能为空'});
         return;
     }
@@ -93,8 +94,80 @@ router.get('/oper', function(req, res, next){
             res.json({code: 201, msg: '修改失败'});
         }
     })
+});
+const Excel = require('exceljs');
+// 导出到excel
+router.get('/xlsx', function(req, res, next){
+    let telphone = req.query.telphone;
+    let startDate = req.query.startDate;
+    let endDate = req.query.endDate;
+
+    let promise = new Promise(function(resolve, reject){
+        axios.get('http://localhost:3000/admin/review', {
+            params: {
+                telphone: telphone,
+                startDate: startDate,
+                endDate: endDate
+            }
+        })
+        .then(function(res){
+            resolve(res.data);
+        })
+        .catch(function(err){
+            reject({code: 201, msg: '数据查询失败'});
+        })
+    });
+
+    promise
+    .then(function(value){
+        console.log(value);
+        let workbook = new Excel.Workbook();
+        workbook.creator = 'Me';
+        workbook.lastModifiedBy = 'Her';
+        workbook.created = new Date();
+        workbook.modified = new Date();
+        workbook.lastPrinted = new Date();
+
+        workbook.views = [
+            {
+            x: 0, y: 0, width: 10000, height: 20000,
+            firstSheet: 0, activeTab: 1, visibility: 'visible'
+            }
+        ]
+
+        let worksheet = workbook.addWorksheet('Sheet1');
+        let headers = [
+            { header: '序号', key: '_id',width: 10 },
+            { header: '绑定手机号', key: 'telphone',width: 10 },
+            { header: '申请日期',  key: 'createTime',width: 20 },
+            { header: 'ETH地址', key: 'imtoken',width: 10 },
+            { header: 'IP地址', key: 'ip',width: 10 },
+            { header: '申请CAN数量', key: 'cancount', width: 20 }
+        ]
+
+        // 生成标题头
+        worksheet.columns = headers;
+        let rows = value.results;
+
+        // let rows = [
+        //     [1,'13214299203',new Date()], // row by array
+        //     [2,'15383830596',new Date()]
+        // ]
+        worksheet.addRows(rows);
 
 
+        res.set('Content-Type','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.setHeader('Content-Disposition', 'youlan');
+        res.set('Set-Cookie', 'fileDownload=true; path=/');
+        res.attachment("test.xlsx");
+        workbook.xlsx.write(res)
+        .then(function() {
+            res.end();
+        });
+    })
+    .catch(function(value){
+        res.end();
+    });
 });
 
 
