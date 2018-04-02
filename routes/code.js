@@ -9,35 +9,46 @@ const Promise = require('promise');
 const Player = require('../schemaDao/Player');
 
 const router = express.Router();
-//const log = require('log4js').getLogger("code");
+
+const accessKeyId = commonUtils.accessKeyId;
+const secretAccessKey = commonUtils.secretAccessKey;
+const SMSClient = require('@alicloud/sms-sdk');
+
+
 
 //根据手机号获取短信验证码 
 router.get('/smsapi', function(req, res, next){
     // 1、获取手机号码
     let telphone = req.query.telphone;
-    // 2、获取IP地址
-    //var ip = commonUtils.getIp(req);
-    //同ip地址获取的code  10-20个为上限，超出将无法绑定
     if(telphone && commonUtils.verifyPhone(telphone)){
         // 随机生成验证码
         let code = commonUtils.generateCode();
-        
         // 将验证码存入session
         req.session.smscode = code;
         // 封装请求体
         let postData = {
-            apikey: commonUtils.apikey,
-            telphone: telphone,
-            url: commonUtils.smsUrl,
-            text: commonUtils.text + code
-        }
+            PhoneNumbers: telphone,
+            SignName: commonUtils.SignName,
+            TemplateCode: commonUtils.TemplateCode,
+            TemplateParam: `{"code": "${code}"}`
+        };
+        //初始化sms_client
+        let smsClient = new SMSClient({accessKeyId, secretAccessKey});
         let promise = new Promise(function(resolve, reject){
-            // 2、请求短信验证码第三方平台，发送验证，node后台获取返回的验证码
-            setTimeout(function(){
-                // 模拟耗时操作
-                // 将验证码和手机号存入session
-                resolve({code: 200, msg: "短信验证码获取成功", results: [],phcode: telphone, smscode: code});
-            }, 0);
+            smsClient.sendSMS(postData)
+            .then(function (res) {
+                let {Code}=res
+                if (Code === 'OK') {
+                    //处理返回参数
+                    console.log(res);
+                    resolve({code: 200, msg: "短信验证码获取成功", results: []});
+                }else {
+                    resolve(res);
+                }
+            }, function (err) {
+                console.log(err);
+                reject(err);
+            });
         })
         promise.then(function(value){
             res.json(value);
@@ -123,8 +134,6 @@ router.post('/smsbind', function(req, res, next){
                     if(count === 0){ // 数据库中没有相应的手机号和imtoken,此时进行绑定逻辑
                         let invitcode = '';
                         if(identitycode){ // 用户识别码存在
-                            // 临时方案
-                            //identitycode = identitycode.replace(/ /g, '+');
                             // 获取邀请人账户
                             let phone = commonUtils.aesidentitycode(identitycode);
                             if(phone.length>0){

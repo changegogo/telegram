@@ -49,7 +49,7 @@ app.use(session({
   saveUninitialized: false,
   resave: false,
   cookie: {
-    maxAge: 5 * 60 * 1000 //单位时ms
+    maxAge: 50 * 60 * 1000 //单位时ms
   }
 }));
 
@@ -61,6 +61,15 @@ app.all('*', function(req, res, next) {
   res.header("X-Powered-By",' 3.2.1');
   //res.header("Content-Type", "application/json;charset=utf-8");  
   next();  
+});
+
+// 设置后台登录验证中间件
+app.use(/^(\/admin)/, function(req, res ,next){
+  if(req.session.username && req.session.password){
+    next();
+  }else {
+    res.json({code: 202, msg: "请先登录"});
+  }
 });
 
 app.use('/', indexRouter);

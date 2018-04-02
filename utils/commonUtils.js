@@ -1,10 +1,11 @@
 const crypto = require('crypto');
 
 function commonUtils(){
-    console.log('commonutils');
-    this.accessKeyId = "xxxxxxxxxxx";// 短信验证码服务
-    this.secretAccessKey = "pppppppp";
-    this.text = "[幽兰]您的验证码数: ";
+    this.accessKeyId = "LTAIZz2ZirPgMdKX"; // 短信验证码服务
+    this.secretAccessKey = "mCzYRqE6yM6XtqF2UlJVSs8J74j8vV";
+    this.SignName = "CAN星际宝盒";
+    this.TemplateCode = "SMS_129746026";
+    
     this.suffix = "can_robot"; // 邀请码后缀
     this.key = "youlan123";    // 密钥
     this.iptop = 20; // ip绑定上限

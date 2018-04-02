@@ -7,6 +7,10 @@ const commonUtils = require('../utils/commonUtils');
 const Player = require('../schemaDao/Player');
 const Applycan = require('../schemaDao/Applycan');
 const threshold = 1880; // 提币阀值
+
+const accessKeyId = commonUtils.accessKeyId;
+const secretAccessKey = commonUtils.secretAccessKey;
+const SMSClient = require('@alicloud/sms-sdk');
 /**
  * 获取验证码
  */
@@ -24,7 +28,38 @@ router.post('/smsapi', function(req, res, next){
             let code = commonUtils.generateCode();
             // 写入session
             req.session.smscode = code;
-            res.json({code: 200, msg: "短信验证码获取成功", smscode: req.session.smscode});
+
+             // 封装请求体
+            let postData = {
+                PhoneNumbers: aes[0],
+                SignName: commonUtils.SignName,
+                TemplateCode: commonUtils.TemplateCode,
+                TemplateParam: `{"code": "${code}"}`
+            };
+            //初始化sms_client
+            let smsClient = new SMSClient({accessKeyId, secretAccessKey});
+            let promise = new Promise(function(resolve, reject){
+                smsClient.sendSMS(postData)
+                .then(function (res) {
+                    let {Code}=res
+                    if (Code === 'OK') {
+                        //处理返回参数
+                        console.log(res);
+                        resolve({code: 200, msg: "短信验证码获取成功", results: []});
+                    }else {
+                        resolve(res);
+                    }
+                }, function (err) {
+                    console.log(err);
+                    reject(err);
+                });
+            })
+            promise.then(function(value){
+                res.json(value);
+            }).catch(function(err){
+                res.json(err);
+            });
+           // res.json({code: 200, msg: "短信验证码获取成功", smscode: req.session.smscode});
         }else {
             // 用户识别码无效
             res.json({code: 10014, msg: "用户识别码无效"});

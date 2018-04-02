@@ -11,8 +11,8 @@
     //发送短信
     smsClient.sendSMS({
         PhoneNumbers: '1500000000',
-        SignName: '云通信产品',
-        TemplateCode: 'SMS_000000',
+        SignName: 'CAN星际宝盒',
+        TemplateCode: 'SMS_129746026',
         TemplateParam: '{"code":"12345"}'
     }).then(function (res) {
         let {Code}=res
