@@ -2,6 +2,8 @@ require('../lib/db');
 
 var Player = require('../schemaDao/Player');
 
+let mongoose = require('mongoose');
+
 // Player.create({"telphone":"15383830596","imtoken":"asdecsdcswex","invitcode": "12345678"},function(err, player){
 //   console.log(err);
 //   console.log(player);
@@ -16,16 +18,20 @@ var Player = require('../schemaDao/Player');
 //   }
 // })
 
-var query = {//identitycode
-  "invitcode": "a209b216db38cd5ec11a1b3ea71e5385can_robot"
-}
+// var query = {//identitycode
+//   "invitcode": "a209b216db38cd5ec11a1b3ea71e5385can_robot"
+// }
 
-Player.findOne(query, function(err, player){
-  console.log(player);
-});
+// Player.findOne(query, function(err, player){
+//   console.log(player);
+// });
 
-Player.updateOne(query,{"$inc": {"invitcount":1}},function(err, player){
-  console.log(player);
-});
-
+// Player.updateOne(query,{"$inc": {"invitcount":1}},function(err, player){
+//   console.log(player);
+// });
+let id = '5ac1a1ea08afae08a3210c49';
+Player.deleteById(mongoose.Types.ObjectId(id), function(err, c){
+  console.log(err);
+  console.log(c);
+})
 

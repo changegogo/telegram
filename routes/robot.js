@@ -3,29 +3,73 @@ const commonUtils = require("../utils/commonUtils");
 const router = express.Router();
 
 const Player = require('../schemaDao/Player');
+const Replyrule = require('../schemaDao/Replyrule');
 const Promise = require('promise');
 
 const replyrobot = require('../utils/replyrobot');
 
+/**
+ * 从数据库中读取回复规则进行缓存
+ * 每次进行后台操作的时候，更新这个replyrules
+ */
+global.replyrules = [];
+(function readDbCache(){
+    Replyrule.find({
+        status: 0
+    }, function(err, replyrules){
+        if(!err && replyrules){
+            global.replyrules = replyrules;
+        }else{
+            global.replyrules = [];
+        }
+    });
+})();
 
 /**
  * /robot
  * 解析邀请码
  */
 router.post('/', function(req, res, next) {
-    console.log(req.body.message);
-  // 获取邀请码
-  let invitcode = req.body.message.text;
+  console.log(req.body);
+  // 获取内容
+  let text = req.body.message.text;
   let chatid = req.body.message.chat.id;
-  if(invitcode && invitcode.endsWith(commonUtils.suffix)){
+  
+  // 遍历每一个回复规则，查询是否有匹配的规则
+  let rulescount = global.replyrules.length;
+  let out = false;
+  for(let i=0;i<rulescount;i++){
+      let rule = global.replyrules[i];
+      let keys = rule.keywords;
+      let keyscount = keys.length;
+      for(let j=0;j<keyscount;j++){
+          if(keys[j] === text){
+            out = true;
+            // 机器人回复
+            replyrobot(chatid, rule.replycontent,function(val){
+                res.end(val);
+            });
+            break;// 终止内层循环
+          }
+      }
+      if(out){
+          break; // 终止外层循环
+      }
+  }
+
+  if(out){
+      return;
+  }
+
+  if(text && text.endsWith(commonUtils.suffix)){
     // 解析邀请码
-    let player12 = commonUtils.aesinvitcode(invitcode);
+    let player12 = commonUtils.aesinvitcode(text);
     if(player12.length === 2) {//解析成功
         // player12[0] 邀请人
         // player12[1] 被邀请人
         // 1、检测验证码是否已经被使用
         let query = {
-            invitcode: invitcode
+            invitcode: text
         }
         Player.findOne(query, function(err, player){
             if(!err && player){
@@ -67,7 +111,7 @@ router.post('/', function(req, res, next) {
                     // 将邀请码设为已经使用
                     let p3 = new Promise(function(resolve, reject){
                         Player.updateOne({
-                            invitcode: invitcode
+                            invitcode: text
                         },{
                             $set: {isusedinvit: true}
                         },function(err, c){

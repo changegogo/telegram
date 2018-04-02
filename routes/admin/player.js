@@ -39,9 +39,32 @@ router.get('/', function(req, res, next){
 });
 
 /**
+ * 通过id删除
+ * 删除玩家信息
+ */
+router.get('/del', function(req, res, next){
+    let id = req.query.id;
+    if(!id){
+        res.json({code: 201, msg: 'id不能为空'});
+        return;
+    }
+    Player.deleteById(mongoose.Types.ObjectId(id), function(err, c){
+        if(!err && c){
+            if(c.n===0){
+                res.json({code: 201, msg: '用户不存在'});
+            }else {
+                res.json({code: 200, msg: '删除用户成功'});
+            }
+        }else{
+            res.json({code: 201, msg: '数据库异常'});
+        }
+    });
+});
+
+/**
  * 编辑用户信息
  */
-router.get('/edit', function(req, res, next){
+/*router.get('/edit', function(req, res, next){
     // 记录id
     let _id = req.query.id;
     if(!_id) {
@@ -89,7 +112,7 @@ router.get('/edit', function(req, res, next){
             }  
         }
     );
-});
+});*/
 
 
 module.exports = router;

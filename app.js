@@ -17,6 +17,9 @@ const applyRouter = require('./routes/apply');
 const userRouter = require('./routes/admin/user');
 const playerRouter = require('./routes/admin/player');
 const reviewRouter = require('./routes/admin/review');
+const wxRouter = require('./routes/weixin/wxshare');
+
+const ruleRouter = require('./routes/admin/rule');
 
 const app = express();
 
@@ -64,13 +67,13 @@ app.all('*', function(req, res, next) {
 });
 
 // 设置后台登录验证中间件
-app.use(/^(\/admin)/, function(req, res ,next){
-  if(req.session.username && req.session.password){
-    next();
-  }else {
-    res.json({code: 202, msg: "请先登录"});
-  }
-});
+// app.use(/^(\/admin)/, function(req, res ,next){
+//   if(req.session.username && req.session.password){
+//     next();
+//   }else {
+//     res.json({code: 202, msg: "请先登录"});
+//   }
+// });
 
 app.use('/', indexRouter);
 app.use('/code', codeRouter);
@@ -81,6 +84,8 @@ app.use('/apply', applyRouter);
 app.use('/admin/user', userRouter);
 app.use('/admin/player', playerRouter);
 app.use('/admin/review', reviewRouter);
+app.use('/weixin', wxRouter);
+app.use('/rule', ruleRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

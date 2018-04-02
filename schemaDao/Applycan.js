@@ -26,9 +26,9 @@ var ApplycanSchema = new Schema({
     type: Date,
     default: Date.now()
   },
-  isdeal: { // 是否未处理、同意、拒绝 0 1 2
+  isdeal: { // 是否未处理、同意、拒绝 1 2 3
     type: Number,
-    default: 0 // 默认为未处理状态
+    default: 1 // 默认为未处理状态
   }
 });
 
