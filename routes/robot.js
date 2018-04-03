@@ -9,23 +9,6 @@ const Promise = require('promise');
 const replyrobot = require('../utils/replyrobot');
 
 /**
- * 从数据库中读取回复规则进行缓存
- * 每次进行后台操作的时候，更新这个replyrules
- */
-global.replyrules = [];
-(function readDbCache(){
-    Replyrule.find({
-        status: 0
-    }, function(err, replyrules){
-        if(!err && replyrules){
-            global.replyrules = replyrules;
-        }else{
-            global.replyrules = [];
-        }
-    });
-})();
-
-/**
  * /robot
  * 解析邀请码
  */
@@ -35,26 +18,39 @@ router.post('/', function(req, res, next) {
   let text = req.body.message.text;
   let chatid = req.body.message.chat.id;
   
-  // 遍历每一个回复规则，查询是否有匹配的规则
-  let rulescount = global.replyrules.length;
+  // 遍历每一个回复规则，查询是否有匹配的规则 还未测试
+  function valuesArr(map){
+    let valuesArray = new Array();
+    for (let kv of map) {
+        if(!(typeof(kv[1])=="function")){     
+            valuesArray.push(kv[1]);     
+        }
+    }
+    return valuesArray;
+  }
+  console.log(global.replyrules);
+  let values = valuesArr(global.replyrules);
+  let rulescount = values.length;
   let out = false;
   for(let i=0;i<rulescount;i++){
-      let rule = global.replyrules[i];
-      let keys = rule.keywords;
-      let keyscount = keys.length;
-      for(let j=0;j<keyscount;j++){
-          if(keys[j] === text){
-            out = true;
-            // 机器人回复
-            replyrobot(chatid, rule.replycontent,function(val){
-                res.end(val);
-            });
-            break;// 终止内层循环
-          }
-      }
-      if(out){
-          break; // 终止外层循环
-      }
+      let rule = values[i];
+      if(rule.status===0){
+        let keys = rule.keywords;
+        let keyscount = keys.length;
+        for(let j=0;j<keyscount;j++){
+            if(keys[j] === text){
+                out = true;
+                // 机器人回复
+                replyrobot(chatid, rule.replycontent,function(val){
+                    res.end(val);
+                });
+                break;// 终止内层循环
+            }
+        }
+     }
+    if(out){
+        break; // 终止外层循环
+    }
   }
 
   if(out){
@@ -119,6 +115,9 @@ router.post('/', function(req, res, next) {
                         })
                     });
                     let p = Promise.all([p1, p2, p3]);
+                    if(player12[0] == '110'){
+                        p = Promise.all([p2, p3]);
+                    };
                     p.then(function(val){
                         console.log("奖励已发放");
                         replyrobot(chatid, "奖励已发放",function(val){

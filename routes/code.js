@@ -141,8 +141,13 @@ router.post('/smsbind', function(req, res, next){
                                 // 生成邀请码
                                 invitcode = commonUtils.generateinvitcode(phone, telphone); 
                             }else {
-                                invitcode = '';
+                                //invitcode = '';
+                                // 生成邀请码,表示第一次注册
+                                invitcode = commonUtils.generateinvitcode('110', telphone);
                             }
+                        }else {
+                            // 生成邀请码,表示第一次注册
+                            invitcode = commonUtils.generateinvitcode('110', telphone);
                         }
                         
                         // 生成身份识别码
