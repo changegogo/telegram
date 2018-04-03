@@ -128,8 +128,8 @@ router.get('/data', function(req, res, next){
         }else{
             res.json({code: 201, msg: '查询失败'});
         }
-    });
-}).limit(commonUtils.pagesize);
+    }).limit(commonUtils.pagesize);
+});
 
 // 删除规则
 router.get('/del', function(req, res, next){

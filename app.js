@@ -21,6 +21,8 @@ const wxRouter = require('./routes/weixin/wxshare');
 
 const ruleRouter = require('./routes/admin/rule');
 
+const taskRouter = require('./routes/admin/task');
+
 const app = express();
 
 
@@ -86,6 +88,7 @@ app.use('/admin/player', playerRouter);
 app.use('/admin/review', reviewRouter);
 app.use('/weixin', wxRouter);
 app.use('/rule', ruleRouter);
+app.use('/task', taskRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
