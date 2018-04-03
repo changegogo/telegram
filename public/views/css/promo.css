@@ -1,0 +1,67 @@
+html, body, p, ul, li, input, div, h1, h2, h3, h4, h5, h6 {margin: 0; padding: 0;}
+html {
+     font-size: calc(200vw/7.5) !important;
+     width: 100%;
+     height: 100%;
+}
+header {
+    width: 100%;
+    height: 2.07rem;
+    padding-top: .4rem;
+    box-sizing: border-box;
+    text-align: center;
+    color: #fff;
+    background: -webkit-linear-gradient(#FFA200 100%, #FF7E0C 100%); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#FFA200 100%, #FF7E0C 100%); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#FFA200 100%, #FF7E0C 100%); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#FFA200 100%, #FF7E0C 100%); /* 标准的语法 */
+}
+i {
+    color: #FFFF00;
+    font-style: normal;
+}
+header h1 {
+    font-size: 21px;
+    line-height: .67rem;
+}
+header h1 i {
+    font-size: 48px;
+}
+header p {
+    width: 2.65rem;
+    font-size: 13px;
+    line-height: .18rem;
+    margin: 0 auto;
+}
+.main {
+    font-size: .2rem;
+}
+.main .btn {
+    width: 3.43rem;
+    height: .44rem;
+    line-height: .44rem;
+    border-radius: 4px;
+    text-align: center;
+    background: #FF5208;
+    color: #AC5A00;
+    font-size: 15px;
+    margin: .4rem auto .4rem auto;
+    color: #fff;
+}
+.main .content {
+    padding: .16rem;
+    color: #000;
+}
+.content h1{
+    font-size: 15px;
+    line-height: .26rem;
+}
+.content h2 {
+    font-size: 13px;
+    line-height: .24rem;
+    margin-bottom: .08rem;
+}
+.content p {
+    font-size: 13px;
+    line-height: .24rem;
+}

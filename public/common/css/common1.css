@@ -1,0 +1,151 @@
+/*hengli*/
+html {
+    font-size: calc(200vw/7.5) !important;
+    height: 100%;
+    font-family:Arial, Helvetica, sans-serif;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.3px;
+    -moz-osx-font-smoothing: grayscale;
+}
+body,p{margin: 0;padding: 0;}
+button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+a {
+    text-decoration: none;
+}
+/*自定义padding 、margin 、等*/
+input {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    height: .44rem;
+    background-color:#EFEFF4;
+    outline: none;
+    overflow: hidden;
+    border: none;
+    font-size: 17px;
+    border-radius: 4px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: #C7C7CC;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #C7C7CC;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #C7C7CC;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #C7C7CC;
+}
+.them-fontColor {
+    color:#FF5208!important;
+}
+.theme-linear-bgColor {
+    background-image: linear-gradient(-135deg, #FFA200 0%, #FF7E0C 100%);
+}
+.theme-bgColor {
+    background-color:#FF5208!important;
+}
+.color-222 {
+    color: #222222!important;
+}
+.color-938E8E {
+    color: #938E8E!important;
+}
+.fontsize11 {
+    font-size: 11px;
+}
+.fontsize13 {
+    font-size: 13px;
+}
+.fontsize15 {
+    font-size: 15px;
+}
+.fontsize21 {
+    font-size: 21px;
+}
+.fontsize48 {
+    font-size: 48px;
+}
+.border-radius4 {
+    border-radius: 4px;
+}
+.input-Bgcolor {
+    background-color:#EFEFF4;
+}
+.padding-top32 {
+    padding-top: 0.32rem;
+}
+.padding-lr16 {
+    padding-left: 0.16rem;
+    padding-right: 0.16rem;
+}
+.margin-tb16 {
+    margin-top: 0.16rem;
+    margin-bottom: 0.16rem;
+}
+.text-center {
+    text-align: center;
+}
+.line-height24 {
+    line-height: 24px;
+}
+.line-height32 {
+    line-height: 32px;
+}
+.model {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-size: 15px;
+    background: rgba(0,0,0,0.65);
+    display: none;
+}
+.model > .dialog-model {
+    position: absolute;
+    left: 50%;
+    top:40%;
+    transform: translate(-50%, -40%);
+    -webkit-transform: translate(-50%, -40%);
+    -ms-transform: translate(-50%, -40%);
+    -moz-transform: translate(-50%, -40%);
+    -o-transform: translate(-50%, -40%);
+    background: #FAFAFA;
+    border-radius: 4px;
+    padding: 24px;
+    text-align: center;
+    color: rgba(0,0,0,0.54);
+    box-sizing: border-box;
+}
+.dialog-img-marking {
+    width: 22px;
+    height: 22px;
+    margin-right: 8px;
+}
+.tibi-result-title {
+    font-size: 19px;
+    color: rgba(0,0,0,0.87);
+    line-height: 28px;
+}
+.desc-dialogInfo {
+    width: 240px;
+    text-align: left;
+    margin: 0 auto;
+    margin-top:16px;
+    margin-bottom: 18px;
+    line-height: 24px;
+}
+.sureDialog-btn {
+    font-size: 17px;
+    cursor: pointer;
+}

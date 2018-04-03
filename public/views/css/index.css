@@ -1,0 +1,57 @@
+.header-container {
+    background-image: linear-gradient(-135deg, #FFA200 0%, #FF7E0C 100%);
+    height: 1.8rem;
+}
+.header-content-container {
+    height: 100%;
+    background-image: url("../../common/images/Group.png");
+    background-size: contain ;
+    background-position: center 15px;
+    background-repeat: no-repeat;
+}
+.invite-introduce {
+    color: #222222;
+    letter-spacing: 0;
+    padding-bottom: 0.16rem;
+}
+.nofix-tip-statement {
+    padding-top: 8px;
+    padding-bottom: 16px;
+    color: #938E8E!important;
+}
+.submitBindPhone {
+    width: 100%;
+    height: .44rem;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 17px;
+}
+.note-code-container input {
+    width: 2.04rem!important;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.note-code-container .note-content-div {
+    position: relative;
+}
+.note-code-container .note-content-div::after{
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 0.16rem;
+    background-color: #D1D1D6;
+}
+.note-code-container .getNoteCode-container {
+    width: calc(100% - 2.04rem)!important;
+    line-height: 0.44rem;
+    background-color: #EFEFF4;
+    border-top-right-radius: 4px!important;
+    border-bottom-right-radius: 4px!important;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    color: #FF5208;
+    cursor: pointer;
+}

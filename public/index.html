@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="format-detection" content="email=no" />
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <link rel="stylesheet" href="common/css/common1.css">
+    <link rel="stylesheet" href="common/css/flex.css">
+    <link rel="stylesheet" href="views/css/index.css">
+    <script type="text/javascript" src="common/js/jquery-3.3.1.min.js"></script>
+    <title>电报推广</title>
+</head>
+<body>
+<div id="bandUserPhone">
+    <div class="header-container">
+        <div class="header-content-container"></div>
+    </div>
+    <div class="main-container padding-top32">
+        <div class="main-content-wrapper padding-lr16 fontsize13 color-222">
+            <p class="invite-introduce fontsize13 color-222">每邀请一名好友入群，即可获得18.8个CAN！被邀请进群的用户也可以获得18.8个CAN！</p>
+            <div class="form-container">
+                <input type="tel" placeholder="请输入手机号码" name="mobilephone" id="mobilephone">
+                <p class="fontsize13  nofix-tip-statement">每手机号绑定成功后不可修改，请仔细确认</p>
+                <div class="note-code-container flex">
+                    <div class="note-content-div"><input type="text" placeholder="请输入验证码" id="noteCode"></div>
+                    <input  class="fontsize15 text-center getNoteCode-container" type="button" value="获取验证码"/>
+                </div>
+                <p class="fontsize13 sendcode-error" style="color:red;display: none"></p>
+                <input type="text" placeholder="请输入Imtoken的CAN地址" class="margin-tb16" id="imtokenAddress">
+                <p class="fontsize13 imtoken-error" style="color:red;display: none">Imtoken 不能为空</p>
+                <p class="fontsize13 unkow-error" style="color:red;display: none"></p>
+                <button class="margin-tb16 text-center submitBindPhone theme-bgColor">提交</button>
+            </div>
+            <p class="text-center">
+                <a href="views/pages/activeRules.html" class="fontsize13 them-fontColor">查看活动规则</a>
+            </p>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="common/js/Util.js"></script>
+<script type="text/javascript" src="common/js/common.js"></script>
+<script type="text/javascript" src="views/js/index.js"></script>
+</body>
+</html>

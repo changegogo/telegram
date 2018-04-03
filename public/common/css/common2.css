@@ -1,0 +1,23 @@
+/*yushuang*/
+html, body, p, ul, li, input, div, h1, h2, h3, h4, h5, h6 {margin: 0; padding: 0;}
+html {
+     font-size: calc(200vw/7.5) !important;
+     width: 100%;
+     height: 100%;
+     background: -webkit-linear-gradient(#FFA200 100%, #FF7E0C 100%); /* Safari 5.1 - 6.0 */
+     background: -o-linear-gradient(#FFA200 100%, #FF7E0C 100%); /* Opera 11.1 - 12.0 */
+     background: -moz-linear-gradient(#FFA200 100%, #FF7E0C 100%); /* Firefox 3.6 - 15 */
+     background: linear-gradient(#FFA200 100%, #FF7E0C 100%); /* 标准的语法 */
+}
+a {text-decoration: none; color: #fff;}
+body {
+    color: #FFFFFF;
+}
+header {
+    width: 100%;
+    background: url('../images/Group.png') no-repeat;
+    background-size: contain;
+    background-position: center;
+    text-align: center;
+    height: 2.06rem
+}

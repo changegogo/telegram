@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="telephone=no" name="format-detection"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <link rel="stylesheet" href="../../common/css/common1.css">
+    <link rel="stylesheet" href="../../common/css/flex.css">
+    <link rel="stylesheet" href="../css/activeShare.css">
+    <script type="text/javascript" src="../../common/js/jquery-3.3.1.min.js"></script>
+    <title>电报推广</title>
+</head>
+<body>
+<div id="activeShare">
+    <div class="header-container">
+        <div class="header-content-container theme-linear-bgColor fontsize13 text-center">
+            <div class="flex" style="padding-top: 36px">
+                <div class="header-left-section flex-1 text-center">
+                    <p style="padding-bottom: 8px">已成功邀请人数(位)</p>
+                    <p class="fontsize48" id="invitCountPerson"></p>
+                </div>
+                <div class="header-right-section flex-1 text-center">
+                    <p style="padding-bottom: 8px">累计赚取CAN(枚)</p>
+                    <p class="fontsize48" id="totalCanCount"></p>
+                </div>
+            </div>
+            <button class="quicklyGetCanBtn fontsize15" style="margin-top: 41px;margin-bottom: 8px">立即提币</button>
+            <p class="fontsize11">已提出CAN <span id="hasPickupCount"></span> 枚</p>
+        </div>
+    </div>
+    <div class="main-container padding-lr16">
+        <div class="operation-container color-222 fontsize13">
+            <p class="fontsize21">操作步骤</p>
+            <p style="padding-top:0.24rem;padding-bottom:0.24rem">1.加入CANChain Telegram群组</p>
+            <div class="theme-bgColor border-radius4 fontsize15 joinCanBtn">点击加入CAN电报群</div>
+            <p style="padding-top: 32px;padding-bottom: 24px">
+                2.复制下面的验证码并发送到群里即可获得18.8CAN
+            </p>
+            <div class="user-code-container flex border-radius4">
+                <p class="leftMathRandomCode" id="RandomTokenCode" style="overflow-y: auto;"></p>
+                <p class="fontsize15 them-fontColor copy-statement text-center" data-clipboard-target="#RandomTokenCode">复制</p>
+            </div>
+            <p style="padding-top: 32px;padding-bottom: 24px">
+                3.分享推广宣传页或复制链接给好友，每成功推荐一个好友入群双方都可获得18.8CAN
+            </p>
+            <div class="generate-active-page-btn text-center them-fontColor">
+                一键生成推广宣传页
+            </div>
+            <div id= "copy-linkbtn" class="copy-link-btn them-fontColor text-center" style="margin-top: 16px;margin-bottom: 40px;">
+                复制链接
+            </div>
+        </div>
+    </div>
+    <div class="copy-success-tip">
+        <img src="../../common/images/success_icon.png" alt="">
+        <p>复制成功</p>
+    </div>
+</div>
+<script type="text/javascript" src="../../common/js/common.js"></script>
+<script type="text/javascript" src="../../common/js/Util.js"></script>
+<script type="text/javascript" src="../../common/js/clipboard.min.js"></script>
+<script type="text/javascript" src="../js/activeShare.js"></script>
+</body>
+</html>

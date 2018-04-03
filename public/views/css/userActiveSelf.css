@@ -1,0 +1,28 @@
+body,#userActiveSelf,.main-container,.main-contentBg-container {
+    height: 100%;
+}
+.main-contentBg-container {
+    background-image: url("../../common/images/poster.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.qrCode-container {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    bottom: .33rem;
+    text-align: center;
+}
+.qr-porduct-wrapper {
+    width: 1.2rem;
+    height: 1.2rem;
+    background: #ffffff;
+    margin: 0 auto;
+}
+.qr-porduct-wrapper img {
+    width: 1rem;
+    height: 1rem;
+}

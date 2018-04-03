@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>活动已结束</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="format-detection" content="email=no" />
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <link rel="stylesheet" type="text/css" href="../../common/css/common2.css">
+    <link rel="stylesheet" type="text/css" href="../css/activeEnd.css">
+</head>
+<body>
+<header>
+    
+</header>
+<div class="main">
+    <h1>活动已结束</h1>
+    <div class="item">
+        <input type="text" name="adress" placeholder="填写您的收货地址" onfocus="">
+        <span class="warn" style="position: absolute; left: .17rem; bottom: 0; color: #FF3B00;">验证码不正确</span>
+    </div>
+    <div class="item">
+        <div class="btn">提交</div>
+    </div>
+    <p>CAN官方网址 <a href="http://www.mobipromo.io" style="color: #FFFF00;" target="_blank">www.mobipromo.io</a></p>
+    <span>请使用ERC20钱包，如imToken钱包</span>  
+    <img src='../../common/images/imToken.jpeg'>
+    <span>点击下载imToken钱包</span>
+</div>
+<script type="text/javascript" src="../../common/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    // 低版本浏览器不支持css时
+    // document.documentElement.style.fontSize = window.innerWidth/7.5 + 'px'
+    $('.btn').on('click', function () {
+        $('.warn').css('display', 'none');
+        var data = $("input[name = 'adress']").val();
+        if(!data) {
+            $('.warn').css('display', 'block');
+        }
+    })
+</script>
+</body>
+</html>

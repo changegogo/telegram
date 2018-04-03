@@ -1,0 +1,96 @@
+.flex{
+
+    /* 设置弹性布局 */
+
+    display:-webkit-box;/* android 2.1-3.0, ios 3.2-4.3 */
+
+    display:-webkit-flex;/* Chrome 21+ */
+
+    display:-ms-flexbox;/* WP IE 10 */
+
+    display:flex;/* android 4.4 */
+
+}
+
+.flex-direction-column{
+
+    /* 设置弹性布局的方向，子元素按照在源文档中声明的顺序从上到下显示 */
+
+    -webkit-box-orient: vertical;/* android 2.1-3.0, ios 3.2-4.3 */
+
+    -webkit-flex-direction: column;/* Chrome 21+ */
+
+    -ms-flex-direction: column;/* WP IE 10 */
+
+    flex-direction: column;/* android 4.4 */
+
+}
+
+.flex-1{
+
+    /* 子元素自动占据剩余的空间 */
+
+    -webkit-box-flex:1;/* android 2.1-3.0, ios 3.2-4.3 */
+
+    -webkit-flex:1;/* Chrome 21+ */
+
+    -ms-flex:1;/* WP IE 10 */
+
+    flex:1;/* android 4.4 */
+
+}
+
+.flex-pack-center{
+
+    /* 水平布局下的子元素 水平居中 */
+
+    -webkit-box-pack: center;/* android 2.1-3.0, ios 3.2-4.3 */
+
+    -webkit-justify-content: center;/* Chrome 21+ */
+
+    -ms-flex-pack: center;/* WP IE 10 */
+
+    justify-content: center;/* android 4.4 */
+
+}
+
+.flex-align-center{
+
+    /* 水平布局下的子元素 垂直居中 */
+
+    -webkit-box-align: center;/* android 2.1-3.0, ios 3.2-4.3 */
+
+    -webkit-align-items: center;/* Chrome 21+ */
+
+    -ms-flex-align: center;/* WP IE 10 */
+
+    align-items: center;/* android 4.4 */
+
+}
+
+.flex-pack-justify{
+
+    /* 水平布局下的子元素 2端对齐 */
+
+    -webkit-box-pack: justify;/* android 2.1-3.0, ios 3.2-4.3 */
+
+    -webkit-justify-content: space-between;/* Chrome 21+ */
+
+    -ms-flex-pack: justify;/* WP IE 10 */
+
+    justify-content: space-between;/* android 4.4 */
+
+}
+.flex-around-justify{
+
+    /* 水平布局下的子元素 2端对齐 */
+
+    -webkit-box-pack: justify;/* android 2.1-3.0, ios 3.2-4.3 */
+
+    -webkit-justify-content: space-around;/* Chrome 21+ */
+
+    -ms-flex-pack: justify;/* WP IE 10 */
+
+    justify-content: space-around;/* android 4.4 */
+
+}

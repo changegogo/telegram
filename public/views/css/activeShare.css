@@ -1,0 +1,80 @@
+.header-content-container {
+    height: 2.5rem;
+    color: #ffffff;
+}
+.quicklyGetCanBtn {
+    background-color: #FFCE00;
+    width: 1.4rem;
+    height: 0.4rem;
+    border-radius: 1rem;
+    color: #AC5A00;
+    cursor: pointer;
+}
+.operation-container {
+    margin-top: .47rem;
+}
+.joinCanBtn {
+    width: 100%;
+    color: #ffffff;
+    height: .44rem;
+    line-height: .44rem;
+    text-align: center;
+}
+.user-code-container {
+    height: .44rem;
+    line-height: .44rem;
+    background-color: #EFEFF4;
+    box-sizing: border-box;
+}
+.user-code-container .leftMathRandomCode {
+    position: relative;
+    width: 2.8rem;
+    font-size: 17px;
+    color: #C7C7CC;
+    padding-left: .16rem;
+}
+.user-code-container .leftMathRandomCode::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 0.16rem;
+    background-color: #D1D1D6;
+}
+.user-code-container .copy-statement {
+    width: calc(100% - 2.8rem);
+}
+.generate-active-page-btn, .copy-link-btn {
+    height: .44rem;
+    line-height: .44rem;
+    border: 1px solid #FF5208;
+    border-radius: 4px;
+}
+.generate-active-page-btn a {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+.copy-success-tip {
+    position: fixed;
+    top: 2.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    width: 1.32rem;
+    height: 0.98rem;
+    background-color: #000000;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 17px;
+    color: #ffffff;
+    border-radius: 4px;
+    display: none;
+}
+.copy-success-tip img{
+    width: .24rem;
+    margin-top: .17rem;
+    margin-bottom: .10rem;
+}
