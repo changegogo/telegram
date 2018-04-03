@@ -9,9 +9,17 @@ const commonUtils = require('../../utils/commonUtils');
 const mongoose = require('mongoose');
 // 获取用户信息
 router.get('/', function(req, res, next){
+    let query = {};
+    // 上一页的最后一条记录的id
+    let lastid = req.query.id;
+    if(lastid){
+        query._id = {
+            $lt: mongoose.Types.ObjectId(lastid)
+        }
+    }
     let telphone = req.query.telphone;
     let ispickup = req.query.ispickup;
-    let query = {};
+    
     if(telphone && ispickup){
         query = {
             telphone: telphone,
@@ -26,16 +34,14 @@ router.get('/', function(req, res, next){
             ispickup: ispickup
         };
     }
-
-    Player.count(query, function(err, c){
-        if(!err && c){
-            Player.find(query, function(err, players){
-                res.json({code: 200, msg: 'success',total: c, results: players});
-            });
+    Player.find(query, function(err, players){
+        if(!err){
+            res.json({code: 200, msg: 'success', results: players});
         }else{
             res.json({code: 201, msg: '查询失败'});
         }
-    });
+        
+    }).limit(commonUtils.pagesize);
 });
 
 /**
@@ -116,3 +122,5 @@ router.get('/del', function(req, res, next){
 
 
 module.exports = router;
+
+

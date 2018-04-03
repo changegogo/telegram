@@ -12,6 +12,7 @@ function commonUtils(){
     this.oneReward = 188; // 1-30人
     this.twoReward = 108; // 31-100人
     this.threeReward = 58; //100人之后
+    this.pagesize = 10; // 分页每页的数据条数
 }
 /**
  * 验证手机号码是否合法

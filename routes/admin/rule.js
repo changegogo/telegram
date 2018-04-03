@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Replyrule = require('../../schemaDao/Replyrule');
 const mongoose = require('mongoose');
+const commonUtils = require('../../utils/commonUtils');
 
 /**
  * 每次启动从数据库中加载回复规则
@@ -113,11 +114,37 @@ router.get('/editother', function(req, res, next){
 
 // 查询回复规则
 router.get('/data', function(req, res, next){
-    Replyrule.find({}, function(err, replyrules){
+    let query = {};
+    // 上一页的最后一条记录的id
+    let lastid = req.query.id;
+    if(lastid){
+        query._id = {
+            $lt: mongoose.Types.ObjectId(lastid)
+        }
+    }
+    Replyrule.find(query, function(err, replyrules){
         if(!err){
             res.json({code: 200, msg: '查询成功', results: replyrules});
         }else{
             res.json({code: 201, msg: '查询失败'});
+        }
+    });
+}).limit(commonUtils.pagesize);
+
+// 删除规则
+router.get('/del', function(req, res, next){
+    let id = req.query.id;
+    if(!id){
+        res.json({code:201,msg: 'id不能为空'});
+        return;
+    }
+    Replyrule.deleteById(mongoose.Types.ObjectId(id), function(err, c){
+        if(!err){
+            // 从缓存中删除这条回复规则
+            global.replyrules.delete(id);
+            res.json({code: 200, msg: '删除成功'});
+        }else{
+            res.json({code: 201, msg: '删除失败'});
         }
     });
 });

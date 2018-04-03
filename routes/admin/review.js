@@ -7,8 +7,17 @@ const Applycan = require('../../schemaDao/Applycan');
 const mongoose = require('mongoose');
 const axios = require('axios');
 const Promise = require('promise');
+const commonUtils = require('../../utils/commonUtils');
 // 查询发币信息 /admin/review
 router.get('/', function(req, res, next){
+    let query = {};
+    // 上一页的最后一条记录的id
+    let lastid = req.query.id;
+    if(lastid){
+        query._id = {
+            $lt: mongoose.Types.ObjectId(lastid)
+        }
+    }
     // 手机号
     let telphone = req.query.telphone;
     // 开始日期
@@ -17,7 +26,7 @@ router.get('/', function(req, res, next){
     let endDate = req.query.endDate;
     // 查询状态 0全部 1未处理 2同意 3拒绝
     let status = req.query.status;
-    let query = {};
+    
     if(telphone){
         query.telphone = telphone;
     }
@@ -68,7 +77,7 @@ router.get('/', function(req, res, next){
         }else{
             res.json({code: 204, msg: '查询失败'});
         }
-    });
+    }).limit(commonUtils.pagesize);
 });
 
 // 操作发币信息 /admin/review/oper
