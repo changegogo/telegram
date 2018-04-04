@@ -2,6 +2,7 @@ $(function () {
 
     getIdentifycode () ;
     userInfoConector();
+    weixinShareMethod('../../weixin/signture') ;
 
 
     //click
