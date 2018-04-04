@@ -38,9 +38,9 @@ var TaskSchema = new Schema({
     type: String,
     default: ''
   },
-  taskstatus: { // 任务状态 0关闭 1开启
+  taskstatus: { // 任务状态 false关闭 true开启
     type: Boolean,
-    default: true
+    default: true // 默认开启
   },
   taskresults: { // 任务的执行结果
     type: Array,
