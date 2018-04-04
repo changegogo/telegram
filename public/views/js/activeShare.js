@@ -1,6 +1,6 @@
-$(function () {
+getIdentifycode();
 
-    getIdentifycode () ;
+$(function () {
     userInfoConector();
     weixinShareMethod('../../weixin/signture') ;
 
@@ -10,11 +10,16 @@ $(function () {
     $(".quicklyGetCanBtn").click(function () {
         if (canUserBi < 1880) {
             $(".quicklyGetCanBtn").attr({disabled: true})
+            $('.model').show()
             return false
         } else {
+            $('.model').hide()
             window.location.href = './drawcoin.html?identitycode=' + getIdentifycode();
         }
     });
+    $(".sureDialog-btn").click(function () {
+        $('.model').hide()
+    })
     $(".generate-active-page-btn").click(function () {
         window.location.href = './userActiveSelf.html?identitycode=' + getIdentifycode();
     });
@@ -55,7 +60,7 @@ $(function () {
         });
         var clipboardUrl = new ClipboardJS('#copy-linkbtn' , {
             text: function () {
-                return window.location.protocol + '//' + window.location.host + "?identitycode=" + getIdentifycode() ;
+                return window.location.protocol + '//' + window.location.host + "/index.html?identitycode=" + getIdentifycode() ;
             }
         });
         clipboard.on('success', function(e) {
