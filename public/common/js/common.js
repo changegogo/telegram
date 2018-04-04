@@ -1,12 +1,17 @@
 function getIdentifycode() { //获取用户识别码
     var identitycode ;
-    if (GetLocalStorage('identitycode') !== null) {
-        return identitycode = GetLocalStorage('identitycode');
-    } else if(getQueryString('identitycode') !== null) {
-        return identitycode = getQueryString('identitycode');
+    if (GetLocalStorage('identitycode') === null) {
+        window.location.href = window.location.protocol + '//' + window.location.host + '/index.html'
     } else {
-        window.location.href = 'telegram/index.html';
+        if (GetLocalStorage('identitycode') !== null) {
+            return identitycode = GetLocalStorage('identitycode');
+        } else if(getQueryString('identitycode') !== null) {
+            return identitycode = getQueryString('identitycode');
+        } else {
+            window.location.href = 'telegram/index.html';
+        }
     }
+
 }
 
 function settime(obj ,countDown) { //发送验证码倒计时
@@ -42,15 +47,14 @@ function modelSuccessMethod(res, bol) {
 }
 function weixinShareMethod(conectorUrl) {
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: conectorUrl,
         data: {
             url: window.location.href.split('#')[0]
         },
         success: function (res) {
-            console.log(res) ;
             wx.config({
-                appId: res.appId,
+                appId: res.appID,
                 timestamp: res.timestamp,
                 nonceStr: res.nonceStr ,
                 signature: res.signature,
@@ -59,12 +63,23 @@ function weixinShareMethod(conectorUrl) {
                     'onMenuShareAppMessage'
                 ]
             });
+            wx.checkJsApi({
+                jsApiList: [
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage'
+                ], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                success: function(res) {
+                    alert(res)
+                    // 以键值对的形式返回，可用的api值true，不可用为false
+                    // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+                },
+            });
             wx.ready(function() {
+                alert(223232)
                 // 获取“分享到朋友圈”按钮点击状态及自定义分享内容接口
-                wx
-                    .onMenuShareTimeline({
-                        title: '电报推广！',
-                        link: window.location.protocol + '//' + window.location.host,
+                wx.onMenuShareTimeline({
+                        title: '电报推广太疯狂！',
+                        link: window.location.protocol + '//' + window.location.host + '/index.html',
                         imgUrl: '../../common/images/logo.png',
                         desc: '电报推广推广推广',
                         success: function() {
@@ -76,10 +91,9 @@ function weixinShareMethod(conectorUrl) {
                         }
                     });
                 // 获取“分享给朋友”按钮点击状态及自定义分享内容接口
-                wx
-                    .onMenuShareAppMessage({
-                        title: '电报推广！',
-                        link: 'https://mobipromo.io',
+                wx.onMenuShareAppMessage({
+                        title: '电报推广太疯狂！',
+                        link:  window.location.protocol + '//' + window.location.host + '/index.html',
                         imgUrl: '../../common/images/logo.png',
                         desc: '电报推广推广推广',
                         type: 'link',
@@ -92,6 +106,10 @@ function weixinShareMethod(conectorUrl) {
                         }
                     });
             });
+            wx.error(function (res) {
+                alert(99999+ 'error')
+                alert(JSON.stringify(res))
+            })
         },
         error: function (error) {
             console.log(error)
