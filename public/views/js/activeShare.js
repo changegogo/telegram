@@ -5,8 +5,14 @@ $(function () {
 
 
     //click
+    var canUserBi
     $(".quicklyGetCanBtn").click(function () {
-        window.location.href = './drawcoin.html?identitycode=' + getIdentifycode();
+        if (canUserBi < 1880) {
+            $(".quicklyGetCanBtn").attr({disabled: true})
+            return false
+        } else {
+            window.location.href = './drawcoin.html?identitycode=' + getIdentifycode();
+        }
     });
     $(".generate-active-page-btn").click(function () {
         window.location.href = './userActiveSelf.html?identitycode=' + getIdentifycode();
@@ -27,6 +33,7 @@ $(function () {
                         $("#totalCanCount").text(totalcancount) ; // 累计获得CAN币的数目
                         $("#hasPickupCount").text(haspickupcount) ; // 已经提取币的数目
                         $("#RandomTokenCode").text(res.results[0].invitcode) ; // 邀请码
+                        canUserBi = totalcancount - haspickupcount ;
                     }
                     return true
                 } else {
@@ -47,7 +54,7 @@ $(function () {
         });
         var clipboardUrl = new ClipboardJS('#copy-linkbtn' , {
             text: function () {
-                return window.location.href ;
+                return window.location.protocol + '//' + window.location.host + "?identitycode=" + getIdentifycode() ;
             }
         });
         clipboard.on('success', function(e) {
