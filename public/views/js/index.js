@@ -82,7 +82,7 @@ $(function () {
                     window.location.href = './views/pages/activeShare.html?identitycode=' + res.identitycode ;
                     return true
                 } else {
-                    $(".unkow-error").html(res.msg).show() ;
+                    // $(".unkow-error").html(res.msg).show() ;
                     return false
                 }
             },

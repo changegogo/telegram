@@ -47,7 +47,7 @@ $(function () {
         });
         var clipboardUrl = new ClipboardJS('#copy-linkbtn' , {
             text: function () {
-                return window.location.href ;
+                return "https://mobipromo.io/telegram?identitycode=" + getIdentifycode() ;
             }
         });
         clipboard.on('success', function(e) {
