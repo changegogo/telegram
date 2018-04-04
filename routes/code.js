@@ -33,7 +33,7 @@ router.get('/smsapi', function(req, res, next){
             TemplateParam: `{"code": "${code}"}`
         };
         //初始化sms_client
-        let smsClient = new SMSClient({accessKeyId, secretAccessKey});
+       /* let smsClient = new SMSClient({accessKeyId, secretAccessKey});
         let promise = new Promise(function(resolve, reject){
             smsClient.sendSMS(postData)
             .then(function (res) {
@@ -54,7 +54,8 @@ router.get('/smsapi', function(req, res, next){
             res.json(value);
         }).catch(function(err){
             res.json(err);
-        });
+        });*/
+        res.json({code: 200, msg: "短信验证码获取成功", results: [], code: code, telphone: telphone});
     }else if(!telphone){
         // 手机号码为空
         res.json({code: 201, msg: "手机号码不能为空", results: []});

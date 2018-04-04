@@ -12,7 +12,7 @@ var http = require('http');
  * make a log directory, just in case it isn't there.
  */
 try {
-  require('fs').mkdirSync('./log');
+  require('fs').mkdirSync('./record');
 } catch (e) {
   if (e.code != 'EEXIST') {
     console.error("Could not set up log directory, error was: ", e);

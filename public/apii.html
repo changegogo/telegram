@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>接口文档</title>
+    <style>
+        * {
+            padding: 0;
+        }
+        span {
+            display: block;
+        }
+        .container {
+            width: 60%;
+            margin: 0 auto;
+            border: 1px solid gray;
+            padding: 3px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <span>1.绑定页面获取短信验证码</span>
+    <span>url：<i>/code/smsapi</i></span>
+    <span>请求方式：get</span>
+    请求参数：
+        <span>
+    <pre>
+    {
+        telphone: "15373738495"
+    }
+    </pre></span>
+    响应数据：
+    <pre>
+    {
+        code: 200,
+        msg: "短信验证码获取成功"
+    }
+    </pre>
+
+    <span>2.绑定页面提交绑定数据</span>
+    <span>url：<i>/code/smsbind</i></span>
+    <span>请求方式：post</span>
+    请求参数：
+    <span>
+    <pre>
+    {
+        identitycode:  //用户标识码，从本地存储或者url参数中获取
+        telphone: "15373738495" // 用户手机号
+        smscode: // 验证码，上线后会去掉
+        imtoken: // 以太坊地址
+    }
+    </pre>
+    </span>
+    响应数据：
+    <pre>
+    {
+        code: 200, 
+        msg: "绑定成功",
+        identitycode:   //新注册用户的识别码，前端存入本地存储中
+    }
+    </pre>
+
+    <span>3.分享页面根据用户识别码获取用户数据</span>
+    <span>url：<i>/info</i></span>
+    <span>请求方式：post</span>
+    请求参数：
+    <span>
+    <pre>
+    {
+        identitycode:  //用户标识码，从本地存储或者url参数获取
+    }
+    </pre>
+    </span>
+    响应数据：
+    <pre>
+    {
+        code:200,
+        msg:"success",
+        results:[
+            {
+                invitcode:"", // 邀请码
+                isusedinvit:false, // 邀请码是否已经被使用
+                sharecount:0, // 分享人数
+                invitcount:0, // 邀请人数
+                bindip:"::ffff:192.168.1.223", // 绑定时的ip
+                totalcancount:0, // 累计获得CAN币的数目
+                haspickupcount:0, // 已经提取币的数目
+                ispickup:false, // 是否有提币操作
+                createtime:"2018-03-29T01:54:09.426Z", // 注册时间
+                _id:"5abc47412cd50e027d114db8", // id
+                telphone:"15354687946", // 手机号码
+                imtoken:"ryu", // 以太坊地址
+                identitycode:"sYnwCui1ganNcUm6Hnc80g==", // 用户识别码
+                __v:0
+            }
+        ]
+    }
+    </pre>
+
+    <span>4.提币界面获取短信验证码接口</span>
+    <span>url：<i>/apply/smsapi</i></span>
+    <span>请求方式：post</span>
+    请求参数：
+    <span>
+    <pre>
+    {
+        identitycode:  //用户标识码，从本地存储或者url参数中获取
+    }
+    </pre>
+    </span>
+    响应数据：
+    <pre>
+    {
+        code: 200, 
+        msg: "短信验证码获取成功", 
+        smscode: 5632 // 验证码，上线时会去掉
+    }
+    </pre>
+
+    <span>5.提币界面申请提币接口</span>
+    <span>url：<i>/apply</i></span>
+    <span>请求方式：post</span>
+    请求参数：
+    <span>
+    <pre>
+    {
+        identitycode:  //用户标识码，从本地存储或者url参数中获取
+        smscode: 5632 // 短信验证码
+    }
+    </pre>
+    </span>
+    响应数据，成功数据分2种：
+    <pre>
+    {code: 200, msg: "提币成功",count: offsetcount}
+    
+    {code: 201, msg: "未达到188枚，不可提币", count: offsetcount}
+    </pre>
+
+</div>
+
+    
+</body>
+</html>
