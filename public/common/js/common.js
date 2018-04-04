@@ -1,7 +1,7 @@
 function getIdentifycode() { //获取用户识别码
     var identitycode ;
     if (GetLocalStorage('identitycode') === null) {
-        window.location.href = window.location.protocol + '//' + window.location.host + '/index.html'
+        window.location.href = window.location.protocol + '//' + window.location.host + '/telegram/index.html'
     } else {
         if (GetLocalStorage('identitycode') !== null) {
             return identitycode = GetLocalStorage('identitycode');
@@ -79,7 +79,7 @@ function weixinShareMethod(conectorUrl) {
                 // 获取“分享到朋友圈”按钮点击状态及自定义分享内容接口
                 wx.onMenuShareTimeline({
                         title: '电报推广太疯狂！',
-                        link: window.location.protocol + '//' + window.location.host + '/index.html',
+                        link: window.location.protocol + '//' + window.location.host + '/telegram/index.html',
                         imgUrl: '../../common/images/logo.png',
                         desc: '电报推广推广推广',
                         success: function() {
@@ -93,7 +93,7 @@ function weixinShareMethod(conectorUrl) {
                 // 获取“分享给朋友”按钮点击状态及自定义分享内容接口
                 wx.onMenuShareAppMessage({
                         title: '电报推广太疯狂！',
-                        link:  window.location.protocol + '//' + window.location.host + '/index.html',
+                        link:  window.location.protocol + '//' + window.location.host + '/telegram/index.html',
                         imgUrl: '../../common/images/logo.png',
                         desc: '电报推广推广推广',
                         type: 'link',

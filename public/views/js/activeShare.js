@@ -60,7 +60,7 @@ $(function () {
         });
         var clipboardUrl = new ClipboardJS('#copy-linkbtn' , {
             text: function () {
-                return window.location.protocol + '//' + window.location.host + "/index.html?identitycode=" + getIdentifycode() ;
+                return window.location.protocol + '//' + window.location.host + "/telegram/index.html?identitycode=" + getIdentifycode() ;
             }
         });
         clipboard.on('success', function(e) {

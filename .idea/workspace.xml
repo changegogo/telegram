@@ -4,12 +4,7 @@
     <list default="true" id="fcc66186-4822-49a8-8d71-eb4ce0911bf6" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/public/common/js/common.js" afterPath="$PROJECT_DIR$/public/common/js/common.js" />
-      <change beforePath="$PROJECT_DIR$/public/common/js/weixin.min.js" afterPath="$PROJECT_DIR$/public/common/js/weixin.min.js" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
       <change beforePath="$PROJECT_DIR$/public/views/js/activeShare.js" afterPath="$PROJECT_DIR$/public/views/js/activeShare.js" />
-      <change beforePath="$PROJECT_DIR$/public/views/js/index.js" afterPath="$PROJECT_DIR$/public/views/js/index.js" />
-      <change beforePath="$PROJECT_DIR$/public/views/js/userActiveSelf.js" afterPath="$PROJECT_DIR$/public/views/js/userActiveSelf.js" />
-      <change beforePath="$PROJECT_DIR$/public/views/pages/activeShare.html" afterPath="$PROJECT_DIR$/public/views/pages/activeShare.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -33,11 +28,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="common.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="common.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/common/js/common.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="110" column="42" lean-forward="true" selection-start-line="110" selection-start-column="42" selection-end-line="110" selection-end-column="42" />
+            <state relative-caret-position="45">
+              <caret line="3" column="31" lean-forward="true" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -56,11 +51,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activeShare.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="activeShare.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/views/js/activeShare.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="12" column="30" lean-forward="false" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
+            <state relative-caret-position="168">
+              <caret line="62" column="90" lean-forward="false" selection-start-line="62" selection-start-column="82" selection-end-line="62" selection-end-column="90" />
               <folding />
             </state>
           </provider>
@@ -79,6 +74,7 @@
       <find>model</find>
       <find>dialog-model</find>
       <find>11</find>
+      <find>window.location.protocol</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -95,8 +91,8 @@
         <option value="$PROJECT_DIR$/public/views/js/userActiveSelf.js" />
         <option value="$PROJECT_DIR$/public/common/js/weixin.min.js" />
         <option value="$PROJECT_DIR$/public/views/pages/activeShare.html" />
-        <option value="$PROJECT_DIR$/public/views/js/activeShare.js" />
         <option value="$PROJECT_DIR$/public/common/js/common.js" />
+        <option value="$PROJECT_DIR$/public/views/js/activeShare.js" />
       </list>
     </option>
   </component>
@@ -287,12 +283,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1522735439719</updated>
-      <workItem from="1522735441257" duration="15447000" />
+      <workItem from="1522735441257" duration="15844000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15447000" />
+    <option name="totallyTimeSpent" value="15844000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
@@ -307,7 +303,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889965" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32889965" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -464,18 +460,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/views/js/activeShare.js">
+    <entry file="file://$PROJECT_DIR$/public/common/js/common.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="12" column="30" lean-forward="false" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
+        <state relative-caret-position="45">
+          <caret line="3" column="31" lean-forward="true" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="55" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/common/js/common.js">
+    <entry file="file://$PROJECT_DIR$/public/views/js/activeShare.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="110" column="42" lean-forward="true" selection-start-line="110" selection-start-column="42" selection-end-line="110" selection-end-column="42" />
+        <state relative-caret-position="168">
+          <caret line="62" column="90" lean-forward="false" selection-start-line="62" selection-start-column="82" selection-end-line="62" selection-end-column="90" />
           <folding />
         </state>
       </provider>
