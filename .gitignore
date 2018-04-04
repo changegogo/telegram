@@ -1,5 +1,5 @@
 node_modules
 sessions
 public/.DS_Store
-log/*
-.idea/*
+log
+.idea
