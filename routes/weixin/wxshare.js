@@ -26,7 +26,12 @@ router.get('/weixincall', function(req, res, next){
     console.log("timestamp=" + timestamp);
     console.log("nonce=" + nonce);
     console.log("echostr=" + echostr);
-    res.send(echostr);
+    if(echostr){
+        res.send(echostr);
+    }else{
+        res.send('123');
+    }
+    
 });
 
 router.post('/signture', function(req, res, next){
