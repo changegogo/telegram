@@ -59,20 +59,10 @@ function weixinShareMethod(conectorUrl) {
                 nonceStr: res.nonceStr ,
                 signature: res.signature,
                 jsApiList: [
+                    'checkJsApi',
                     'onMenuShareTimeline',
                     'onMenuShareAppMessage'
                 ]
-            });
-            wx.checkJsApi({
-                jsApiList: [
-                    'onMenuShareTimeline',
-                    'onMenuShareAppMessage'
-                ], // 需要检测的JS接口列表，所有JS接口列表见附录2,
-                success: function(res) {
-                    alert(res)
-                    // 以键值对的形式返回，可用的api值true，不可用为false
-                    // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
-                },
             });
             wx.ready(function() {
                 alert(223232)
