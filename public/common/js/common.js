@@ -40,10 +40,10 @@ function modelSuccessMethod(res, bol) {
     }
 
 }
-function weixinShareMethod() {
+function weixinShareMethod(conectorUrl) {
     $.ajax({
         type: 'GET',
-        url: '../../weixin/signture',
+        url: conectorUrl,
         data: {
             url: window.location.href.split('#')[0]
         },
@@ -68,11 +68,11 @@ function weixinShareMethod() {
                         imgUrl: '../../common/images/logo.png',
                         desc: '电报推广推广推广',
                         success: function() {
-                            // alert('ok');
+                             alert('ok');
                         },
                         cancel: function() {
                             // 用户取消分享后执行的回调函数
-                            // alert('cancle');
+                            alert('cancle');
                         }
                     });
                 // 获取“分享给朋友”按钮点击状态及自定义分享内容接口
@@ -84,11 +84,11 @@ function weixinShareMethod() {
                         desc: '电报推广推广推广',
                         type: 'link',
                         success: function() {
-                            // alert('ok');
+                            alert('ok');
                         },
                         cancel: function() {
                             // 用户取消分享后执行的回调函数
-                            // alert('cancle');
+                            alert('cancle');
                         }
                     });
             });
