@@ -234,3 +234,7 @@
 [2018-04-04T15:22:05.584] [INFO] startup - Express server listening on port  3000  with pid  16608
 [2018-04-04T15:24:35.465] [INFO] startup - Express server listening on port  3000  with pid  16670
 [2018-04-04T15:45:12.490] [INFO] startup - Express server listening on port  8890  with pid  16813
+[2018-04-04T16:27:49.472] [INFO] startup - Express server listening on port  8890  with pid  16899
+[2018-04-04T17:13:45.297] [INFO] startup - Express server listening on port  8890  with pid  17223
+[2018-04-04T17:15:04.326] [ERROR] app - Something went wrong: 404
+[2018-04-04T17:15:44.575] [INFO] startup - Express server listening on port  8890  with pid  17238
