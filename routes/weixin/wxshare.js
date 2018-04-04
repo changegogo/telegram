@@ -5,8 +5,11 @@ const Promise = require('promise');
 const sign = require('./sign');
 
 // 公众号字段
-const appID = "wxc06857d92c42944b";
-const appSecret = "1e9c4371e49190973a2e47f73c6182ef";
+//const appID = "wxc06857d92c42944b";
+//const appSecret = "1e9c4371e49190973a2e47f73c6182ef";
+
+const appID = "wx32da279932a08382";
+const appSecret = "cd9a9bf61d375db27215232355e7b4d7";
 
 global.wxshare = {
     signs:[]

@@ -13,7 +13,7 @@ const replyrobot = require('../utils/replyrobot');
  * 解析邀请码
  */
 router.post('/', function(req, res, next) {
-  console.log(req.body);
+  //console.log(req.body);
   // 获取内容
   let text = req.body.message.text;
   let chatid = req.body.message.chat.id;
@@ -28,7 +28,7 @@ router.post('/', function(req, res, next) {
     }
     return valuesArray;
   }
-  console.log(global.replyrules);
+  //console.log(global.replyrules);
   let values = valuesArr(global.replyrules);
   let rulescount = values.length;
   let out = false;
