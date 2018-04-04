@@ -12,6 +12,90 @@ const timere = /^(((20[0-3][0-9]-(0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|(20[
 const chat_id = '123213';
 // 程序启动时，加载任务
 global.taskMap = new Map();
+/**
+ * 程序启动加载所有的定时任务
+ */
+(function(){
+    Task.find({
+        taskstatus: true,
+        tasktype: {
+            $ne: 2
+        }
+    }, function(err, tasks){
+        if(!err && tasks){
+            tasks.forEach(function(task){
+                if(task.tasktype == 0){
+                    // 开启定时任务
+                    let time = new Date(task.year[0], task.month[0], task.day[0], task.hour[0], task.minute[0], task.second[0]);
+                    let job = schedule.scheduleJob(time, function(idtext){
+                        console.log('任务执行了');
+                        // 从缓存中移除任务
+                        global.taskMap.delete(idtext.id);
+                        let chatid = chat_id;
+                        // 机器人发送信息
+                        replyrobot(chatid, idtext.tasktext,function(val){
+                            // 添加任务结果
+                            Task.updateById(mongoose.Types.ObjectId(idtext.id),{
+                                $push: {
+                                    taskresults: {msg:'已执行', time: Date.now()}
+                                }
+                            },function(err, c){
+                                console.log(c);
+                            });
+                        });
+                    }.bind(null, {id: task.id, text: task.tasktext}));
+                    // 缓存任务
+                    if(job){
+                        global.taskMap.set(task.id, job);
+                    }
+                }else{
+                    //重复任务
+                    let dayOfWeek = task.dayOfWeek;
+                    let rule = {};
+                    if(dayOfWeek.length > 0){
+                        // 周任务
+                        rule.dayOfWeek = task.dayOfWeek;
+                        rule.hour = task.hour;
+                        rule.minute = task.minute;
+                        rule.second = task.second;
+                        
+                    }else{
+                        // 天任务
+                        rule.hour = task.hour;
+                        rule.minute = task.minute;
+                        rule.second = task.second;
+                    }
+                    // 开启周任务
+                    let job = schedule.scheduleJob(rule, function(idtext){
+                        console.log('周任务执行');
+                        let chatid = chat_id;
+                        // 机器人发送信息
+                        replyrobot(chatid, idtext.tasktext,function(val){
+                            // 添加任务结果
+                            Task.updateById(mongoose.Types.ObjectId(idtext.id),{
+                                $push: {
+                                    taskresults: {msg:'已执行', time: Date.now()}
+                                }
+                            },function(err, c){
+                                console.log(c);
+                            });
+                        });
+                    }.bind(null, {id: task.id, text: task.tasktext}));
+                    
+                    // 缓存任务
+                    if(job){
+                        global.taskMap.set(task.id, job);
+                    }
+                }
+            });
+        }else{
+            console.log('读取定时任务失败');
+        }
+    });
+
+})();
+
+
 // 添加任务
 router.get('/add', function(req, res, next){
     // 获取任务类型
@@ -26,6 +110,9 @@ router.get('/add', function(req, res, next){
         res.json({code: 201, msg: '任务内容不能为空'});
         return;
     }
+    // 任务状态
+    let status = req.query.taskstatus || req.body.taskstatus;
+    status = (status==0)?false:true;
     
     let obj = {
         dayOfWeek: new Array(),
@@ -37,7 +124,7 @@ router.get('/add', function(req, res, next){
         second: new Array(),
         tasktype: tasktype,
         tasktext: tasktext,
-        taskstatus: 1 // 开启
+        taskstatus: status
     };
     if(tasktype == 0){
         // 定时任务
@@ -59,7 +146,12 @@ router.get('/add', function(req, res, next){
         
         // 添加到数据库
         Task.create(obj, function(err, task){
+            console.log(task);
             if(!err && task){
+                if(!task.taskstatus){
+                    res.json({code: 200, msg: '定时任务创建成功'});
+                    return;
+                }
                 // 开启定时任务
                 let time = new Date(task.year[0], task.month[0], task.day[0], task.hour[0], task.minute[0], task.second[0]);
                 let job = schedule.scheduleJob(time, function(idtext){
@@ -83,9 +175,9 @@ router.get('/add', function(req, res, next){
                 if(job){
                     global.taskMap.set(task.id, job);
                 }
-                res.json({code: 200, msg: '任务开启成功'});
+                res.json({code: 200, msg: '定时任务创建开启成功'});
             }else{
-                res.json({code: 201, msg: '添加任务失败'});
+                res.json({code: 201, msg: '定时任务添加失败'});
             }
         });
     }else if(tasktype == 1){
@@ -130,6 +222,10 @@ router.get('/add', function(req, res, next){
             obj.second = obj.second.concat(second);
             Task.create(obj, function(err, task){
                 if(!err && task){
+                    if(!task.taskstatus){
+                        res.json({code: 200, msg: '周任务创建成功'});
+                        return;
+                    }
                      // 开启周任务
                     let jobweek = schedule.scheduleJob(rule, function(idtext){
                         console.log('周任务执行');
@@ -151,7 +247,7 @@ router.get('/add', function(req, res, next){
                     if(jobweek){
                         global.taskMap.set(task.id, jobweek);
                     }
-                    res.json({code: 200, msg: '周任务开启成功'});
+                    res.json({code: 200, msg: '周任务创建开启成功'});
                 }else{
                     res.json({code: 201, msg: '周任务添加失败'});
                 }
@@ -169,6 +265,10 @@ router.get('/add', function(req, res, next){
             console.log(obj);
             Task.create(obj, function(err, task){
                 if(!err && task){
+                    if(!task.taskstatus){
+                        res.json({code: 200, msg: '天任务创建成功'});
+                        return;
+                    }
                     // 开启天任务
                     let jobday = schedule.scheduleJob(rule, function(idtext){
                         console.log('天任务执行');
@@ -190,7 +290,7 @@ router.get('/add', function(req, res, next){
                     if(jobday){
                         global.taskMap.set(task.id, jobday);
                     }
-                    res.json({code: 200, msg: '天任务开启成功'});
+                    res.json({code: 200, msg: '天任务创建开启成功'});
                 }else{
                     res.json({code: 201, msg: '天任务添加失败'});
                 }
@@ -224,11 +324,11 @@ router.get('/add', function(req, res, next){
 // 查看global.taskmap
 router.get('/map', function(req, res, next){
     console.log(global.taskMap);
-    res.end();
+    res.json(global.taskMap.size);
 });
 
 // 打开或者关闭开启任务
-router.get('onoff', function(req, res, next){
+router.get('/onoff', function(req, res, next){
     let id = req.query.id || req.body.id;
     let taskstatus = req.query.taskstatus || req.body.taskstatus; // 0关闭 1开启
 
@@ -352,6 +452,15 @@ router.get('/del', function(req, res, next){
         gtask.cancel();
         global.taskMap.delete(id);
     }
+});
+
+// 停止所有任务
+router.get('/stopall', function(req, res, next){
+    global.taskMap.forEach(function(gtask, key, map){
+        gtask.cancel();
+    });
+    global.taskMap.clear();
+    res.json({code: 200, msg: '所有任务停止'});
 });
 
 // 查看任务的执行结果
