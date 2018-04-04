@@ -5,8 +5,8 @@ const Promise = require('promise');
 const sign = require('./sign');
 
 // 公众号字段
-const appID = "wxebc4fe76b5ceeb49";
-const appSecret = "cc8fcffa6e5c159a477384cab6dd7588";
+const appID = "wxc06857d92c42944b";
+const appSecret = "1e9c4371e49190973a2e47f73c6182ef";
 
 router.get('/signture', function(req, res, next){
     // 获取access_token
