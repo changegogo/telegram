@@ -41,6 +41,7 @@ router.post('/', function(req, res, next) {
             if(keys[j] === text){
                 out = true;
                 // 机器人回复
+                console.log('robot:',rule.replycontent);
                 replyrobot(chatid, rule.replycontent,function(val){
                     res.end(val);
                 });

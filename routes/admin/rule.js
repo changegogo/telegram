@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Replyrule = require('../../schemaDao/Replyrule');
 const mongoose = require('mongoose');
+const commonUtils = require('../../utils/commonUtils');
 
 /**
  * 每次启动从数据库中加载回复规则
@@ -23,22 +24,22 @@ global.replyrules = new Map();
 
 // 添加回复规则
 // 向缓存中添加规则
-router.post('/add', function(req, res, next){
+router.get('/add', function(req, res, next){
    // 规则名称
-   let rulename = req.body.rulename;
+   let rulename = req.query.rulename;
    if(!rulename){
        res.json({code: 201, msg: '规则名称不能为空'});
        return;
    }
    // 关键词
-   let keywords = req.body.keywords;
+   let keywords = req.query.keywords;
    if(!keywords){
        res.json({code: 201, msg: '关键词不能为空'});
        return;
    }
    keywords = keywords.split(',');
    // 回复内容
-   let replycontent = req.body.replycontent;
+   let replycontent = req.query.replycontent;
    if(!replycontent){
        res.json({code: 201, msg: '回复内容不能为空'});
        return;
@@ -79,6 +80,7 @@ router.get('/editstatus', function(req, res, next){
     }, function(err, c){
         if(!err && c){
             // 修改global缓存
+            console.log(global.replyrules.get(id));
             global.replyrules.get(id).status = status;
             
             res.json({code: 200, msg: '修改成功'});
@@ -101,14 +103,50 @@ router.get('/editother', function(req, res, next){
             keys.forEach(function(key){
                 item[key] = req.query[key];
             });
-            console.log(global.replyrules);
+            //console.log(global.replyrules);
             //global.replyrules.get(id).status = status;
             res.json({code: 200, msg: '更新成功'});
         }else {
             res.json({code: 201, msg: '更新失败'});
         }
     });
-    
+});
+
+// 查询回复规则
+router.get('/data', function(req, res, next){
+    let query = {};
+    // 上一页的最后一条记录的id
+    let lastid = req.query.id;
+    if(lastid){
+        query._id = {
+            $lt: mongoose.Types.ObjectId(lastid)
+        }
+    }
+    Replyrule.find(query, function(err, replyrules){
+        if(!err){
+            res.json({code: 200, msg: '查询成功', results: replyrules});
+        }else{
+            res.json({code: 201, msg: '查询失败'});
+        }
+    }).limit(commonUtils.pagesize);
+});
+
+// 删除规则
+router.get('/del', function(req, res, next){
+    let id = req.query.id;
+    if(!id){
+        res.json({code:201,msg: 'id不能为空'});
+        return;
+    }
+    Replyrule.deleteById(mongoose.Types.ObjectId(id), function(err, c){
+        if(!err){
+            // 从缓存中删除这条回复规则
+            global.replyrules.delete(id);
+            res.json({code: 200, msg: '删除成功'});
+        }else{
+            res.json({code: 201, msg: '删除失败'});
+        }
+    });
 });
 
 module.exports = router;
