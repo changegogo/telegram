@@ -8,8 +8,11 @@ const sign = require('./sign');
 //const appID = "wxc06857d92c42944b";
 //const appSecret = "1e9c4371e49190973a2e47f73c6182ef";
 
-const appID = "wx32da279932a08382";
-const appSecret = "cd9a9bf61d375db27215232355e7b4d7";
+//const appID = "wx32da279932a08382";
+//const appSecret = "cd9a9bf61d375db27215232355e7b4d7";
+// 我的
+const appID = "wx009cbf2052c0174f";
+const appSecret = "dc4510eaeb07582400c354ebdde0da20";
 
 global.wxshare = {
     signs:[]
@@ -60,7 +63,7 @@ router.post('/signture', function(req, res, next){
                 .then(function(response){
                     console.log(response);
                     // 这里我缓存到了global
-                    global.wxshare.access_token = response.data.access_token;
+                    global.wxshare.access_token = response.data.access_token; //?
                     resolve(response.data.access_token);
                 })
                 .catch(function(err){
@@ -77,7 +80,7 @@ router.post('/signture', function(req, res, next){
                 .then(function(response){
                     console.log(response);
                     // 这里我缓存到了global
-                    global.wxshare.jsapi_ticket = response.data.ticket;
+                    global.wxshare.jsapi_ticket = response.data.ticket; //?
                     resolve(response.data.ticket);  
                 })
                 .catch(function(err){
@@ -90,7 +93,7 @@ router.post('/signture', function(req, res, next){
             return new Promise(function(resolve, reject){
                 // 计算signature
                 // 先拿一个当前时间戳，这里我缓存到了global
-                global.wxshare.deadline = new Date().getTime();
+                global.wxshare.deadline = new Date().getTime(); //?
                 let signatureStr = sign(ticket, req.body.url);
                 // 当前时间戳
                 signatureStr.deadline = new Date().getTime();
