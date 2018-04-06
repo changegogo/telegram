@@ -23,6 +23,7 @@ router.get('/smsapi', function(req, res, next){
     if(telphone && commonUtils.verifyPhone(telphone)){
         // 随机生成验证码
         let code = commonUtils.generateCode();
+        console.log(code);
         // 将验证码存入session
         req.session.smscode = code;
         // 封装请求体

@@ -42,7 +42,7 @@ router.post('/loginin', function(req, res, next){
         }else {
             res.json({code: 201, msg: '密码或用户名不正确'});
         }
-    })
+    });
 
 });
 

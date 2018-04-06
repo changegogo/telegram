@@ -11,7 +11,7 @@ const mongoose = require('mongoose');
 router.get('/', function(req, res, next){
     let query = {};
     // 上一页的最后一条记录的id
-    let lastid = req.query.id;
+    let lastid = req.query.lastid;
     if(lastid){
         query._id = {
             $lt: mongoose.Types.ObjectId(lastid)
@@ -19,28 +19,21 @@ router.get('/', function(req, res, next){
     }
     let telphone = req.query.telphone;
     let ispickup = req.query.ispickup;
-    
-    if(telphone && ispickup){
-        query = {
-            telphone: telphone,
-            ispickup: ispickup
-        };
-    }else if(telphone && !ispickup){
-        query = {
-            telphone: telphone
-        };
-    }else if(!telphone && ispickup){
-        query = {
-            ispickup: ispickup
-        };
+    if(telphone){
+        query.telphone = telphone;
     }
+    if(ispickup == 1){ // 有提币申请
+        query.ispickup = true;
+    }else if(ispickup == 2){ // 无提币申请
+        query.ispickup = false;
+    }
+    
     Player.find(query, function(err, players){
         if(!err){
             res.json({code: 200, msg: 'success', results: players});
         }else{
             res.json({code: 201, msg: '查询失败'});
         }
-        
     }).limit(commonUtils.pagesize);
 });
 

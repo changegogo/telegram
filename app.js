@@ -9,7 +9,7 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 
 const indexRouter = require('./routes/index');
-const codeRouter = require('./routes/code');
+const codeRouter = require('./routes/code2');
 const robotRouter = require('./routes/robot');
 const infoRouter = require('./routes/playerinfo');
 const applyRouter = require('./routes/apply');
@@ -68,14 +68,14 @@ app.all('*', function(req, res, next) {
   next();  
 });
 
-// 设置后台登录验证中间件
-// app.use(/^(\/admin)/, function(req, res ,next){
-//   if(req.session.username && req.session.password){
-//     next();
-//   }else {
-//     res.json({code: 202, msg: "请先登录"});
-//   }
-// });
+//设置后台登录验证中间件
+app.use(/^(\/admin)/, function(req, res ,next){
+  if(req.session.username && req.session.password){
+    next();
+  }else {
+    res.json({code: 202, msg: "请先登录"});
+  }
+});
 
 app.use('/', indexRouter);
 app.use('/code', codeRouter);
@@ -83,7 +83,7 @@ app.use('/robot', robotRouter);
 app.use('/info', infoRouter);
 app.use('/apply', applyRouter);
 // admin
-app.use('/admin/user', userRouter);
+app.use('/user', userRouter);
 app.use('/admin/player', playerRouter);
 app.use('/admin/review', reviewRouter);
 app.use('/weixin', wxRouter);
@@ -98,7 +98,7 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  //log.error("Something went wrong:", err);
+  log.error("Something went wrong:", err);
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

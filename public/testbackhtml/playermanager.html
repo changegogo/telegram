@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户信息管理</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.min.js"></script>
+</head>
+<body>
+    <p>用户信息管理</p>
+    手机号：<input id="telphone" type="text" placeholder="手机号" />
+    是否提币：
+    <select id="ispickup">
+        <option value="0">全部</option>
+        <option value="1">是</option>
+        <option value="2">否</option>
+    </select>
+    <button id="search" type="button">搜索</button>
+    <div id="content">这里显示查询的数据</div>
+    <script>
+         $(function(){
+             // 页面进入是显示最近的10条数据
+            var getdata = function(data){
+                $.ajax({
+                    url: '../admin/player',
+                    type: 'get',
+                    data: data,
+                    success: function(res){
+                        $('#content').html(JSON.stringify(res));
+                    }
+                });
+            }
+            getdata({});
+            $('#search').click(function(){
+                var lastid = '5ac75a7eb9498012548b3e2c';
+                var telphone = $('#telphone').val();
+                var ispickup = $('#ispickup option:selected').val();
+                getdata({
+                    telphone: telphone,
+                    ispickup: ispickup,
+                    lastid: lastid
+                });
+            });
+
+         });
+    </script>
+</body>
+</html>
