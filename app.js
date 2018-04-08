@@ -69,13 +69,13 @@ app.all('*', function(req, res, next) {
 });
 
 //设置后台登录验证中间件
-app.use(/^(\/admin)/, function(req, res ,next){
-  if(req.session.username && req.session.password){
-    next();
-  }else {
-    res.json({code: 202, msg: "请先登录"});
-  }
-});
+// app.use(/^(\/admin)/, function(req, res ,next){
+//   if(req.session.username && req.session.password){
+//     next();
+//   }else {
+//     res.json({code: 202, msg: "请先登录"});
+//   }
+// });
 
 app.use('/', indexRouter);
 app.use('/code', codeRouter);

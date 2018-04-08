@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>后端接口</title>
+    <style>
+        * {
+            padding: 0;
+        }
+        span {
+            display: block;
+        }
+        .container {
+            width: 60%;
+            margin: 0 auto;
+            border: 1px solid gray;
+            padding: 3px;
+        }
+    </style>
+</head>
+<body>
+    <span>1.登录</span>
+    <span>url：<i>/user/loginin</i></span>
+    <span>请求方式：get</span>
+    请求参数：
+        <span>
+    <pre>
+    {
+        username: 'yonghuming',
+        password: '123456'
+    }
+    </pre></span>
+    响应数据：
+    <pre>
+    {
+        code: 200,
+        msg: "登录成功"
+    }
+    {
+        code: 201,
+        msg: "密码或用户名不正确"
+    }
+    </pre>
+    <span>2.登出</span>
+    <span>url：<i>/user/loginout</i></span>
+    <span>请求方式：get</span>
+    请求参数：
+        <span>
+    <pre>
+    </pre></span>
+    响应数据：
+    <pre>
+            {code: 200, msg: '登出成功'}
+    </pre>
+    <span>3.获取用户信息</span>
+    <span>url：<i>/admin/player</i></span>
+    <span>请求方式：get</span>
+    请求参数：
+    <span>
+    <pre>
+    {
+        lastid: 'sdfafdsfadsxcwe', // 当前页的开始id或结束id
+        isnext: 0, // 0表示请求下一页，1表示请求上一页
+    }
+    第一次进入页面不传了lastid，会返回最近的20条数据
+    </pre>
+    </span>
+    响应数据：
+    <pre>
+        {code: 200, msg: 'success', rows: players}
+    </pre>
+    <span>4.删除用户信息</span>
+    <span>url：<i>/admin/player/del</i></span>
+    <span>请求方式：get</span>
+    请求参数：
+    <span>
+    <pre>
+    {
+        id: 'sdfsfsafs' // 用户id
+    }
+    </pre>
+    </span>
+    响应数据：
+    <pre>
+        {code: 200, msg: '删除用户成功'}
+        {code: 201, msg: '用户不存在'}
+    </pre>
+    
+</body>
+</html>

@@ -141,8 +141,8 @@ router.get('/xlsx', function(req, res, next){
         // 查询全部数据
     }
     try {
-        ''==startDate?'':new Date(startDate).toISOString();
-        ''==endDate?'':new Date(endDate).toISOString();
+        undefined==startDate?'':new Date(startDate).toISOString();
+        undefined==endDate?'':new Date(endDate).toISOString();
     } catch (error) {
         res.json({code: 201, msg: '时间格式不正确'});
         return;

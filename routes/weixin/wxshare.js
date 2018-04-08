@@ -5,14 +5,14 @@ const Promise = require('promise');
 const sign = require('./sign');
 
 // 公众号字段
-//const appID = "wxc06857d92c42944b";
-//const appSecret = "1e9c4371e49190973a2e47f73c6182ef";
+const appID = "wxc06857d92c42944b";
+const appSecret = "1e9c4371e49190973a2e47f73c6182ef";
 
 //const appID = "wx32da279932a08382";
 //const appSecret = "cd9a9bf61d375db27215232355e7b4d7";
 // 我的
-const appID = "wx009cbf2052c0174f";
-const appSecret = "dc4510eaeb07582400c354ebdde0da20";
+//const appID = "wx009cbf2052c0174f";
+//const appSecret = "dc4510eaeb07582400c354ebdde0da20";
 
 global.wxshare = {
     signs:[]
@@ -40,13 +40,15 @@ router.get('/weixincall', function(req, res, next){
     
 });
 
-router.post('/signture', function(req, res, next){
+router.get('/signture', function(req, res, next){
+    // 请求url参数
+    let url = req.query.url || req.body.url;
     //检查页面链接对应的签名是否可用
     var signtag = false;
     var signindex;
     // 检查签名
     global.wxshare.signs.forEach(function (item, index) {
-        if (item.url === req.body.url) {
+        if (item.url === url) {
             signindex = index;
             if (item.deadline && new Date().getTime() - item.deadline < 6000000) {
                 signtag = true;
@@ -94,7 +96,7 @@ router.post('/signture', function(req, res, next){
                 // 计算signature
                 // 先拿一个当前时间戳，这里我缓存到了global
                 global.wxshare.deadline = new Date().getTime(); //?
-                let signatureStr = sign(ticket, req.body.url);
+                let signatureStr = sign(ticket, url);
                 // 当前时间戳
                 signatureStr.deadline = new Date().getTime();
                 // 缓存签名
