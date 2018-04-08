@@ -2,7 +2,7 @@ if (GetLocalStorage('identitycode') !== null) {
     window.location.href = './views/pages/activeShare.html?identitycode=' + GetLocalStorage('identitycode');
 }
 $(function () {
-    weixinShareMethod('weixin/signture')
+    // weixinShareMethod('weixin/signture')
     $(".getNoteCode-container").click(function () {    // 点击获取验证码展示倒计时
         if (verifyMobileFormatter()) {
             settime($(this) , 60);

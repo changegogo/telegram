@@ -10,7 +10,7 @@ $(function () {
         //将生成的二维码转换成图片格式
         var canvas = qrcode.find('canvas').get(0);
         $('#qrcodeImg').attr('src', canvas.toDataURL('image/jpg'));
-        weixinShareMethod('../../weixin/signture') ;
+        // weixinShareMethod('../../weixin/signture') ;
 
 
 });
