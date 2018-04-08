@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>发币审核</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.min.js"></script>
+</head>
+<body>
+    <p>发币审核</p>
+   手机号：<input id="telphone" type="text" placeholder="手机号" />
+   同意或拒绝：
+       <select id="status">
+        <option value="0">全部</option>
+        <option value="1">未处理</option>
+        <option value="2">同意</option>
+        <option value="3">拒绝</option>
+       </select>
+   申请日期：<input id="start" type="text" value="2018-04-01 12:30:30" placeholder="开始时间"/>至<input id="end" value="2018-04-09 09:00:26" type="text" placeholder="结束时间"/>
+   <button id="search">搜索</button>
+   <div id="content">显示数据</div>
+    <script>
+        $(function(){
+            var getdata = function(data){
+                $.ajax({
+                    url: '../admin/review',
+                    type: 'get',
+                    data: data,
+                    success: function(res){
+                        $('#content').html(JSON.stringify(res));
+                    }
+                });
+            }
+            getdata({});
+            $('#search').click(function(){
+                var telphone = $('#telphone').val();
+                var status = $('#status option:selected').val();
+                var startDate = $('#start').val();
+                var endDate = $('#end').val();
+                getdata({
+                    telphone: telphone,
+                    status: status,
+                    startDate: startDate,
+                    endDate: endDate,
+                    lastid: '5ac75a7eb9498012548b3e2c'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

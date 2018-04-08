@@ -12,7 +12,7 @@ var a = function() {
 var b = function(data) {
     return new Promise(function(resolve, reject) {
         console.log('b')
-        resolve(data +'b')
+        reject(data +'b')
     })
 }
 
@@ -38,5 +38,5 @@ a()
     console.log(data)// abc
 })
 .catch(function(e) {
-    console.log(data)
+    console.log(e)
 })

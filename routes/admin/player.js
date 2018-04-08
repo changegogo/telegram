@@ -10,37 +10,39 @@ const mongoose = require('mongoose');
 // 获取用户信息
 router.get('/', function(req, res, next){
     let query = {};
-    // 上一页的最后一条记录的id
-    let lastid = req.query.id;
+    // 当前页的最后一条记录的id
+    let lastid = req.query.lastid || req.body.lastid;
+    // 是点击的上一页还是下一页
+    let isnext = req.query.isnext || req.body.isnext || 0;// 0表示请求下一页 1表示请求上一页
+    
     if(lastid){
-        query._id = {
-            $lt: mongoose.Types.ObjectId(lastid)
+        if(isnext){
+            query._id = {
+                $lt: mongoose.Types.ObjectId(lastid)
+            }
+        }else{
+            query._id = {
+                $gt: mongoose.Types.ObjectId(lastid)
+            }
         }
     }
     let telphone = req.query.telphone;
     let ispickup = req.query.ispickup;
-    
-    if(telphone && ispickup){
-        query = {
-            telphone: telphone,
-            ispickup: ispickup
-        };
-    }else if(telphone && !ispickup){
-        query = {
-            telphone: telphone
-        };
-    }else if(!telphone && ispickup){
-        query = {
-            ispickup: ispickup
-        };
+    if(telphone){
+        query.telphone = telphone;
     }
+    if(ispickup == 1){ // 有提币申请
+        query.ispickup = true;
+    }else if(ispickup == 2){ // 无提币申请
+        query.ispickup = false;
+    }
+    
     Player.find(query, function(err, players){
         if(!err){
-            res.json({code: 200, msg: 'success', results: players});
+            res.json({code: 200, msg: 'success', rows: players});
         }else{
             res.json({code: 201, msg: '查询失败'});
         }
-        
     }).limit(commonUtils.pagesize);
 });
 

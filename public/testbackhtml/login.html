@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.min.js"></script>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <p>登录页面</p>
+    用户名：<input id='username' type="text" placeholder="用户名"/>
+    密码：<input id="password" type="text" placeholder="密码"/>
+    <button id="submit-btn" type="button">登录</button>
+    <p>注册</p>
+    用户名：<input id='reg-username' type="text" placeholder="用户名"/>
+    密码：<input id="reg-password" type="text" placeholder="密码"/>
+    <button id="reg-btn" type="button">注册</button>
+    <script>
+        $(function(){
+            // 登陆
+            $('#submit-btn').click(function(){
+                var username = $('#username').val();
+                var password = $('#password').val();
+                $.ajax({
+                    url: '../user/loginin',
+                    type: 'post',
+                    data: {
+                        username: username,
+                        password: password
+                    },
+                    success: function(res){
+                        if(res.code == 200){
+                            alert('登陆成功');
+                        }else {
+                            alert(res.msg);
+                        }
+                    },
+                    error: function(err){
+
+                    }
+                });
+            });
+            // 注册
+            $('#reg-btn').click(function(){
+                var regusername = $('#reg-username').val();
+                var regpassword = $('#reg-password').val();
+                $.ajax({
+                    url: '../user/register',
+                    type: 'post',
+                    data: {
+                        username: regusername,
+                        password: regpassword
+                    },
+                    success: function(res){
+                        console.log(res);
+                        if(res.code == 200){
+                            alert(res.msg);
+                        }else{
+                            alert(res.msg);
+                        }
+                    },
+                    error: function(err){
+
+                    }
+                });
+            });
+        });
+    </script>
+    
+</body>
+</html>

@@ -23,7 +23,7 @@
 <body>
 <div class="container">
     <span>1.绑定页面获取短信验证码</span>
-    <span>url：<i>/code/smsapi</i></span>
+    <span>url：<i>/telegram/code/smsapi</i></span>
     <span>请求方式：get</span>
     请求参数：
         <span>
@@ -41,7 +41,7 @@
     </pre>
 
     <span>2.绑定页面提交绑定数据</span>
-    <span>url：<i>/code/smsbind</i></span>
+    <span>url：<i>/telegram/code/smsbind</i></span>
     <span>请求方式：post</span>
     请求参数：
     <span>
@@ -64,7 +64,7 @@
     </pre>
 
     <span>3.分享页面根据用户识别码获取用户数据</span>
-    <span>url：<i>/info</i></span>
+    <span>url：<i>/telegram/info</i></span>
     <span>请求方式：post</span>
     请求参数：
     <span>
@@ -101,7 +101,7 @@
     </pre>
 
     <span>4.提币界面获取短信验证码接口</span>
-    <span>url：<i>/apply/smsapi</i></span>
+    <span>url：<i>/telegram/apply/smsapi</i></span>
     <span>请求方式：post</span>
     请求参数：
     <span>
@@ -137,6 +137,30 @@
     {code: 200, msg: "提币成功",count: offsetcount}
     
     {code: 201, msg: "未达到188枚，不可提币", count: offsetcount}
+    </pre>
+
+    <span>6.微信分享接口</span>
+    <span>url：<i>/telegram/weixin/signture</i></span>
+    <span>请求方式：post</span>
+    请求参数：
+    <span>
+    <pre>
+    {
+        url: window.location.href.split('#')[0]
+    }
+    </pre>
+    </span>
+    响应数据：
+    <pre>
+    {
+        appID:"wx009cbf2052c0174f"
+        deadline:1522998032454
+        jsapi_ticket:"sM4AOVdWfPE4DxkXGEs8VCG9cIPMrZof33-ECiGnAQFCylMfB5eP2EQ2A6WAKSMgYDvXFMmhjPYoWT1zNcwQPw"
+        nonceStr:"byobavq2tng"
+        signature:"b747e68066b21063bc2239a1badb7065628e14ab"
+        timestamp:"1522998032"
+        url:"http://192.168.1.108:8890/index.html"
+    }
     </pre>
 
 </div>

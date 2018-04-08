@@ -12,7 +12,7 @@ const commonUtils = require('../../utils/commonUtils');
 router.get('/', function(req, res, next){
     let query = {};
     // 上一页的最后一条记录的id
-    let lastid = req.query.id;
+    let lastid = req.query.lastid;
     if(lastid){
         query._id = {
             $lt: mongoose.Types.ObjectId(lastid)
@@ -30,26 +30,26 @@ router.get('/', function(req, res, next){
     if(telphone){
         query.telphone = telphone;
     }
-    if(status === 1){
+    if(status == 1){
         query.isdeal = 1; // 查询未处理的数据
-    }else if(status === 2){
+    }else if(status == 2){
         query.isdeal = 2; // 查询同意的数据
-    }else if(status === 3){
+    }else if(status == 3){
         query.isdeal = 3; // 查询拒绝的数据
     }else{
         // 查询全部数据
     }
     try {
-        ''==startDate?'':new Date(startDate).toISOString();
-        ''==endDate?'':new Date(endDate).toISOString();
+        undefined==startDate?'':new Date(startDate).toISOString();
+        undefined==endDate?'':new Date(endDate).toISOString();
     } catch (error) {
         res.json({code: 201, msg: '时间格式不正确'});
         return;
     }
-
+    
     if(startDate && endDate){
         startDate = new Date(startDate).toISOString();
-        endDate = new Date(startDate).toISOString();
+        endDate = new Date(endDate).toISOString();
         if(startDate <= endDate){
             query.createtime = {
                 '$gte': startDate,
@@ -141,8 +141,8 @@ router.get('/xlsx', function(req, res, next){
         // 查询全部数据
     }
     try {
-        ''==startDate?'':new Date(startDate).toISOString();
-        ''==endDate?'':new Date(endDate).toISOString();
+        undefined==startDate?'':new Date(startDate).toISOString();
+        undefined==endDate?'':new Date(endDate).toISOString();
     } catch (error) {
         res.json({code: 201, msg: '时间格式不正确'});
         return;
