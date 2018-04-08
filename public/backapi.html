@@ -21,6 +21,7 @@
     </style>
 </head>
 <body>
+        <div class="container">
     <span>1.登录</span>
     <span>url：<i>/user/loginin</i></span>
     <span>请求方式：get</span>
@@ -64,7 +65,7 @@
         lastid: 'sdfafdsfadsxcwe', // 当前页的开始id或结束id
         isnext: 0, // 0表示请求下一页，1表示请求上一页
     }
-    第一次进入页面不传了lastid，会返回最近的20条数据
+    第一次进入页面不传lastid，会返回最近的20条数据
     </pre>
     </span>
     响应数据：
@@ -87,6 +88,7 @@
         {code: 200, msg: '删除用户成功'}
         {code: 201, msg: '用户不存在'}
     </pre>
+    </div>
     
 </body>
 </html>
