@@ -17,7 +17,7 @@ const applyRouter = require('./routes/apply');
 const userRouter = require('./routes/admin/user');
 const playerRouter = require('./routes/admin/player');
 const reviewRouter = require('./routes/admin/review');
-const wxRouter = require('./routes/weixin/wxshare');
+//const wxRouter = require('./routes/weixin/wxshare');
 
 const ruleRouter = require('./routes/admin/rule');
 
@@ -86,7 +86,7 @@ app.use('/apply', applyRouter);
 app.use('/user', userRouter);
 app.use('/admin/player', playerRouter);
 app.use('/admin/review', reviewRouter);
-app.use('/weixin', wxRouter);
+//app.use('/weixin', wxRouter);
 app.use('/rule', ruleRouter);
 app.use('/task', taskRouter);
 
