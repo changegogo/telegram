@@ -87,8 +87,8 @@ app.use('/user', userRouter);
 app.use('/admin/player', playerRouter);
 app.use('/admin/review', reviewRouter);
 //app.use('/weixin', wxRouter);
-app.use('/rule', ruleRouter);
-app.use('/task', taskRouter);
+app.use('/admin/rule', ruleRouter);
+app.use('/admin/task', taskRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

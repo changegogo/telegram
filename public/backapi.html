@@ -21,10 +21,11 @@
     </style>
 </head>
 <body>
-        <div class="container">
+<div class="container">
+    <b>登录</b>
     <span>1.登录</span>
     <span>url：<i>/user/loginin</i></span>
-    <span>请求方式：get</span>
+    <span>请求方式：post</span>
     请求参数：
         <span>
     <pre>
@@ -53,8 +54,9 @@
     </pre></span>
     响应数据：
     <pre>
-            {code: 200, msg: '登出成功'}
+    {code: 200, msg: '登出成功'}
     </pre>
+    <b>用户信息管理</b>
     <span>3.获取用户信息</span>
     <span>url：<i>/admin/player</i></span>
     <span>请求方式：get</span>
@@ -64,13 +66,15 @@
     {
         lastid: 'sdfafdsfadsxcwe', // 当前页的开始id或结束id
         isnext: 0, // 0表示请求下一页，1表示请求上一页
+        telphone: '15383830596',
+        ispickup: 1 // 0代表全部 1代表有提币操作 2代表无提币操作
     }
-    第一次进入页面不传lastid，会返回最近的20条数据
+    第一次进入页面不传lastid、telphone、ispickup，会返回最近的20条数据
     </pre>
     </span>
     响应数据：
     <pre>
-        {code: 200, msg: 'success', rows: players}
+    {code: 200, msg: 'success', rows: players}
     </pre>
     <span>4.删除用户信息</span>
     <span>url：<i>/admin/player/del</i></span>
@@ -85,10 +89,254 @@
     </span>
     响应数据：
     <pre>
-        {code: 200, msg: '删除用户成功'}
-        {code: 201, msg: '用户不存在'}
+    {code: 200, msg: '删除用户成功'}
+    {code: 201, msg: '用户不存在'}
     </pre>
-    </div>
+    <b>发币审核</b>
+    <span>5.获取提币申请信息</span>
+    <span>url：<i>/admin/review</i></span>
+    <span>请求方式：get</span>
+    请求参数：
+    <span>
+    <pre>
+    {
+        lastid: 'sdfsfsafs' // 当前页的开始id或结束id
+        isnext: 0, // 0表示请求下一页，1表示请求上一页
+        telphone: '15383830596', // 手机号码，如果不选择则传''
+        startDate: '2018-04-01 12:30:20', // 查询开始时间，如果不选择则传''
+        endDate: '2018-04-05 11:33:29', // 查询结束时间，如果不选择则传''
+        status: 0  //0全部 1未处理 2同意 3拒绝
+    }
+    </pre>
+    </span>
+    响应数据：
+    <pre>
+    {code: 200, msg: 'success', results: applycans}
+    {code: 204, msg: '查询失败'}
+    </pre>
+    <span>6.是否同意提币</span>
+    <span>url：<i>/admin/review/oper</i></span>
+    <span>请求方式：get</span>
+    请求参数：
+    <span>
+    <pre>
+    {
+        ids: 'id1,id2,id3',
+        status: 2, //2同意提币 3拒绝提币
+    }
+    </pre>
+    </span>
+    响应数据：
+    <pre>
+    {code: 200, msg: '操作成功', modifycount: c}
+    {code: 201, msg: '操作失败'}
+    </pre>
+    <span>7.导出xlsx</span>
+    <span>url：<i>/admin/review/xlsx</i></span>
+    <span>请求方式：get</span>
+    请求参数：
+    <span>
+    <pre>
+    {
+        firstid: 'id'
+    }
+    </pre>
+    </span>
+    响应数据：
+    <pre>
+    返回下载xlsx文件
+    </pre>
+    <b>群发消息(定时任务)</b>
+    <span>8.查询任务</span>
+    <span>url：<i>/admin/task/data</i></span>
+    <span>请求方式：get</span>
+    请求参数：
+    <span>
+    <pre>
+    {
+        start: 10, // 开始的条目
+        offset: 20 // 查询多少条目
+    }
+    </pre>
+    </span>
+    响应数据：
+    <pre>
+    {code: 200, msg:'success', total: 100, rows: values} //查询成功,rows为数组
+    {code: 201, msg: msg} //查询失败
+    </pre>
+    <span>9.添加任务</span>
+    0定时任务 1重复任务 2立即执行任务
+    <span>url：<i>/admin/task/add</i></span>
+    <span>请求方式：get</span>
+    请求参数：
+    <span>
+    <pre>
+    定时任务 0
+    {
+        tasktype: 0,
+        tasktext: '这是内容',
+        datatime: '2018-03-23 11:29:30'
+    }
+    重复任务 1
+    {
+        tasktype: 1,
+        tasktext: '这是内容',
+        dataOfWeek: '0,1,2', //取值 0-6，0代表周日
+        hour: '0,2,4,3,23', //取值 0-23
+        minute: '0,3,4,6', //取值 0-59
+        second: '0,3,5,7', //取值 0-59
+    }
+    立即执行任务 2
+    {
+        tasktype: 2,
+        tasktext: '这是内容'
+    }
+    </pre>
+    </span>
+    响应数据：
+    <pre>
+    {code: 200, msg: '周任务创建开启成功'}
+    </pre>
+    <span>10.打开关闭任务</span>
+    <span>url：<i>/admin/task/onoff</i></span>
+    <span>请求方式：get</span>
+    请求参数：
+    <span>
+    <pre>
+    {
+        id: 'sdafdsfgtreh' //任务id
+        taskstatus: 0 // 0关闭 1开启
+    }
     
+    </pre>
+    </span>
+    响应数据：
+    <pre>
+    {code: 200, msg: '状态更新成功'}
+    {code: 201, msg: '状态更新失败'}
+    </pre>
+    <span>11.删除任务</span>
+    <span>url：<i>/admin/task/del</i></span>
+    <span>请求方式：get</span>
+    请求参数：
+    <span>
+    <pre>
+    {
+        id: 'sdafdsfgtreh' //任务id
+    }
+    
+    </pre>
+    </span>
+    响应数据：
+    <pre>
+    {code: 200, msg: '删除成功'}
+    {code: 201, msg: '删除失败'}
+    </pre>
+    <span>12.查看任务执行结果</span>
+    <span>url：<i>/admin/task/sendresult</i></span>
+    <span>请求方式：get</span>
+    请求参数：
+    <span>
+    <pre>
+    {
+        id: 'sdafdsfgtreh' //任务id
+    }
+    </pre>
+    </span>
+    响应数据：
+    <pre>
+    {code: 200, msg: 'success', results: task.taskresults}
+    {code: 201, msg: '没有此任务'}
+    </pre>
+    <b>关键词设置</b>
+    <span>13.查看关键词规则列表</span>
+    <span>url：<i>/admin/rule/data</i></span>
+    <span>请求方式：get</span>
+    请求参数：
+    <span>
+    <pre>
+    {
+        start: 0, // 开始条目
+        offset: 10 // 查询条目数
+    }
+    </pre>
+    </span>
+    响应数据：
+    <pre>
+    {code: 200, msg:'success', total: 100, rows: values[1]}
+    {code: 201, msg: msg}
+    </pre>
+    <span>14.添加关键词规则</span>
+    <span>url：<i>/admin/rule/add</i></span>
+    <span>请求方式：get</span>
+    请求参数：
+    <span>
+    <pre>
+    {
+        rulename: '规则名称', // 规则名称
+        keywords: '你好,好啊' // 关键词
+        replycontent: '你好' //后台回复内容 
+    }
+    </pre>
+    </span>
+    响应数据：
+    <pre>
+    {code: 200, msg: '添加成功'}
+    {code: 201, msg: '添加失败'}
+    </pre>
+    <span>15.修改规则状态</span>
+    <span>url：<i>/admin/rule/editstatus</i></span>
+    <span>请求方式：get</span>
+    请求参数：
+    <span>
+    <pre>
+    {
+        id: 'sdfsafd', //任务id
+        status:0 //状态 0开启 1关闭
+    }
+    </pre>
+    </span>
+    响应数据：
+    <pre>
+    {code: 200, msg: '修改成功'}
+    {code: 201, msg: '修改失败'}
+    </pre>
+    <span>16.编辑已有规则</span>
+    <span>url：<i>/admin/rule/editother</i></span>
+    <span>请求方式：get</span>
+    请求参数：
+    <span>
+    <pre>
+    {
+        id: 'sdfsafd', //任务id
+        rulename: '规则名称', // 规则名称
+        keywords: '关键词1,关键词2,关键词3' // 关键词
+        replycontent: '回复内容'
+        status:0 //状态 0开启 1关闭
+    }
+    </pre>
+    </span>
+    响应数据：
+    <pre>
+    {code: 200, msg: '更新成功'}
+    {code: 201, msg: '更新失败'}
+    </pre>
+    <span>17.删除规则</span>
+    <span>url：<i>/admin/rule/del</i></span>
+    <span>请求方式：get</span>
+    请求参数：
+    <span>
+    <pre>
+    {
+        id: 'sdfsafd', //任务id
+    }
+    </pre>
+    </span>
+    响应数据：
+    <pre>
+    {code: 200, msg: '删除成功'}
+    {code: 201, msg: '删除失败'}
+    </pre>
+</div>
 </body>
 </html>

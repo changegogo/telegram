@@ -11,13 +11,22 @@ const commonUtils = require('../../utils/commonUtils');
 // 查询发币信息 /admin/review
 router.get('/', function(req, res, next){
     let query = {};
+    // 是点击的上一页还是下一页
+    let isnext = req.query.isnext || req.body.isnext || 0;// 0表示请求下一页 1表示请求上一页
     // 上一页的最后一条记录的id
     let lastid = req.query.lastid;
     if(lastid){
-        query._id = {
-            $lt: mongoose.Types.ObjectId(lastid)
+        if(isnext){
+            query._id = {
+                $lt: mongoose.Types.ObjectId(lastid)
+            }
+        }else{
+            query._id = {
+                $gt: mongoose.Types.ObjectId(lastid)
+            }
         }
     }
+
     // 手机号
     let telphone = req.query.telphone;
     // 开始日期
@@ -75,7 +84,7 @@ router.get('/', function(req, res, next){
         if(!err && applycans){
             res.json({code: 200, msg: 'success', results: applycans});
         }else{
-            res.json({code: 204, msg: '查询失败'});
+            res.json({code: 201, msg: '查询失败'});
         }
     }).limit(commonUtils.pagesize);
 });
@@ -179,7 +188,7 @@ router.get('/xlsx', function(req, res, next){
             }else{
                 reject({code: 204, msg: '导出表格时数据查询失败'});
             }
-        });
+        }).limit(commonUtils.pagesize);
     });
 
     promise
@@ -217,14 +226,6 @@ router.get('/xlsx', function(req, res, next){
             let isdeal = ele.isdeal;
             isdeal===1?ele.isdeal='未处理':(isdeal===2?ele.isdeal='同意':ele.isdeal='拒绝');
             return ele;
-            // if(ele.isdeal === 1){
-            //     ele.isdeal = '未处理';
-            // }else if(ele.isdeal === 2){
-            //     ele.isdeal = '同意';
-            // }else{
-            //     ele.isdeal = '拒绝'
-            // }
-            // return ele;
         });
         worksheet.addRows(rows);
 
