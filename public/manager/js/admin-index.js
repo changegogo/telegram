@@ -48,6 +48,7 @@ $(function () {
             }
             $(".info-tablewrapper").show() ;
             $(".no-dataClass").hide() ;
+            $(".listItem").eq(0).siblings().remove() ;
             for (var i=0, len = listArray.length; i<len; i ++) {
                 var trItem = $(".listItem").eq(0).clone() ;
                 trItem.find(".user-telephone").text(listArray[i].telphone) ;

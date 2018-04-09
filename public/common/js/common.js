@@ -8,7 +8,7 @@ function getIdentifycode() { //获取用户识别码
         } else if(getQueryString('identitycode') !== null) {
             return identitycode = getQueryString('identitycode');
         } else {
-            window.location.href = 'telegram/index.html';
+            window.location.href = window.location.protocol + '//' + window.location.host + '/telegram/index.html';
         }
     }
 

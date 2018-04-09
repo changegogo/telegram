@@ -1,6 +1,6 @@
-getIdentifycode() ;
+// getIdentifycode() ;
 $(function () {
-        var qrCodeimgUrl = window.location.protocol + '//' + window.location.host + "/telegram/index.html?identitycode=" + getIdentifycode()
+        var qrCodeimgUrl = window.location.protocol + '//' + window.location.host + "/telegram/index.html?identitycode="
         var qrcode = $('.qrCode-img-container').qrcode({
             render: "canvas", //也可以替换为table
             width: 100,
@@ -10,7 +10,13 @@ $(function () {
         //将生成的二维码转换成图片格式
         var canvas = qrcode.find('canvas').get(0);
         $('#qrcodeImg').attr('src', canvas.toDataURL('image/jpg'));
-        // weixinShareMethod('../../weixin/signture') ;
 
 
+    html2canvas(document.querySelector("#userActiveSelf")).then(canvas => {
+        $("#userActiveSelf").hide() ;
+        var image = new Image();
+        image.src = canvas.toDataURL("image/png");
+        $("#bigbig-img").append(image);
+        // document.body.appendChild(canvas)
+    });
 });
