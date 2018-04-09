@@ -43,7 +43,7 @@ router.get('/', function(req, res, next){
         }else{
             res.json({code: 201, msg: '查询失败'});
         }
-    }).limit(commonUtils.pagesize);
+    }).sort({createtime:-1}).limit(commonUtils.pagesize);
 });
 
 /**

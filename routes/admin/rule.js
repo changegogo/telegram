@@ -62,18 +62,31 @@ router.get('/add', function(req, res, next){
 });
 // 修改规则状态
 router.get('/editstatus', function(req, res, next){
-    let id = req.query.id;
-    let status = req.query.status;
+    let id = req.query.id || req.body.id;
+    let status = req.query.status || req.body.status || 1; //状态 0开启 1关闭
     if(!id){
         res.json({code: 201, msg: 'id不能为空'});
         return;
     }
-    if(!status){
+    let mongooseid;
+    try {
+        mongooseid = mongoose.Types.ObjectId(id);
+    } catch (error) {
+        res.json({code: 201, msg: 'id不合法'});
+        return;
+    }
+    status = parseInt(status);
+    if(Object.is(NaN, status)){
         res.json({code: 201, msg: '状态不能为空'});
         return;
     }
-
-    Replyrule.updateById(mongoose.Types.ObjectId(id), {
+    if(status>1){
+        status = 1;
+    }
+    if(status<0){
+        status=0;
+    }
+    Replyrule.updateById(mongooseid, {
         $set: {
             status: status
         }
@@ -93,8 +106,19 @@ router.get('/editstatus', function(req, res, next){
 // 编辑已有规则
 router.get('/editother', function(req, res, next){
     let id = req.query.id;
+    if(!id){
+        res.json({code: 201, msg:'id 不能为空'});
+        return;
+    }
+    let mongooseid;
+    try {
+        mongooseid = mongoose.Types.ObjectId(id);
+    } catch (error) {
+        res.json({code: 201, msg: 'id不合法'});
+        return;
+    }
     delete req.query.id;
-    Replyrule.updateById(mongoose.Types.ObjectId(id), {
+    Replyrule.updateById(mongooseid, {
         $set: req.query
     },function(err, c){
         if(!err && c){
@@ -114,21 +138,53 @@ router.get('/editother', function(req, res, next){
 
 // 查询回复规则
 router.get('/data', function(req, res, next){
-    let query = {};
-    // 上一页的最后一条记录的id
-    let lastid = req.query.id;
-    if(lastid){
-        query._id = {
-            $lt: mongoose.Types.ObjectId(lastid)
-        }
+    // 从哪一条开始
+    let start = req.query.start || req.body.start || 0;
+    start = parseInt(start);
+    if(Object.is(NaN, start)){
+        res.json({code: 'start格式不正确'});
+        return;
     }
-    Replyrule.find(query, function(err, replyrules){
-        if(!err){
-            res.json({code: 200, msg: '查询成功', results: replyrules});
-        }else{
-            res.json({code: 201, msg: '查询失败'});
-        }
-    }).limit(commonUtils.pagesize);
+    // 查询偏移几条
+    let offset = req.query.offset || req.body.offset|| 10;
+    offset = parseInt(offset);
+    if(Object.is(NaN, offset)){
+        res.json({code: 'offset格式不正确'});
+        return;
+    }
+    let countPromise = function(){
+        return new Promise(function(resolve, reject){
+            Replyrule.count({}, function(err, c){
+                if(!err){
+                    resolve(c);
+                }else{
+                    reject('查询总数失败');
+                }
+            });
+        });
+    }
+
+    let dataPromise = function(){
+        return new Promise(function(resolve, reject){
+            Replyrule.find({}, function(err, tasks){
+                if(!err){
+                    resolve(tasks);
+                }else{
+                    reject('条件查询失败');
+                }
+                
+            }).skip(start)
+            .limit(offset)
+            .sort({'createtime': -1});
+        });
+    }
+    Promise.all([countPromise(), dataPromise()])
+    .then(function(values){
+        res.json({code: 200, msg:'success', total: values[0], rows: values[1]});
+    })
+    .catch(function(msg){
+        res.json({code: 201, msg: msg});
+    })
 });
 
 // 删除规则
@@ -138,7 +194,15 @@ router.get('/del', function(req, res, next){
         res.json({code:201,msg: 'id不能为空'});
         return;
     }
-    Replyrule.deleteById(mongoose.Types.ObjectId(id), function(err, c){
+    let mongooseid;
+    try {
+        mongooseid = mongoose.Types.ObjectId(id);
+    } catch (error) {
+        res.json({code: 201, msg: 'id不合法'});
+        return;
+    }
+    
+    Replyrule.deleteById(mongooseid, function(err, c){
         if(!err){
             // 从缓存中删除这条回复规则
             global.replyrules.delete(id);

@@ -40,7 +40,7 @@ router.get('/weixincall', function(req, res, next){
     
 });
 
-router.get('/signture', function(req, res, next){
+router.post('/signture', function(req, res, next){
     // 请求url参数
     let url = req.query.url || req.body.url;
     //检查页面链接对应的签名是否可用

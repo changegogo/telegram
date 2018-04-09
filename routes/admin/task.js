@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const Promise = require('Promise');
 
 const Task = require('../../schemaDao/Task');
 const schedule = require('node-schedule');
@@ -95,6 +96,56 @@ global.taskMap = new Map();
 
 })();
 
+// 从数据库中查询任务列表
+router.get('/data', function(req, res, next){
+    // 从哪一条开始
+    let start = req.query.start || req.body.start || 0;
+    start = parseInt(start);
+    if(Object.is(NaN, start)){
+        res.json({code: 'start格式不正确'});
+        return;
+    }
+    // 查询偏移几条
+    let offset = req.query.offset || req.body.offset|| 10;
+    offset = parseInt(offset);
+    if(Object.is(NaN, offset)){
+        res.json({code: 'offset格式不正确'});
+        return;
+    }
+    let countPromise = function(){
+        return new Promise(function(resolve, reject){
+            Task.count({}, function(err, c){
+                if(!err){
+                    resolve(c);
+                }else{
+                    reject('查询总数失败');
+                }
+            });
+        });
+    }
+
+    let dataPromise = function(){
+        return new Promise(function(resolve, reject){
+            Task.find({}, function(err, tasks){
+                if(!err){
+                    resolve(tasks);
+                }else{
+                    reject('条件查询失败');
+                }
+                
+            }).skip(start)
+            .limit(offset)
+            .sort({'createtime': -1});
+        });
+    }
+    Promise.all([countPromise(), dataPromise()])
+    .then(function(values){
+        res.json({code: 200, msg:'success', total: values[0], rows: values[1]});
+    })
+    .catch(function(msg){
+        res.json({code: 201, msg: msg});
+    })
+});
 
 // 添加任务
 router.get('/add', function(req, res, next){
@@ -330,10 +381,17 @@ router.get('/map', function(req, res, next){
 // 打开或者关闭开启任务
 router.get('/onoff', function(req, res, next){
     let id = req.query.id || req.body.id;
-    let taskstatus = req.query.taskstatus || req.body.taskstatus; // 0关闭 1开启
+    let taskstatus = req.query.taskstatus || req.body.taskstatus || 0; // 0关闭 1开启
 
     if(!id){
         res.json({code: 201, msg: 'id不能为空'});
+        return;
+    }
+    let mongooseid;
+    try {
+        mongooseid = mongoose.Types.ObjectId(id);
+    } catch (error) {
+        res.json({code: 201, msg: 'id不合法'});
         return;
     }
     if(!taskstatus){
@@ -342,7 +400,7 @@ router.get('/onoff', function(req, res, next){
     }
     taskstatus = taskstatus==0?false:true;
     // 修改数据库任务状态
-    Task.updateById(mongoose.Types.ObjectId(id), {
+    Task.updateById(mongooseid, {
         taskstatus: taskstatus
     }, function(err, c){
         if(!err){
@@ -355,7 +413,7 @@ router.get('/onoff', function(req, res, next){
     if(taskstatus){
         // 开启任务
         Task.findOne({
-            _id: mongoose.Types.ObjectId(id)
+            _id: mongooseid
         }, function(err, task){
             if(!err && task){
                 let tasktype = task.tasktype;
@@ -438,8 +496,15 @@ router.get('/del', function(req, res, next){
         res.json({code: 201, msg: '删除id不能为空'});
         return;
     }
+    let mongooseid;
+    try {
+        mongooseid = mongoose.Types.ObjectId(id);
+    } catch (error) {
+        res.json({code: 201, msg: 'id不合法'});
+        return;
+    }
     // 从数据库中删除
-    Task.deleteById(mongoose.Types.ObjectId(id), function(err, c){
+    Task.deleteById(mongooseid, function(err, c){
         if(!err && c){
             res.json({code: 200, msg: '删除成功'});
         }else{
@@ -470,8 +535,15 @@ router.get('/sendresult', function(req, res, next){
         res.json({code: 201, msg: '删除id不能为空'});
         return;
     }
+    let mongooseid;
+    try {
+        mongooseid = mongoose.Types.ObjectId(id);
+    } catch (error) {
+        res.json({code: 201, msg: 'id不合法'});
+        return;
+    }
     Task.findOne({
-        _id: mongoose.Types.ObjectId(id)
+        _id: mongooseid
     }, function(err, task){
         if(!err && task){
             res.json({code: 200, msg: 'success', results: task.taskresults});

@@ -38,10 +38,10 @@ router.post('/', function(req, res, next) {
         let keys = rule.keywords;
         let keyscount = keys.length;
         for(let j=0;j<keyscount;j++){
-            if(keys[j] === text){
+            if(keys[j].includes(text)){
                 out = true;
                 // 机器人回复
-                console.log('robot:',rule.replycontent);
+                //console.log('robot:',rule.replycontent);
                 replyrobot(chatid, rule.replycontent,function(val){
                     res.end(val);
                 });
@@ -120,26 +120,26 @@ router.post('/', function(req, res, next) {
                         p = Promise.all([p2, p3]);
                     };
                     p.then(function(val){
-                        console.log("奖励已发放");
+                        //console.log("奖励已发放");
                         replyrobot(chatid, "奖励已发放",function(val){
                             res.end(val);
                         });
                         //res.json({code: 200, msg: "奖励已发放"});
                     }).catch(function(err){
-                        console.log("奖励发放失败");
+                        //console.log("奖励发放失败");
                         replyrobot(chatid, "奖励发放失败",function(val){
                             res.end(val);
                         });
                     });
                 }else{
                     // 邀请码已经被使用
-                    console.log("邀请码已经被使用");
+                    //console.log("邀请码已经被使用");
                     replyrobot(chatid, "邀请码已经被使用",function(val){
                         res.end(val);
                     });
                 }
             }else{
-                console.log("邀请码查询无效");
+                //console.log("邀请码查询无效");
                 replyrobot(chatid, "邀请码查询无效",function(val){
                     res.end(val);
                 });
@@ -147,17 +147,16 @@ router.post('/', function(req, res, next) {
         });
         }else {
             // 邀请码无效
-            console.log("邀请码无效");
+            //console.log("邀请码无效");
             replyrobot(chatid, "邀请码无效",function(val){
                 res.end(val);
             });
         }
     }else{
-        console.log("不进行处理");
+        //console.log("不进行处理");
         replyrobot(chatid, "你是来搞笑的吗",function(val){
             res.end(val);
         });
-        //res.end();
     }
 });
 
