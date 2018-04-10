@@ -1,0 +1,116 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>电报推广后台管理系统</title>
+  <meta name="description" content="电报推广后台管理系统">
+  <meta name="keywords" content="table">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="icon" type="image/png" href="../i/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="../i/app-icon72x72@2x.png">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+  <link rel="stylesheet" href="../css/amazeui.min.css"/>
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+<header class="am-topbar am-topbar-inverse admin-header">
+  <div class="am-topbar-brand">
+    <strong>电报后台管理系统</strong>
+  </div>
+
+  <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+  <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+    <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+      <li><a href="login.html"><span class="am-icon-power-off"></span> 退出</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="am-cf admin-main">
+  <!-- sidebar start -->
+  <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+    <div class="am-offcanvas-bar admin-offcanvas-bar">
+      <ul class="am-list admin-sidebar-list">
+        <li><a href="admin-index.html"><span class="am-icon-home"></span> 首页</a></li>
+        <!--<li class="admin-parent" disabled="disabled">-->
+          <!--<a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 短信群发 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>-->
+          <!--<ul class="am-list am-collapse admin-sidebar-sub " id="collapse-nav">-->
+            <!--<li><a href="#" class="am-cf"><span class="am-icon-check"></span> 重新发送<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>-->
+            <!--<li><a href="#"><span class="am-icon-puzzle-piece"></span> 新增</a></li>-->
+          <!--</ul>-->
+        <!--</li>-->
+        <li><a href="admin-table.html" class=""><span class="am-icon-table"></span> 发布审核</a></li>
+        <li><a href="add_Qunfa.html"><span class="am-icon-pencil-square-o"></span> 群发消息</a></li>
+        <li><a href="keyword_Set.html" style="color: #0e90d2"><span class="am-icon-sign-out"></span> 关键词设置</a></li>
+      </ul>
+
+      <div class="am-panel am-panel-default admin-sidebar-panel">
+        <div class="am-panel-bd">
+          <p><span class="am-icon-bookmark"></span> 公告</p>
+          <p>时光静好，与君语；细水流年，与君同。—— Can</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- sidebar end -->
+
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="add-qunfa-wrapper">
+      <button class="am-btn am-btn-primary am-radius" style="margin: 20px;">添加规则</button>
+      <form class="am-form" style="margin-left: 20px;margin-right: 20px;">
+        <table class="am-table am-table-bordered am-table-radius">
+          <thead>
+          <tr>
+            <th>序号</th>
+            <th>规则名称</th>
+            <th>关键词</th>
+            <th>回复内容</th>
+            <th>操作</th>
+
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>1</td>
+            <td>用户打招呼</td>
+            <td>你好</td>
+            <td>
+              <button class="am-btn am-btn-primary am-btn-xs">查看</button>
+            </td>
+            <td>
+              <div class="am-btn-toolbar">
+                <div class="am-btn-group am-btn-group-xs">
+                  <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+                  <button class="am-btn am-btn-default am-btn-xs am-text-sm"><span class="am-icon-pencil-square-o"></span> 开启</button>
+                  <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </form>
+
+    </div>
+  </div>
+  <!-- content end -->
+</div>
+
+
+<footer>
+  <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+</footer>
+
+
+<script src="../../common/js/jquery-3.3.1.min.js"></script>
+<script src="../js/amazeui.min.js"></script>
+</body>
+</html>

@@ -79,4 +79,26 @@ $(function () {
         },2000)
     }
 
+    $(".copy-statement").click(function () {
+        // if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) { //ios
+        //     var copyDOM = document.querySelector('.leftMathRandomCode');  //要复制文字的节点
+        //     var range = document.createRange();
+        //     // 选中需要复制的节点
+        //     range.selectNode(copyDOM);
+        //     // 执行选中元素
+        //     window.getSelection().addRange(range);
+        //     // 执行 copy 操作
+        //     var successful = document.execCommand('copy');
+        //     try {
+        //         var msg = successful ? 'successful' : 'unsuccessful';
+        //         alert(111)
+        //         console.log('copy is' + msg);
+        //     } catch(err) {
+        //         console.log('Oops, unable to copy');
+        //     }
+        //     // 移除选中的元素
+        //     window.getSelection().removeAllRanges();
+        // }
+    })
+
 });
