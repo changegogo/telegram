@@ -222,6 +222,17 @@ router.post('/smsbind', function(req, res, next){
         });
     }
 
+    // async function tasks(){
+    //     let telOrImCount = await p1();
+    //     let ip = await p2(telOrImCount);
+    //     let ipcopy = await p3(ip);
+    //     let obj = p4(ipcopy);
+    //     res.json(obj);
+    // }
+    // tasks.catch(obj=>{
+    //     res.json(obj);
+    // });
+
     p1()
     .then(function(c){
         return p2(c);
