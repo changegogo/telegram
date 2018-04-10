@@ -149,3 +149,24 @@ input {
     font-size: 17px;
     cursor: pointer;
 }
+.diaLog-tip {
+    position: fixed;
+    top: 2.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    width: 2rem;
+    height: 1rem;
+    background-color: #000000;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 17px;
+    color: #ffffff;
+    border-radius: 4px;
+    display: none;
+}
+.diaLog-tip img{
+    width: .24rem;
+    margin-top: .17rem;
+    margin-bottom: .10rem;
+}

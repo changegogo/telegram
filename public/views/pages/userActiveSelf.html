@@ -10,7 +10,6 @@
     <meta http-equiv="Cache-Control" content="no-cache"/>
     <link rel="stylesheet" href="../../common/css/common1.css">
     <link rel="stylesheet" href="../../common/css/flex.css">
-    <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../css/userActiveSelf.css">
     <title>活动规则</title>
     <script src="../../common/js/jquery-3.3.1.min.js"></script>
@@ -19,19 +18,21 @@
 <body>
 <div id="userActiveSelf">
     <div class="main-container">
-        <img src="../../common/images/poster.png" alt="">
-        <div class="main-contentBg-container">
-            <div class="qrCode-container">
+        <div class="main-contentBg-container" style="position: relative">
+            <img src="../../common/images/poster1.png" alt="" style="width: 100%">
+            <div class="qrCode-container" style="position: absolute;left: 50%;transform: translateX(-50%);-webkit-transform: translateX(-50%);text-align: center;bottom: 20%;">
                 <p class="qrCode-img-container"></p>
-                <p class="flex flex-pack-center flex-align-center qr-porduct-wrapper"><img src="" alt="" id="qrcodeImg"></p>
-                <p style="font-size: 11px;opacity: 0.5;color: #ffffff;margin-top: 8px">长按识别二维码进入活动页面</p>
+                <p class="flex flex-pack-center flex-align-center qr-porduct-wrapper" ><img src="" alt="" id="qrcodeImg"></p>
+                <p style="font-size: 11px;opacity: 0.5;color: #ffffff;margin-top: 8px;">长按识别二维码进入活动页面</p>
             </div>
         </div>
     </div>
 </div>
+<div id="bigbig-img" style="height: 100%"></div>
 <script type="text/javascript" src="../../common/js/weixin.min.js"></script>
 <script type="text/javascript" src="../../common/js/Util.js"></script>
 <script type="text/javascript" src="../../common/js/common.js"></script>
+<script type="text/javascript" src="../../common/js/html2canvas.js"></script>
 <script type="text/javascript" src="../js/userActiveSelf.js"></script>
 </body>
 </html>

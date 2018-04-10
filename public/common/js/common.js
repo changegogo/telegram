@@ -8,7 +8,7 @@ function getIdentifycode() { //获取用户识别码
         } else if(getQueryString('identitycode') !== null) {
             return identitycode = getQueryString('identitycode');
         } else {
-            window.location.href = 'telegram/index.html';
+            window.location.href = window.location.protocol + '//' + window.location.host + '/telegram/index.html';
         }
     }
 
@@ -105,4 +105,24 @@ function weixinShareMethod(conectorUrl) {
             console.log(error)
         }
     });
+}
+
+function GMTToStr(time){ //gmtTime format localTime
+    var date = new Date(time)
+    var Str=date.getFullYear() + '-' +
+        (date.getMonth() + 1) + '-' +
+        date.getDate() + ' ' +
+        date.getHours() + ':' +
+        date.getMinutes() + ':' +
+        date.getSeconds()
+    return Str
+}
+function timerTimeOutTip(imgSrc, titleWords) {//延时定时器
+    $(".imgTip-icon").attr({src: imgSrc}) ;
+    $(".titleWords").text(titleWords) ;
+    $(".diaLog-tip").show();
+    clearTimeout(timer);
+    var timer = setTimeout(function () {
+        $(".diaLog-tip").hide();
+    },1000)
 }
