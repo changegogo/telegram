@@ -75,8 +75,8 @@
           </div>
         </div>
         <div class="am-form-group" style="display:flex;justify-content:left;float:left;">
-          <label for="doc-select-1" class="am-form-label am-u-sm-4">是否提币</label>
-          <select id="doc-select-1" class="am-u-sm-8" style="width: 400px">
+          <label for="isPickUpCan" class="am-form-label am-u-sm-4">是否提币</label>
+          <select id="isPickUpCan" class="am-u-sm-8" style="width: 400px">
             <option value="0">全部</option>
             <option value="1">提币</option>
             <option value="2">未提币</option>
@@ -88,7 +88,7 @@
       </div>
     </div>
     <div class="table-wrapper-list"  style="margin-left: 20px;margin-right: 20px;">
-        <p class="no-dataClass" style="display: none;">暂无数据</p>
+        <p class="no-dataClass" style="display: none;text-align: center;">暂无数据</p>
       <table class="am-table am-table-bordered am-table-radius info-tablewrapper">
         <thead>
         <tr>
@@ -116,6 +116,13 @@
         </tbody>
       </table>
     </div>
+    <div style="position: relative">
+      <ul class="" style="position: absolute;right: 20px;">
+        <button class="am-btn am-btn-primary prev-btn">上一页</button>
+        <button class="am-btn am-btn-primary next-btn">下一页</button>
+      </ul>
+    </div>
+
     <footer class="admin-content-footer">
       <p class="am-padding-left">© 2018 AllMobilize, Inc. Licensed under MIT license.</p>
     </footer>
@@ -144,6 +151,7 @@
 <script src="../../common/js/jquery-3.3.1.min.js"></script>
 <script src="../js/amazeui.min.js"></script>
 <script type="text/javascript" src="../js/ajaxIntercept.js"></script>
+<script type="text/javascript" src="../../common/js/common.js"></script>
 <script type="text/javascript" src="../js/admin-index.js"></script>
 </body>
 </html>

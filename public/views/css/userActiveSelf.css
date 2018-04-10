@@ -1,25 +1,18 @@
 body,#userActiveSelf,.main-container {
     height: 100%;
+    font-size: 16px !important;
 }
 #bigbig-img img {
-    width: 100%;
+width: 100%;
 }
 .main-contentBg-container {
-    /*background-image: url("../../common/images/poster.png");*/
+/*background-image: url("../../common/images/poster.png");*/
     /*background-size: 100%;*/
     /*background-repeat: no-repeat;*/
     /*background-position: center top;*/
     position: relative;
 }
 
-.qrCode-container {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    -webkit-transform: translateX(-50%);
-    text-align: center;
-    bottom: .33rem;
-}
 .qr-porduct-wrapper {
     width: 160px;
     height: 160px;
