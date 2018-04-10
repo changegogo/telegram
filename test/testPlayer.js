@@ -1,8 +1,12 @@
 require('../lib/db');
 
-var Player = require('../schemaDao/Player');
+var Applycan = require('../schemaDao/Applycan');
 
 let mongoose = require('mongoose');
+
+Applycan.create({telphone: '15362738234', imtoken:'0xsdfdsfadfsaf',cancount:2000},function(err, a){
+  console.log(a);
+});
 
 // Player.create({"telphone":"15383830596","imtoken":"asdecsdcswex","invitcode": "12345678"},function(err, player){
 //   console.log(err);
@@ -29,9 +33,9 @@ let mongoose = require('mongoose');
 // Player.updateOne(query,{"$inc": {"invitcount":1}},function(err, player){
 //   console.log(player);
 // });
-let id = '5ac1a1ea08afae08a3210c49';
-Player.deleteById(mongoose.Types.ObjectId(id), function(err, c){
-  console.log(err);
-  console.log(c);
-})
+// let id = '5ac1a1ea08afae08a3210c49';
+// Player.deleteById(mongoose.Types.ObjectId(id), function(err, c){
+//   console.log(err);
+//   console.log(c);
+// })
 

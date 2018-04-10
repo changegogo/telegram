@@ -12,11 +12,11 @@ const commonUtils = require('../../utils/commonUtils');
 router.get('/', function(req, res, next){
     let query = {};
     // 是点击的上一页还是下一页
-    let isnext = req.query.isnext || req.body.isnext || 0;// 0表示请求下一页 1表示请求上一页
+    let isnext = req.query.isnext || req.body.isnext || "0";// 0表示请求下一页 1表示请求上一页
     // 上一页的最后一条记录的id
     let lastid = req.query.lastid;
     if(lastid){
-        if(isnext){
+        if(isnext=="0"){
             query._id = {
                 $lt: mongoose.Types.ObjectId(lastid)
             }
@@ -95,7 +95,7 @@ router.get('/', function(req, res, next){
         }else{
             res.json({code: 201, msg: '查询失败'});
         }
-    }).limit(commonUtils.pagesize);
+    }).sort({createtime: -1}).limit(commonUtils.pagesize);
 });
 
 // 操作发币信息 /admin/review/oper
