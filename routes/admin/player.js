@@ -13,10 +13,11 @@ router.get('/', function(req, res, next){
     // 当前页的最后一条记录的id
     let lastid = req.query.lastid || req.body.lastid;
     // 是点击的上一页还是下一页
-    let isnext = req.query.isnext || req.body.isnext || 0;// 0表示请求下一页 1表示请求上一页
-    
+    let isnext = req.query.isnext || req.body.isnext || "0";// 0表示请求下一页 1表示请求上一页
+    // 上一页的最后一条记录的id
+    //let lastid = req.query.lastid;
     if(lastid){
-        if(isnext){
+        if(isnext=="0"){
             query._id = {
                 $lt: mongoose.Types.ObjectId(lastid)
             }
@@ -68,59 +69,6 @@ router.get('/del', function(req, res, next){
         }
     });
 });
-
-/**
- * 编辑用户信息
- */
-/*router.get('/edit', function(req, res, next){
-    // 记录id
-    let _id = req.query.id;
-    if(!_id) {
-        res.json({code: 201, msg: 'id不能为空'});
-        return;
-    }
-    获取手机号码
-    let telphone = req.query.telphone;
-    let isPhone = commonUtils.verifyPhone(telphone);
-    if(!isPhone) {
-        res.json({code: 201, msg: '手机号码格式不正确'});
-        return;
-    }
-    let sharecount = req.query.sharecount;
-    let imtoken = req.query.imtoken;
-    let update = {};
-    if(sharecount && imtoken){
-        update = {
-            $set: {
-                sharecount: sharecount,
-                imtoken: imtoken
-            }
-        }
-    }else if(sharecount && !imtoken){
-        update = {
-            $set: {
-                sharecount: sharecount
-            }
-        }
-    }else if(!sharecount && imtoken){
-        update = {
-            $set: {
-                imtoken: imtoken
-            }
-        }
-    }
-    Player.updateById(
-        mongoose.Types.ObjectId(_id), 
-        update, 
-        function(err, c){
-            if(!err && c){
-                res.json({code: 200, msg: '更新成功'});
-            }else{
-                res.json({code: 201, msg: '更新失败'});
-            }  
-        }
-    );
-});*/
 
 
 module.exports = router;
