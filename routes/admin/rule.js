@@ -138,11 +138,11 @@ router.get('/editother', function(req, res, next){
 
 // 查询回复规则
 router.get('/data', function(req, res, next){
-    // 从哪一条开始
-    let start = req.query.start || req.body.start || 0;
-    start = parseInt(start);
-    if(Object.is(NaN, start)){
-        res.json({code: 'start格式不正确'});
+    // 查询第几页的数据
+    let page = req.query.page || req.body.page; 
+    page = parseInt(page);
+    if(Object.is(NaN, page) || page<0){
+        res.json({code: 'page格式不正确'});
         return;
     }
     // 查询偏移几条
@@ -152,6 +152,10 @@ router.get('/data', function(req, res, next){
         res.json({code: 'offset格式不正确'});
         return;
     }
+
+    // 从哪一条开始
+    let start = (page-1) * offset;
+    
     let countPromise = function(){
         return new Promise(function(resolve, reject){
             Replyrule.count({}, function(err, c){

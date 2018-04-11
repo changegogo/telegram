@@ -154,9 +154,10 @@
     <span>
     <pre>
     {
-        start: 10, // 开始的条目
+        page: 1, // 代表第几页数据，从1开始
         offset: 20 // 查询多少条目
     }
+    例如：http://localhost:8080/admin/task/data?page=1&offset=10
     </pre>
     </span>
     响应数据：
@@ -257,8 +258,8 @@
     <span>
     <pre>
     {
-        start: 0, // 开始条目
-        offset: 10 // 查询条目数
+        page: 1, // 代表第几页数据，从1开始
+        offset: 20 // 查询多少条目
     }
     </pre>
     </span>

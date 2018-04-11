@@ -26,6 +26,8 @@ router.get('/smsapi', function(req, res, next){
         console.log(code);
         // 将验证码存入session
         req.session.smscode = code;
+        // 将手机号存入session
+        req.session.telphone = telphone;
         // 封装请求体
         let postData = {
             PhoneNumbers: telphone,
@@ -95,20 +97,26 @@ router.post('/smsbind', function(req, res, next){
         return;
     }
 
-    // 数据完整
-    // 数据验证
-    let isSmscode = commonUtils.verifySmscode(smscode,req.session.smscode);
-    // 清除短信验证码
-    req.session.smscode = null;
-    if(!isSmscode){
-        res.json({code: 202, msg: "验证码不正确", results: []});
-        return;
-    }
+    //验证手机号是否格式正确
     let isPhone = commonUtils.verifyPhone(telphone);
     if(!isPhone){
         res.json({code: 202, msg: "手机号码不合法", results: []});
         return;
     }
+
+    // session中的手机号和传过来的手机号对比
+    let isTelphone = commonUtils.verifyTelphone(telphone,req.session.telphone);
+    if(!isTelphone){
+        res.json({code: 202, msg: "请获取短信验证码", results: []});
+        return;
+    }
+
+    let isSmscode = commonUtils.verifySmscode(smscode,req.session.smscode);
+    if(!isSmscode){
+        res.json({code: 202, msg: "验证码不正确", results: []});
+        return;
+    }
+    
     let isImtoken = commonUtils.verifyImtoken(imtoken);
     if(!isImtoken){
         res.json({code: 202, msg: "imtoken不合法", results: []});
@@ -146,6 +154,9 @@ router.post('/smsbind', function(req, res, next){
                             let idencode = commonUtils.generateidentitycode(telphone, imtoken);
                             // 说明有匹配的注册用户，直接登录
                             reject({code: 200, msg: "手机号和imtoken匹配,登录成功",identitycode:idencode});
+                            // 清除短信验证码
+                            req.session.telphone = null;
+                            req.session.smscode = null;
                         }else{
                             // 手机号和imtoken不匹配
                             reject({code: 201, msg: "手机号和imtoken不匹配"});
@@ -215,6 +226,9 @@ router.post('/smsbind', function(req, res, next){
                 if(!err && player){
                     //req.session.identitycode = identitycodeself;
                     resolve({code: 200, msg: "绑定成功",identitycode:identitycodeself, invitcode: invitcode});
+                    // 清除短信验证码
+                    req.session.telphone = null;
+                    req.session.smscode = null;
                 }else{
                     reject({code: 204, msg: "绑定失败"});
                 }
