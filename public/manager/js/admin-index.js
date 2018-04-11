@@ -99,9 +99,9 @@ $(function () {
     function searchMethod() { //click searchBtn search info
         var myreg=/^[1][3,4,5,6,7,8][0-9]{9}$/;
         $(".search-btn").click(function () {
-            if ($("#mobile-phone").val() === '' || !myreg.test($("#mobile-phone").val())) {
-                alert('手机号不能为空或者手机号格式不正确') ;
-            } else {
+            // if ($("#mobile-phone").val() === '' || !myreg.test($("#mobile-phone").val())) {
+            //     alert('手机号不能为空或者手机号格式不正确') ;
+            // } else {
                 var dataObj = {
                     lastid: '',
                     isnext: '',
@@ -109,7 +109,7 @@ $(function () {
                     ispickup: $("#isPickUpCan").val()
                 } ;
                 initalPlayerMethod (dataObj) ;
-            }
+            // }
         })
     }
     prevPageMethod()

@@ -12,11 +12,23 @@
   <link rel="icon" type="image/png" href="../i/favicon.png">
   <link rel="apple-touch-icon-precomposed" href="../i/app-icon72x72@2x.png">
   <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-  <link rel="stylesheet" href="../css/amazeui.min.css"/>
+  <link rel="stylesheet" href="../css/amazeui.min.css">
   <link rel="stylesheet" href="../css/admin.css">
   <style type="text/css">
     .am-selected {
       width: 100px;
+    }
+    [v-cloak] {
+      display: none;
+    }
+    .selectGroup-wrapper .am-selected-list{
+      height: 230px;
+      overflow-y: scroll;
+    }
+    @media only screen and (min-width: 641px) {
+      .am-modal-dialog {
+        width: 600px;
+      }
     }
   </style>
 </head>
@@ -67,7 +79,7 @@
   <!-- sidebar end -->
 
   <!-- content start -->
-  <div class="admin-content" id="am_form">
+  <div class="admin-content" id="am_form" v-cloak>
     <div class="add-qunfa-wrapper">
       <button
           type="button"
@@ -92,7 +104,7 @@
           <tr v-for='(item,key) in list'>
             <td> {{ key + 1 }} </td>
             <td v-if="item.tasktype == 0" > {{ item.year.toString() }}年{{ item.month.toString() }}月{{ item.day.toString() }}日{{ item.hour.toString() }}时{{ item.minute.toString() }}分{{ item.second.toString()}}秒</td>
-            <td v-else-if="item.tasktype == 1" > {{ item.dayOfWeek.length ? item.dayOfWeek : '每天'}} </td>
+            <td v-else-if="item.tasktype == 1" > {{ item.dayOfWeek.length ? item.dayOfWeek.join() : '每天'}} </td>
             <td v-else-if="item.tasktype == 2" > {{ item.createtime }} </td>
             <td> {{ item.taskstatus ? '开启' : '关闭' }} </td>
             <td>
@@ -118,11 +130,11 @@
         <div class="am-modal-bd">
           <form class="am-form am-form-horizontal">
             <div class="am-form-group">
-              <label for="doc-ipt-3" class="am-u-sm-3 am-form-label">发送时间:</label>
+              <label  class="am-u-sm-3 am-form-label">发送时间:</label>
               <div class="am-u-sm-9">
                 <div class="am-radio am-u-sm-4">
                   <label>
-                    <input type="radio" name="doc-radio-1" v-model='send_mode' value="send_1">
+                    <input type="radio" name="doc-radio-1" v-model='send_mode' value="send_1" checked="checked">
                     定时发送
                   </label>
                 </div>
@@ -149,28 +161,32 @@
                 </span>
               </div>
             </div>
-            <div class="am-form-group" v-show="send_mode == 'send_2'">
+            <div class="am-form-group selectGroup-wrapper" v-show="send_mode == 'send_2'">
+              周：
               <select class="confirm_dd" multiple data-am-selected>
                 <!-- <option value="" selected>星期</option> -->
-                <option :value="key + 1" v-for='(value, key) in 7'> {{ value }} </option>
+                <option :value="key" v-for='(value, key) in weekList'> {{ value }} </option>
               </select>
+              时：
               <select class="confirm_hh" multiple data-am-selected>
                 <!-- <option value="" selected>时</option> -->
-                <option :value="key + 1" v-for='(value, key) in 23'> {{ value }} </option>
+                <option :value="key" v-for='(value, key) in 23'> {{ value }} </option>
               </select>
+              分：
               <select class="confirm_mm" multiple data-am-selected>
                 <!-- <option value="" selected>分</option> -->
-                <option :value="key + 1" v-for='(value, key) in 23'> {{ value }} </option>
+                <option :value="key" v-for='(value, key) in 59'> {{ value }} </option>
               </select>
+              秒：
               <select class="confirm_ss" multiple data-am-selected>
                 <!-- <option value="" selected>秒</option> -->
-                <option :value="key + 1" v-for='(value, key) in 23'> {{ value }} </option>
+                <option :value="key" v-for='(value, key) in 59'> {{ value }} </option>
               </select>
               <div id="#js-selected-info"></div>
             </div>
             <div class="am-form-group" v-show="send_mode == 'send_3'"></div>
             <div class="am-form-group">
-              <label for="doc-ipt-pwd-2" class="am-u-sm-3 am-form-label">是否开启</label>
+              <label  class="am-u-sm-3 am-form-label">是否开启</label>
               <div class="am-u-sm-9">
                 <div class="am-radio am-u-sm-4">
                   <label>
@@ -180,14 +196,14 @@
                 </div>
                 <div class="am-radio am-u-sm-4" style="float: left;">
                   <label>
-                    <input type="radio" v-model='status' name="doc-radio-2" value="0" checked>
+                    <input type="radio" v-model='status' name="doc-radio-2" value="0">
                     关闭
                   </label>
                 </div>
               </div>
             </div>
             <div class="am-form-group">
-              <label for="doc-ipt-pwd-2" class="am-u-sm-3 am-form-label">内容</label>
+              <label  class="am-u-sm-3 am-form-label">内容</label>
               <div class="am-u-sm-9">
                 <textarea class="tasktext" v-model='tasktext' rows="5" id="doc-ta-1"></textarea>
               </div>
@@ -200,6 +216,7 @@
         </div>
       </div>
     </div>
+    <navigation :pages="pages" :current.sync="pageNo" @navpage="msgListView"></navigation>
 
   </div>
   <!-- content end -->
@@ -214,8 +231,11 @@
 
 
 <script src="../../common/js/jquery-3.3.1.min.js"></script>
+<script src="../js/ajaxhook.min.js"></script>
+<script src="../js/ajaxIntercept.js"></script>
 <script src='../js/vue.min.js'></script>
 <script src="../js/amazeui.min.js"></script>
+<script src="../js/pagination.js"></script>
 <script src="../js/laydate/laydate.js"></script>
 <script type="text/javascript">
 
@@ -239,10 +259,13 @@
         dd: '',
         hh: '',
         mm: '',
-        ss: '',
+        ss: ''
       },
       status: '',
       tasktext: '',
+      pageNo: 1,
+      pages:10,
+      weekList: ['日', '一' ,'二' ,'三' ,'四' ,'五' ,'六']
 
     },
     mounted () {
@@ -260,8 +283,8 @@
           type: 'GET',
           url: '../../admin/task/data',
           data: {
-            start: 0,
-            offset: 10,
+            page: self.pageNo,
+            offset: 20,
           },
           success: function(data) {
             console.log(data)
@@ -287,7 +310,7 @@
             tasktype: 1,
             tasktext: this.tasktext,
             taskstatus: this.taskstatus,
-            dataOfWeek: dataOfWeek, //取值 0-6，0代表周日
+            dayOfWeek: dataOfWeek, //取值 0-6，0代表周日
             hour: hour, //取值 0-23
             minute: minute, //取值 0-59
             second: second, //取值 0-59
@@ -362,12 +385,16 @@
           for(let j=0; j<result_length; j++){
             tip_content += this.list[i].taskresults[j].msg + new Date(this.list[i].taskresults[j].time).toLocaleTimeString() + '<br />'
            }
-           console.log(tip_content);
           $('#my-popover'+i).popover({
             content: tip_content,
             trigger: 'hover'
           });
         }
+      },
+      msgListView(curPage){
+          //根据当前页获取数据
+          this.pageNo = curPage;
+          this.getList() ;
       }
     }
   })

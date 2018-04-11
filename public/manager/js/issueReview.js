@@ -79,14 +79,15 @@ $(function () {
                     $(".listTbody").append(trItem) ;
                 }
                 $(".listItem").eq(0).remove() ;
-                $('.listTbody').find('.aggree-btn').add('#doc-confirm-toggle'). //agree btn tibi
+
+
+                $('.listItem').find('.aggree-btn').add('#doc-confirm-toggle'). //agree btn tibi
                 on('click', function() {
-                    $('.wordsIsAR-text').text('同意') ;
+                    console.log($('.listItem').find('.aggree-btn').add('#doc-confirm-toggle'))
                     $('#my-confirm').modal({
                         relatedTarget: this,
                         onConfirm: function(options) {
                             var $link = $(this.relatedTarget).parent().parent().parent().parent();
-                            console.log($link)
                             var itemId = $link.attr('dataid') ;
                             console.log(itemId)
                             agreeItemTibiMethod (itemId) ;
@@ -96,10 +97,9 @@ $(function () {
                         }
                     });
                 });
-                $('.listTbody').find('.refuse-btn').add('#doc-confirm-toggle'). //refuse btn tibi
+                $('.listItem').find('.refuse-btn').add('#doc-confirm-toggle'). //refuse btn tibi
                 on('click', function() {
-                    $('.wordsIsAR-text').text('拒绝') ;
-                    $('#my-confirm').modal({
+                    $('#my-confirm2').modal({
                         relatedTarget: this,
                         onConfirm: function(options) {
                             var $link = $(this.relatedTarget).parent().parent().parent().parent();
@@ -127,8 +127,16 @@ $(function () {
             },
             success: function (res) {
                 if (res.code === 200) {
-                    alert('同意成功') ;
-                    $(".listItem[dataid="+id+"]").children(".status-nowing").text('同意') ;
+                    if (id.split(',').length > 1) {
+                        var idsArray = id.split(',') ;
+                        for (var i=0 ; i<idsArray.length; i++) {
+                            $(".listItem[dataid="+idsArray[i]+"]").children(".status-nowing").text('同意') ;
+                        }
+                        alert('同意成功') ;
+                    } else {
+                        alert('同意成功') ;
+                        $(".listItem[dataid="+id+"]").children(".status-nowing").text('同意') ;
+                    }
                     // initalIssueReviewDataMethod (dataObj) ;
                 } else {
                     alert(res.msg) ;
@@ -149,8 +157,16 @@ $(function () {
             },
             success: function (res) {
                 if (res.code === 200) {
-                    alert('拒绝成功') ;
-                    $(".listItem[dataid="+id+"]").children(".status-nowing").text('拒绝') ;
+                    if (id.split(',').length > 1) {
+                        var idsArray = id.split(',') ;
+                        for (var i=0 ; i<idsArray.length; i++) {
+                            $(".listItem[dataid="+idsArray[i]+"]").children(".status-nowing").text('拒绝') ;
+                        }
+                        alert('拒绝成功') ;
+                    } else {
+                        alert('拒绝成功') ;
+                        $(".listItem[dataid="+id+"]").children(".status-nowing").text('拒绝') ;
+                    }
                     // initalIssueReviewDataMethod (dataObj) ;
                 } else {
                     alert(res.msg) ;
@@ -195,6 +211,8 @@ $(function () {
                     idList += ($(":checkbox[name=checkboxName]:checked").eq(i).parent().parent().attr('dataid') + ',') ;
                 }
                 idList = idList.substring(0, idList.length -1) ;
+                console.log(idList) ;
+                // return
                 agreeItemTibiMethod(idList) ;
             }
         })
@@ -219,11 +237,11 @@ $(function () {
         var myreg=/^[1][3,4,5,6,7,8][0-9]{9}$/;
         $(".searchReview-btn").click(function () {
             console.log(myreg.test($("#mobile-phone").val()))
-            if ($("#mobile-phone").val() === '' || !myreg.test($("#mobile-phone").val())) {
-                alert('手机号不能为空或者手机号格式不正确') ;
-            } else if ($(".startDate-input").val() === '') {
-                alert('请选择开始日期') ;
-            } else {
+            // if ($("#mobile-phone").val() === '' || !myreg.test($("#mobile-phone").val())) {
+            //     alert('手机号不能为空或者手机号格式不正确') ;
+            // } else if ($(".startDate-input").val() === '') {
+            //     alert('请选择开始日期') ;
+            // } else {
                 var dataObj = {
                     lastid: '' ,// 当前页的开始id或结束id
                     isnext: '', // 0表示请求下一页，1表示请求上一页
@@ -233,7 +251,7 @@ $(function () {
                     status: $("#isDealCanStatus").val()  //0全部 1未处理 2同意 3拒绝
                 } ;
                 initalIssueReviewDataMethod (dataObj) ;
-            }
+            // }
         })
     }
 
@@ -276,13 +294,12 @@ $(function () {
                 alert('没有可导出的数据') ;
                 return false
             } else {
-                alert(window.location.protocol)
                 var idList = '' ;
                 for (var i=0; i<checkedLength; i++) {
                     idList += ($(":checkbox[name=checkboxName]").eq(i).parent().parent().attr('dataid') + ',') ;
                 }
                 idList = idList.substring(0, idList.length -1) ;
-                window.location.href = window.protocol + '//' + window.location.host +'/admin/review/xlsx?ids=' + idList ;
+                window.location.href = window.location.protocol + '//' + window.location.host +'/admin/review/xlsx?ids=' + idList ;
             }
 
 

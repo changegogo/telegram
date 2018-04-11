@@ -14,6 +14,7 @@
   <meta name="apple-mobile-web-app-title" content="Amaze UI" />
   <link rel="stylesheet" href="../css/amazeui.min.css"/>
   <link rel="stylesheet" href="../css/admin.css">
+
 </head>
 <body>
 
@@ -67,7 +68,7 @@
       <button
           type="button"
           class="am-btn am-btn-primary"
-          data-am-modal="{target: '#my-alert'}"
+          data-am-modal="{target: '#my-alert', closeViaDimmer: 0}"
           style="margin: 20px;">
         添加消息群发
       </button>
@@ -87,15 +88,15 @@
           <tr v-for='(item,key) in list'>
             <td> {{ key + 1 }} </td>
             <td> {{ item.rulename }} </td>
-            <td> {{ item.keywords }} </td>
+            <td> {{ item.keywords.join() }} </td>
             <td>
-              <div class="am-btn am-btn-primary am-btn-xs" :id="'my-popover'+key">查看</div>
+              <div class="" :id="'my-popover'+key" :title="item.replycontent" style="width:300px;overflow-y: hidden;white-space: nowrap;text-overflow: ellipsis;">{{ item.replycontent }}</div>
             </td>
             <td>
               <div class="am-btn-toolbar">
                 <div class="am-btn-group am-btn-group-xs">
-                  <div class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</div>
-                  <div class="am-btn am-btn-default am-btn-xs am-text-sm" :data_status='item.status' :data_id='item._id' @click='btn_switch($event)'><span class="am-icon-pencil-square-o"></span> {{ item.status ? '开启' : '关闭' }}</div>
+                  <div class="am-btn am-btn-default am-btn-xs am-text-secondary" data-am-modal="{target: '#my-alert', closeViaDimmer: 0}" @click="editKeywordMethod(item._id,item.rulename, item.keywords, item.replycontent,item.status)"><span class="am-icon-pencil-square-o"></span> 编辑</div>
+                  <div class="am-btn am-btn-default am-btn-xs am-text-sm"  @click='btn_switch(item._id, item.status)'><span class="am-icon-pencil-square-o"></span> {{ item.status ? '关闭' : '开启' }}</div>
                   <div class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" :data_id='item._id' @click='btn_delate($event)' ><span class="am-icon-trash-o"></span> 删除</div>
                 </div>
               </div>
@@ -106,28 +107,28 @@
       </form>
 
     </div>
-    <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+    <div class="am-modal " tabindex="-1" id="my-alert">
       <div class="am-modal-dialog">
-        <div class="am-modal-hd">添加规则</div>
+        <div class="am-modal-hd">{{titleRule}}</div>
         <div class="am-modal-bd">
           <form class="am-form am-form-horizontal">
             <!-- rulename: '规则名称', // 规则名称
           keywords: '你好,好啊' // 关键词
           replycontent: '你好' //后台回复内容  -->
             <div class="am-form-group">
-              <label for="doc-ipt-pwd-2" class="am-u-sm-3 am-form-label">规则名称</label>
+              <label  class="am-u-sm-3 am-form-label">规则名称</label>
               <div class="am-u-sm-9">
                 <input type="text" v-model='rulename' placeholder="">
               </div>
             </div>
             <div class="am-form-group">
-              <label for="doc-ipt-pwd-2" class="am-u-sm-3 am-form-label">关键词</label>
+              <label  class="am-u-sm-3 am-form-label">关键词</label>
               <div class="am-u-sm-9">
                 <input type="text" v-model='keywords' placeholder="">
               </div>
             </div>
             <div class="am-form-group">
-              <label for="doc-ipt-pwd-2" class="am-u-sm-3 am-form-label">回复内容</label>
+              <label  class="am-u-sm-3 am-form-label">回复内容</label>
               <div class="am-u-sm-9">
                 <textarea class="replycontent" v-model='replycontent' rows="5" id="doc-ta-1"></textarea>
               </div>
@@ -135,11 +136,13 @@
           </form>
         </div>
         <div class="am-modal-footer">
-          <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-          <span class="am-modal-btn" @click='addTask()' data-am-modal-confirm>确定</span>
+          <span class="am-modal-btn" data-am-modal-cancel @click="cancelMethod">取消</span>
+          <span class="am-modal-btn" @click='add_rule()' data-am-modal-confirm>确定</span>
         </div>
       </div>
     </div>
+    <navigation :pages="pages" :current.sync="pageNo" @navpage="msgListView"></navigation>
+
   </div>
   <!-- content end -->
 </div>
@@ -151,8 +154,11 @@
 
 
 <script src="../../common/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../js/ajaxhook.min.js"></script>
+<script type="text/javascript" src="../js/ajaxIntercept.js"></script>
 <script src='../js/vue.min.js'></script>
 <script src="../js/amazeui.min.js"></script>
+<script type="text/javascript" src="../js/pagination.js"></script>
 <script type="text/javascript">
   var am_form = new Vue({
     el: '#am_form',
@@ -160,13 +166,27 @@
       list: '',
       rulename: '', 
       keywords: '',
-      replycontent: ''
+      replycontent: '',
+      pageNo: 1,
+      pages:10,
+      editStatus: false,
+      titleRule: '添加规则',
+      editId: '',
+      editItemStatus: '' ,
+      watchCheck_content: false
     },
     mounted() {
       this.getList();
     },
+    watch: {
+        watchCheck_content (newdata) {
+            if (newdata) {
+                this.check_content();
+            }
+        }
+    },
     updated () {
-      this.check_content();
+      // this.check_content();
     },
     methods: {
       getList () {
@@ -175,7 +195,7 @@
           type: 'GET',
           url: '../../admin/rule/data',
           data: {
-            page: 1,
+            page: self.pageNo,
             offset: 10,
           },
           success: function(data) {
@@ -184,54 +204,34 @@
           }
         })
       },
-      add_rule () {
-        let data = {
-          rulename: this.rulename, // 规则名称
-          keywords: this.keywords, // 关键词
-          replycontent: this.replycontent //后台回复内容 
-        }
-        var self = this;
-        $.ajax({
-          type: 'GET',
-          url: '../../admin/rule/add',
-          data: data,
-          success (data) {
-            self.list=data.rows
-            console.log('add_rule==>' + data)
-          },
-        });
-      },
+
       check_content () {
         let tip_length = this.list.length,
         tip_content='';
         for(let i=0; i<tip_length; i++) {
-          tip_content += this.list[i].replycontent + '<br />'
+          tip_content = this.list[i].replycontent + '<br />'
            $('#my-popover'+i).popover({
               content: tip_content,
               trigger: 'hover'
             });
         }
       },
-      btn_switch (e) {
+      btn_switch (id, status) {
         var self = this;
-        let id = e.target.getAttribute('data_id')
-        let status = e.target.getAttribute('data_status')
         var data = {
           id: id,
-          status: status ? 1 : 0
+          status: status ? 0 : 1
         }
-        console.log('====='+JSON.stringify(data))
-
         $.ajax({
           type: 'GET',
           url: '../../admin/rule/editstatus',
           data: data,
           success(data) {
-            console.log(data)
+            alert('修改状态成功') ;
             self.getList();
           },
           error() {
-
+              alert('修改状态失败') ;
           }
         })
       },
@@ -250,6 +250,71 @@
           }
         })
       },
+      msgListView(curPage){
+          //根据当前页获取数据
+          this.pageNo = curPage;
+          this.getList() ;
+      },
+      editKeywordMethod(id, ruleName, keywords, replycontent, status) {
+          this.titleRule = '修改规则' ;
+          this.editStatus = true ;
+          this.rulename = ruleName ;
+          this.keywords = keywords.join() ;
+          this.replycontent = replycontent ;
+          this.editStatus = true ;
+          this.editId = id ;
+          this.editItemStatus = status ;
+      },
+      add_rule () {
+          if (this.editStatus) {
+              let data = {
+                  id: this.editId, //任务id
+                  rulename: this.rulename, // 规则名称
+                  keywords: this.keywords, // 关键ci
+                  replycontent: this.replycontent,
+                  status: this.editItemStatus //状态 0开启 1关闭
+              }
+              var self = this;
+              $.ajax({
+                  type: 'GET',
+                  url: '../../admin/rule/editother',
+                  data: data,
+                  success (data) {
+                      alert('修改成功');
+                      self.rulename = '' ;
+                      self.keywords = '' ;
+                      self.replycontent = '' ;
+                      self.watchCheck_content = true ;
+                      self.titleRule = '添加规则' ;
+                      self.editStatus = false
+                      self.getList() ;
+                  },
+              });
+          } else {
+              let data = {
+                  rulename: this.rulename, // 规则名称
+                  keywords: this.keywords, // 关键词
+                  replycontent: this.replycontent //后台回复内容
+              }
+              var self = this;
+              $.ajax({
+                  type: 'GET',
+                  url: '../../admin/rule/add',
+                  data: data,
+                  success (data) {
+                      alert('添加成功') ;
+                      self.getList() ;
+                  },
+              });
+          }
+      },
+      cancelMethod() {
+          this.rulename = '' ;
+          this.keywords = '' ;
+          this.replycontent = '' ;
+          this.titleRule = '添加规则' ;
+          this.editStatus = false ;
+      }
     }
   })
 </script>
