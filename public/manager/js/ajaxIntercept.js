@@ -1,21 +1,17 @@
 interceptAjaxMethod() ;
 function interceptAjaxMethod() {
-    $.ajaxSetup({
-        contentType:"application/x-www-form-urlencoded;charset=utf-8",
-        complete:function(XMLHttpRequest,textStatus){
-            //通过XMLHttpRequest取得响应结果
-            var res = XMLHttpRequest.responseText;
-            try{
-                var jsonData = JSON.parse(res);
-                if(jsonData.code === 202 ) {
-                    alert('登录超时，请先登录') ;
-                    window.location.href = 'login.html' ;
-                }
-            }catch(e){
+    hookAjax({
+        //拦截回调
+        onload:function(xhr){
+            var res = JSON.parse(xhr.response) ;
+            if (res.code !== 200) {
+                alert('登录超时，请先登录') ;
+                window.location.href = 'login.html' ;
             }
         }
-    });
+    })
 }
+
 $(".loginOut-btn").click(function () {
     $.ajax({
         type: 'GET',

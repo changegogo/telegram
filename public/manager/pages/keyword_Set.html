@@ -27,7 +27,7 @@
   <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
 
     <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-      <li><a href="login.html"><span class="am-icon-power-off"></span> 退出</a></li>
+      <li class="loginOut-btn"><a href="javascript:void(0);"><span class="am-icon-power-off"></span> 退出</a></li>
     </ul>
   </div>
 </header>
@@ -173,7 +173,7 @@
         var self = this;
         $.ajax({
           type: 'GET',
-          url: '/admin/rule/data',
+          url: '../../admin/rule/data',
           data: {
             page: 1,
             offset: 10,
@@ -193,7 +193,7 @@
         var self = this;
         $.ajax({
           type: 'GET',
-          url: '/admin/rule/add',
+          url: '../../admin/rule/add',
           data: data,
           success (data) {
             self.list=data.rows
@@ -224,7 +224,7 @@
 
         $.ajax({
           type: 'GET',
-          url: '/admin/rule/editstatus',
+          url: '../../admin/rule/editstatus',
           data: data,
           success(data) {
             console.log(data)
@@ -240,7 +240,7 @@
         let id = e.target.getAttribute('data_id')
         $.ajax({
           type: 'GET',
-          url: '/admin/rule/del',
+          url: '../../admin/rule/del',
           data: {
             id: id
           },
