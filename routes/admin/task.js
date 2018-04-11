@@ -135,7 +135,7 @@ router.get('/data', function(req, res, next){
                 
             }).skip(start)
             .limit(offset)
-            .sort({'createtime': -1});
+            .sort({createtime: -1});
         });
     }
     Promise.all([countPromise(), dataPromise()])

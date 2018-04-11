@@ -12,11 +12,11 @@ const commonUtils = require('../../utils/commonUtils');
 router.get('/', function(req, res, next){
     let query = {};
     // 是点击的上一页还是下一页
-    let isnext = req.query.isnext || req.body.isnext || 0;// 0表示请求下一页 1表示请求上一页
+    let isnext = req.query.isnext || req.body.isnext || "0";// 0表示请求下一页 1表示请求上一页
     // 上一页的最后一条记录的id
     let lastid = req.query.lastid;
     if(lastid){
-        if(isnext){
+        if(isnext=="0"){
             query._id = {
                 $lt: mongoose.Types.ObjectId(lastid)
             }
@@ -48,12 +48,21 @@ router.get('/', function(req, res, next){
     }else{
         // 查询全部数据
     }
-    try {
-        undefined==startDate?'':new Date(startDate).toISOString();
-        undefined==endDate?'':new Date(endDate).toISOString();
-    } catch (error) {
-        res.json({code: 201, msg: '时间格式不正确'});
-        return;
+    if(startDate!=''){
+        try {
+            undefined==startDate?'':new Date(startDate).toISOString();
+        } catch (error) {
+            res.json({code: 201, msg: '时间格式不正确'});
+            return;
+        }
+    }
+    if(endDate!=''){
+        try {
+            undefined==endDate?'':new Date(endDate).toISOString();
+        } catch (error) {
+            res.json({code: 201, msg: '时间格式不正确'});
+            return;
+        }
     }
     
     if(startDate && endDate){
@@ -86,7 +95,7 @@ router.get('/', function(req, res, next){
         }else{
             res.json({code: 201, msg: '查询失败'});
         }
-    }).limit(commonUtils.pagesize);
+    }).sort({createtime: -1}).limit(commonUtils.pagesize);
 });
 
 // 操作发币信息 /admin/review/oper
@@ -128,57 +137,39 @@ router.get('/oper', function(req, res, next){
 const Excel = require('exceljs');
 // 导出到excel
 router.get('/xlsx', function(req, res, next){
-    // 手机号
-    let telphone = req.query.telphone;
-    // 开始日期
-    let startDate = req.query.startDate;
-    // 结束日期
-    let endDate = req.query.endDate;
-    // 查询状态 0全部 1未处理 2同意 3拒绝
-    let status = req.query.status;
     let query = {};
-    if(telphone){
-        query.telphone = telphone;
-    }
-    if(status === 1){
-        query.isdeal = 1; // 查询未处理的数据
-    }else if(status === 2){
-        query.isdeal = 2; // 查询同意的数据
-    }else if(status === 3){
-        query.isdeal = 3; // 查询拒绝的数据
-    }else{
-        // 查询全部数据
-    }
-    try {
-        undefined==startDate?'':new Date(startDate).toISOString();
-        undefined==endDate?'':new Date(endDate).toISOString();
-    } catch (error) {
-        res.json({code: 201, msg: '时间格式不正确'});
+    let ids = req.query.ids || req.body.ids;
+    if(!ids){
+        res.send('id不能为空');
+        res.end();
         return;
     }
-
-    if(startDate && endDate){
-        startDate = new Date(startDate).toISOString();
-        endDate = new Date(startDate).toISOString();
-        if(startDate <= endDate){
-            query.createtime = {
-                '$gte': startDate,
-                '$lte': endDate
-            }
-        }else {
-            res.json({code: 203, msg: '开始时间不能大于结束时间'});
-            return;
-        }
-    }else if(startDate && !endDate){
-        startDate = new Date(startDate).toISOString();
-        endDate = new Date().toISOString();
-        query.createtime = {
-            '$gte': startDate,
-            '$lte': endDate
-        }
-    }else if(!startDate && endDate){
-        res.json({code: 202, msg: '开始时间不能为空'});
+    ids = ids.split(',');
+    if(ids.length == 0){
+        res.send('id不能为空');
+        res.end();
         return;
+    }
+    let objectids = [];
+    for(let i=0;i<ids.length;i++){
+        let id = null;
+        try {
+            id = mongoose.Types.ObjectId(ids[i]);
+            objectids.push(id);
+        } catch (error) {
+            
+        }
+    }
+   
+    if(objectids.length == 0){
+        res.send('没有数据');
+        res.end();
+        return;
+    }
+    query = {
+        _id: {
+            $in: objectids
+        }
     }
 
     let promise = new Promise(function(resolve, reject){
@@ -222,17 +213,24 @@ router.get('/xlsx', function(req, res, next){
         // 生成标题头
         worksheet.columns = headers;
         let rows = value.results;
-        rows = rows.map(function(ele){
+        let rows2 = rows.map(function(ele){
+            let newobj = {};
             let isdeal = ele.isdeal;
-            isdeal===1?ele.isdeal='未处理':(isdeal===2?ele.isdeal='同意':ele.isdeal='拒绝');
-            return ele;
+            newobj._id = ele._id;
+            newobj.telphone = ele.telphone;
+            newobj.createtime = ele.createtime;
+            newobj.imtoken = ele.imtoken;
+            newobj.ip = ele.ip;
+            newobj.cancount = ele.cancount;
+            isdeal==1?newobj.isdeal='未处理':(isdeal==2?newobj.isdeal='同意':newobj.isdeal='拒绝');
+            return newobj;
         });
-        worksheet.addRows(rows);
+        worksheet.addRows(rows2);
 
         res.set('Content-Type','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         res.setHeader('Content-Disposition', 'youlan');
         res.set('Set-Cookie', 'fileDownload=true; path=/');
-        res.attachment("test.xlsx");
+        res.attachment(Date.now()+".xlsx");
         workbook.xlsx.write(res)
         .then(function() {
             res.end();

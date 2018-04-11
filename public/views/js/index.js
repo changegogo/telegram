@@ -52,6 +52,7 @@ $(function () {
             success: function (res) {
                 if (res.code === 200) {
                     $(".sendcode-error").html('').hide();
+                    timerTimeOutTip('./common/images/success_icon.png', res.msg) ;
                     return true
                 } else {
                     $(".sendcode-error").html(res.message).show();
