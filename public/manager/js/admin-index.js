@@ -129,7 +129,7 @@ $(function () {
     nextPageMethod() ;
     function nextPageMethod() { //click next page
         setTimeout(function () {
-            $(".prev-btn").click(function () {
+            $(".next-btn").click(function () {
                 var dataObj = {
                     lastid: $(".listItem").eq(-1).attr('dataid'),
                     isnext: 0,

@@ -246,7 +246,7 @@ $(function () {
                     isnext: 1, // 0表示请求下一页，1表示请求上一页
                     telphone: $("#mobile-phone").val(), // 手机号码，如果不选择则传''
                     startDate: $(".startDate-input").val(), // 查询开始时间，如果不选择则传''
-                    endDate: $(".endDate-input").val(), // 查询结束时间，如果不选择则传''
+                    // endDate: $(".endDate-input").val(), // 查询结束时间，如果不选择则传''
                     status: $("#isDealCanStatus").val()  //0全部 1未处理 2同意 3拒绝
                 } ;
                 initalIssueReviewDataMethod (dataObj) ;
@@ -261,7 +261,7 @@ $(function () {
                     isnext: 0, // 0表示请求下一页，1表示请求上一页
                     telphone: $("#mobile-phone").val(), // 手机号码，如果不选择则传''
                     startDate: $(".startDate-input").val(), // 查询开始时间，如果不选择则传''
-                    endDate: $(".endDate-input").val(), // 查询结束时间，如果不选择则传''
+                    // endDate: $(".endDate-input").val(), // 查询结束时间，如果不选择则传''
                     status: $("#isDealCanStatus").val()  //0全部 1未处理 2同意 3拒绝
                 } ;
                 initalIssueReviewDataMethod (dataObj) ;
