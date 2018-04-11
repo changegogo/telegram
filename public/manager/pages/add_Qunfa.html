@@ -258,7 +258,7 @@
         var self = this;
         $.ajax({
           type: 'GET',
-          url: '/admin/task/data',
+          url: '../../admin/task/data',
           data: {
             start: 0,
             offset: 10,
@@ -328,7 +328,7 @@
         console.log('status:' + data)
         $.ajax({
           type: 'GET',
-          url: '/admin/task/onoff',
+          url: '../../admin/task/onoff',
           data: data,
           success(data) {
             console.log(data)
@@ -344,7 +344,7 @@
         let id = e.target.getAttribute('data_id')
         $.ajax({
           type: 'GET',
-          url: '/admin/task/del',
+          url: '../../admin/task/del',
           data: {
             id: id
           },
