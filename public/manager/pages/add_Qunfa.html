@@ -14,6 +14,11 @@
   <meta name="apple-mobile-web-app-title" content="Amaze UI" />
   <link rel="stylesheet" href="../css/amazeui.min.css"/>
   <link rel="stylesheet" href="../css/admin.css">
+  <style type="text/css">
+    .am-selected {
+      width: 100px;
+    }
+  </style>
 </head>
 <body>
 
@@ -62,9 +67,15 @@
   <!-- sidebar end -->
 
   <!-- content start -->
-  <div class="admin-content">
+  <div class="admin-content" id="am_form">
     <div class="add-qunfa-wrapper">
-      <button class="am-btn am-btn-primary am-radius" style="margin: 20px;">添加消息群发</button>
+      <button
+          type="button"
+          class="am-btn am-btn-primary"
+          data-am-modal="{target: '#my-alert'}"
+          style="margin: 20px;">
+        添加消息群发
+      </button>
       <form class="am-form" style="margin-left: 20px;margin-right: 20px;">
         <table class="am-table am-table-bordered am-table-radius">
           <thead>
@@ -78,19 +89,20 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>1</td>
-            <td>2012-10-01</td>
-            <td>开启</td>
+          <tr v-for='(item,key) in list'>
+            <td> {{ key + 1 }} </td>
+            <td v-if="item.tasktype == 0" > {{ item.year.toString() }}年{{ item.month.toString() }}月{{ item.day.toString() }}日{{ item.hour.toString() }}时{{ item.minute.toString() }}分{{ item.second.toString()}}秒</td>
+            <td v-else-if="item.tasktype == 1" > {{ item.dayOfWeek.length ? item.dayOfWeek : '每天'}} </td>
+            <td v-else-if="item.tasktype == 2" > {{ item.createtime }} </td>
+            <td> {{ item.taskstatus ? '开启' : '关闭' }} </td>
             <td>
-              <button class="am-btn am-btn-primary am-btn-xs">查看</button>
+              <div class="am-btn am-btn-primary am-btn-xs" :id="'my-popover'+key">查看</div>
             </td>
             <td>
               <div class="am-btn-toolbar">
                 <div class="am-btn-group am-btn-group-xs">
-                  <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 设置</button>
-                  <button class="am-btn am-btn-default am-btn-xs am-text-sm"><span class="am-icon-pencil-square-o"></span> 关闭</button>
-                  <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+                  <div class="am-btn am-btn-default am-btn-xs am-text-sm" :data_status='item.taskstatus' :data_id='item._id' @click='btn_switch($event)'><span class="am-icon-pencil-square-o"></span> {{ item.taskstatus ? '关闭' : '开启' }}</div>
+                  <div class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" :data_id='item._id' @click='btn_delate($event)' ><span class="am-icon-trash-o"></span> 删除</div>
                 </div>
               </div>
             </td>
@@ -98,10 +110,101 @@
           </tbody>
         </table>
       </form>
-
+      
     </div>
+    <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+      <div class="am-modal-dialog">
+        <div class="am-modal-hd">群发消息</div>
+        <div class="am-modal-bd">
+          <form class="am-form am-form-horizontal">
+            <div class="am-form-group">
+              <label for="doc-ipt-3" class="am-u-sm-3 am-form-label">发送时间:</label>
+              <div class="am-u-sm-9">
+                <div class="am-radio am-u-sm-4">
+                  <label>
+                    <input type="radio" name="doc-radio-1" v-model='send_mode' value="send_1">
+                    定时发送
+                  </label>
+                </div>
+                <div class="am-radio am-u-sm-4">
+                  <label>
+                    <input type="radio" name="doc-radio-1" v-model='send_mode' value="send_2">
+                    重复发送
+                  </label>
+                </div>
+                <div class="am-radio am-u-sm-4">
+                  <label>
+                    <input type="radio" name="doc-radio-1" v-model='send_mode' value="send_3">
+                    即时发送
+                  </label>
+                </div>
+              </div>
+
+            </div>
+            <div class="am-form-group" v-show="send_mode == 'send_1'">
+              <div class="am-input-group am-datepicker-date am-u-sm-6 am-u-sm-offset-3">
+                <input type="text" class="am-form-field" placeholder="日历组件" v-model="send_time_exact" id="test" readonly>
+                <span class="am-input-group-btn">
+                  <button class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
+                </span>
+              </div>
+            </div>
+            <div class="am-form-group" v-show="send_mode == 'send_2'">
+              <select class="confirm_dd" multiple data-am-selected>
+                <!-- <option value="" selected>星期</option> -->
+                <option :value="key + 1" v-for='(value, key) in 7'> {{ value }} </option>
+              </select>
+              <select class="confirm_hh" multiple data-am-selected>
+                <!-- <option value="" selected>时</option> -->
+                <option :value="key + 1" v-for='(value, key) in 23'> {{ value }} </option>
+              </select>
+              <select class="confirm_mm" multiple data-am-selected>
+                <!-- <option value="" selected>分</option> -->
+                <option :value="key + 1" v-for='(value, key) in 23'> {{ value }} </option>
+              </select>
+              <select class="confirm_ss" multiple data-am-selected>
+                <!-- <option value="" selected>秒</option> -->
+                <option :value="key + 1" v-for='(value, key) in 23'> {{ value }} </option>
+              </select>
+              <div id="#js-selected-info"></div>
+            </div>
+            <div class="am-form-group" v-show="send_mode == 'send_3'"></div>
+            <div class="am-form-group">
+              <label for="doc-ipt-pwd-2" class="am-u-sm-3 am-form-label">是否开启</label>
+              <div class="am-u-sm-9">
+                <div class="am-radio am-u-sm-4">
+                  <label>
+                    <input type="radio" v-model='status' name="doc-radio-2" value="1" checked>
+                    开启
+                  </label>
+                </div>
+                <div class="am-radio am-u-sm-4" style="float: left;">
+                  <label>
+                    <input type="radio" v-model='status' name="doc-radio-2" value="0" checked>
+                    关闭
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="am-form-group">
+              <label for="doc-ipt-pwd-2" class="am-u-sm-3 am-form-label">内容</label>
+              <div class="am-u-sm-9">
+                <textarea class="tasktext" v-model='tasktext' rows="5" id="doc-ta-1"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="am-modal-footer">
+          <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+          <span class="am-modal-btn" @click='addTask()' data-am-modal-confirm>确定</span>
+        </div>
+      </div>
+    </div>
+
   </div>
   <!-- content end -->
+
+  
 </div>
 
 
@@ -111,6 +214,163 @@
 
 
 <script src="../../common/js/jquery-3.3.1.min.js"></script>
+<script src='../js/vue.min.js'></script>
 <script src="../js/amazeui.min.js"></script>
+<script src="../js/laydate/laydate.js"></script>
+<script type="text/javascript">
+
+  // 定时发送日期插件初始化
+  laydate.render({ 
+    elem: '#test',
+    type: 'datetime',
+    done: function(value, date, endDate) {
+      am_form.send_time_exact = value;
+
+    }
+  });
+
+  var am_form = new Vue({
+    el: '#am_form',
+    data: {
+      list: '',
+      send_mode: '',
+      send_time_exact: '',
+      send_time_confirm: {
+        dd: '',
+        hh: '',
+        mm: '',
+        ss: '',
+      },
+      status: '',
+      tasktext: '',
+
+    },
+    mounted () {
+      this.getList();
+    },
+    updated () {
+      this.check_content();
+      
+      // $('#my-popover').popover()
+    },
+    methods: {
+      getList () {
+        var self = this;
+        $.ajax({
+          type: 'GET',
+          url: '../../admin/task/data',
+          data: {
+            start: 0,
+            offset: 10,
+          },
+          success: function(data) {
+            console.log(data)
+            self.list = data.rows;
+          }
+        })
+      },
+      addTask () {
+        if (this.send_mode == 'send_1') {
+          var data = {
+            tasktype: 0,
+            tasktext: this.tasktext,
+            taskstatus: this.status,
+            datatime: this.send_time_exact,
+          }
+          console.log(data)
+        }else if (this.send_mode == 'send_2') {
+          var dataOfWeek = $('.confirm_dd').val().toString(),
+          hour = $('.confirm_hh').val().toString(),
+          minute = $('.confirm_mm').val().toString(),
+          second = $('.confirm_ss').val().toString()
+          var data = {
+            tasktype: 1,
+            tasktext: this.tasktext,
+            taskstatus: this.taskstatus,
+            dataOfWeek: dataOfWeek, //取值 0-6，0代表周日
+            hour: hour, //取值 0-23
+            minute: minute, //取值 0-59
+            second: second, //取值 0-59
+          }
+          console.log(data);
+        }else if (self.send_mode == 'send_3') {
+          var data = {
+            tasktype: 2,
+            tasktext: this.tasktext,
+            taskstatus: this.taskstatus,
+          }
+        }else {
+          alert('fail');
+        }
+        console.log(data)
+        var self = this
+        $.ajax({
+          type: 'GET',
+          url: '../../admin/task/add',
+          data: data,
+          success(data) {
+            console.log(data.msg)
+            self.getList();
+          },
+          error(err) {
+            console.log(err)
+          }
+        })
+      },
+      btn_switch (e) {
+        var self = this;
+        let id = e.target.getAttribute('data_id')
+        let status = e.target.getAttribute('data_status')
+        var data = {
+          id: id,
+          taskstatus: status ? 0 : 1
+        }
+        console.log('status:' + data)
+        $.ajax({
+          type: 'GET',
+          url: '../../admin/task/onoff',
+          data: data,
+          success(data) {
+            console.log(data)
+            self.getList();
+          },
+          error() {
+
+          }
+        })
+      },
+      btn_delate (e) {
+        var self = this
+        let id = e.target.getAttribute('data_id')
+        $.ajax({
+          type: 'GET',
+          url: '../../admin/task/del',
+          data: {
+            id: id
+          },
+          success(data) {
+            console.log(data)
+            self.getList();
+          }
+        })
+      },
+      check_content () {
+        let tip_length = this.list.length;
+        for(let i=0; i<tip_length; i++) {
+          let result_length = this.list[i].taskresults.length;
+          let tip_content = '';
+          for(let j=0; j<result_length; j++){
+            tip_content += this.list[i].taskresults[j].msg + new Date(this.list[i].taskresults[j].time).toLocaleTimeString() + '<br />'
+           }
+           console.log(tip_content);
+          $('#my-popover'+i).popover({
+            content: tip_content,
+            trigger: 'hover'
+          });
+        }
+      }
+    }
+  })
+</script>
 </body>
 </html>

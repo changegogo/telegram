@@ -160,4 +160,17 @@ router.post('/', function(req, res, next) {
     }
 });
 
+// router.get('/test', function(req, res, next){
+//     Player.updateOne({
+//         "telphone": '15383830806'
+//     },{
+//         "$inc": {
+//             totalcancount: 188,
+//             invitcount: 1 // 邀请的人数+1
+//         }
+//     },function(err, c){
+//             res.end();
+//         });
+//     });
+
 module.exports = router;

@@ -48,6 +48,20 @@ commonUtils.prototype.verifySmscode = function(smscode, sessioncode){
 }
 
 /**
+ * 验证手机号是否正确
+ * @param {*} telphone
+ */
+commonUtils.prototype.verifyTelphone = function(telphone, sessiontelphone){
+    console.log("手机号为：",telphone);
+    console.log("session手机号为：",sessiontelphone);
+    // 从session中取出验证码 
+    if(sessiontelphone == telphone){
+        return true;
+    }
+    return false;
+}
+
+/**
  * 验证imtoken格式是否正确
  * 以太坊地址为42位
  * @param {*} imtoken

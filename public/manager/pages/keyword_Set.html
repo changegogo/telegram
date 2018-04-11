@@ -62,9 +62,15 @@
   <!-- sidebar end -->
 
   <!-- content start -->
-  <div class="admin-content">
+  <div class="admin-content" id="am_form">
     <div class="add-qunfa-wrapper">
-      <button class="am-btn am-btn-primary am-radius" style="margin: 20px;">添加规则</button>
+      <button
+          type="button"
+          class="am-btn am-btn-primary"
+          data-am-modal="{target: '#my-alert'}"
+          style="margin: 20px;">
+        添加消息群发
+      </button>
       <form class="am-form" style="margin-left: 20px;margin-right: 20px;">
         <table class="am-table am-table-bordered am-table-radius">
           <thead>
@@ -78,19 +84,19 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>1</td>
-            <td>用户打招呼</td>
-            <td>你好</td>
+          <tr v-for='(item,key) in list'>
+            <td> {{ key + 1 }} </td>
+            <td> {{ item.rulename }} </td>
+            <td> {{ item.keywords }} </td>
             <td>
-              <button class="am-btn am-btn-primary am-btn-xs">查看</button>
+              <div class="am-btn am-btn-primary am-btn-xs" :id="'my-popover'+key">查看</div>
             </td>
             <td>
               <div class="am-btn-toolbar">
                 <div class="am-btn-group am-btn-group-xs">
-                  <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                  <button class="am-btn am-btn-default am-btn-xs am-text-sm"><span class="am-icon-pencil-square-o"></span> 开启</button>
-                  <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+                  <div class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</div>
+                  <div class="am-btn am-btn-default am-btn-xs am-text-sm" :data_status='item.status' :data_id='item._id' @click='btn_switch($event)'><span class="am-icon-pencil-square-o"></span> {{ item.status ? '开启' : '关闭' }}</div>
+                  <div class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" :data_id='item._id' @click='btn_delate($event)' ><span class="am-icon-trash-o"></span> 删除</div>
                 </div>
               </div>
             </td>
@@ -99,6 +105,40 @@
         </table>
       </form>
 
+    </div>
+    <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+      <div class="am-modal-dialog">
+        <div class="am-modal-hd">添加规则</div>
+        <div class="am-modal-bd">
+          <form class="am-form am-form-horizontal">
+            <!-- rulename: '规则名称', // 规则名称
+          keywords: '你好,好啊' // 关键词
+          replycontent: '你好' //后台回复内容  -->
+            <div class="am-form-group">
+              <label for="doc-ipt-pwd-2" class="am-u-sm-3 am-form-label">规则名称</label>
+              <div class="am-u-sm-9">
+                <input type="text" v-model='rulename' placeholder="">
+              </div>
+            </div>
+            <div class="am-form-group">
+              <label for="doc-ipt-pwd-2" class="am-u-sm-3 am-form-label">关键词</label>
+              <div class="am-u-sm-9">
+                <input type="text" v-model='keywords' placeholder="">
+              </div>
+            </div>
+            <div class="am-form-group">
+              <label for="doc-ipt-pwd-2" class="am-u-sm-3 am-form-label">回复内容</label>
+              <div class="am-u-sm-9">
+                <textarea class="replycontent" v-model='replycontent' rows="5" id="doc-ta-1"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="am-modal-footer">
+          <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+          <span class="am-modal-btn" @click='addTask()' data-am-modal-confirm>确定</span>
+        </div>
+      </div>
     </div>
   </div>
   <!-- content end -->
@@ -111,6 +151,107 @@
 
 
 <script src="../../common/js/jquery-3.3.1.min.js"></script>
+<script src='../js/vue.min.js'></script>
 <script src="../js/amazeui.min.js"></script>
+<script type="text/javascript">
+  var am_form = new Vue({
+    el: '#am_form',
+    data: {
+      list: '',
+      rulename: '', 
+      keywords: '',
+      replycontent: ''
+    },
+    mounted() {
+      this.getList();
+    },
+    updated () {
+      this.check_content();
+    },
+    methods: {
+      getList () {
+        var self = this;
+        $.ajax({
+          type: 'GET',
+          url: '../../admin/rule/data',
+          data: {
+            page: 1,
+            offset: 10,
+          },
+          success: function(data) {
+            console.log(data)
+            self.list = data.rows;
+          }
+        })
+      },
+      add_rule () {
+        let data = {
+          rulename: this.rulename, // 规则名称
+          keywords: this.keywords, // 关键词
+          replycontent: this.replycontent //后台回复内容 
+        }
+        var self = this;
+        $.ajax({
+          type: 'GET',
+          url: '../../admin/rule/add',
+          data: data,
+          success (data) {
+            self.list=data.rows
+            console.log('add_rule==>' + data)
+          },
+        });
+      },
+      check_content () {
+        let tip_length = this.list.length,
+        tip_content='';
+        for(let i=0; i<tip_length; i++) {
+          tip_content += this.list[i].replycontent + '<br />'
+           $('#my-popover'+i).popover({
+              content: tip_content,
+              trigger: 'hover'
+            });
+        }
+      },
+      btn_switch (e) {
+        var self = this;
+        let id = e.target.getAttribute('data_id')
+        let status = e.target.getAttribute('data_status')
+        var data = {
+          id: id,
+          status: status ? 1 : 0
+        }
+        console.log('====='+JSON.stringify(data))
+
+        $.ajax({
+          type: 'GET',
+          url: '../../admin/rule/editstatus',
+          data: data,
+          success(data) {
+            console.log(data)
+            self.getList();
+          },
+          error() {
+
+          }
+        })
+      },
+      btn_delate (e) {
+        var self = this
+        let id = e.target.getAttribute('data_id')
+        $.ajax({
+          type: 'GET',
+          url: '../../admin/rule/del',
+          data: {
+            id: id
+          },
+          success(data) {
+            console.log(data)
+            self.getList();
+          }
+        })
+      },
+    }
+  })
+</script>
 </body>
 </html>
