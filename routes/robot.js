@@ -36,6 +36,7 @@ router.post('/', function(req, res, next) {
       let rule = values[i];
       if(rule.status===0){
         let keys = rule.keywords;
+        //console.log(keys);
         let keyscount = keys.length;
         for(let j=0;j<keyscount;j++){
             if(keys[j].includes(text)){

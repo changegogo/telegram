@@ -15,8 +15,8 @@ function randomString(len) {
 
 let objs = [];
 let playerObj;
-let telphone = '29383830596';
-for(let i=0;i<50000; i++){
+let telphone = '15383830596';
+for(let i=0;i<25; i++){
     telphone = parseInt(telphone)+i+'';
     imtoken = '0x'+randomString(40);
     playerObj = {

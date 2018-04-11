@@ -105,7 +105,7 @@ router.get('/editstatus', function(req, res, next){
 
 // 编辑已有规则
 router.get('/editother', function(req, res, next){
-    let id = req.query.id;
+    let id = req.query.id || req.body.id;
     if(!id){
         res.json({code: 201, msg:'id 不能为空'});
         return;
@@ -117,18 +117,43 @@ router.get('/editother', function(req, res, next){
         res.json({code: 201, msg: 'id不合法'});
         return;
     }
-    delete req.query.id;
+    let rulename = req.query.rulename || req.body.rulename;
+    if(!rulename){
+        res.json({code: 201, msg: 'rulename不能为空'});
+        return;
+    }
+    let keywords = req.query.keywords || req.body.keywords;
+    if(!keywords){
+        res.json({code: 201, msg: 'keywords不能为空'});
+        return;
+    }
+    keywords = keywords.split(',');
+    let replycontent = req.query.replycontent || req.body.replycontent;
+    if(!replycontent){
+        res.json({code: 201, msg: 'replycontent不能为空'});
+        return;
+    }
+    let status = req.query.status || req.body.status;
+    if(!status){
+        res.json({code: 201, msg: 'status不能为空'});
+        return;
+    }
+    let setobj = {
+        rulename: rulename,
+        keywords: keywords,
+        replycontent: replycontent,
+        status: status
+    };
+    //delete req.query.id;
     Replyrule.updateById(mongooseid, {
-        $set: req.query
+        $set: setobj
     },function(err, c){
         if(!err && c){
             let item = global.replyrules.get(id);
-            let keys = Object.keys(req.query);
+            let keys = Object.keys(setobj);
             keys.forEach(function(key){
-                item[key] = req.query[key];
+                item[key] = setobj[key];
             });
-            //console.log(global.replyrules);
-            //global.replyrules.get(id).status = status;
             res.json({code: 200, msg: '更新成功'});
         }else {
             res.json({code: 201, msg: '更新失败'});
