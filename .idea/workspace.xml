@@ -2,16 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fcc66186-4822-49a8-8d71-eb4ce0911bf6" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/public/manager/js/ajaxhook.min.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/manager/js/pagination.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/public/manager/js/admin-index.js" afterPath="$PROJECT_DIR$/public/manager/js/admin-index.js" />
-      <change beforePath="$PROJECT_DIR$/public/manager/js/ajaxIntercept.js" afterPath="$PROJECT_DIR$/public/manager/js/ajaxIntercept.js" />
       <change beforePath="$PROJECT_DIR$/public/manager/js/issueReview.js" afterPath="$PROJECT_DIR$/public/manager/js/issueReview.js" />
       <change beforePath="$PROJECT_DIR$/public/manager/pages/add_Qunfa.html" afterPath="$PROJECT_DIR$/public/manager/pages/add_Qunfa.html" />
-      <change beforePath="$PROJECT_DIR$/public/manager/pages/admin-index.html" afterPath="$PROJECT_DIR$/public/manager/pages/admin-index.html" />
       <change beforePath="$PROJECT_DIR$/public/manager/pages/admin-table.html" afterPath="$PROJECT_DIR$/public/manager/pages/admin-table.html" />
       <change beforePath="$PROJECT_DIR$/public/manager/pages/keyword_Set.html" afterPath="$PROJECT_DIR$/public/manager/pages/keyword_Set.html" />
-      <change beforePath="$PROJECT_DIR$/public/manager/pages/login.html" afterPath="$PROJECT_DIR$/public/manager/pages/login.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,11 +22,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="keyword_Set.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/manager/pages/keyword_Set.html">
+      <file leaf-file-name="issueReview.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/manager/js/issueReview.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-810">
-              <caret line="29" column="112" lean-forward="false" selection-start-line="29" selection-start-column="112" selection-end-line="29" selection-end-column="112" />
+            <state relative-caret-position="175">
+              <caret line="252" column="22" lean-forward="true" selection-start-line="252" selection-start-column="22" selection-end-line="252" selection-end-column="22" />
+              <folding>
+                <marker date="1523443945436" expanded="true" signature="9977:10043" ph="{...}" />
+                <marker date="1523443945436" expanded="true" signature="10089:10145" ph="{...}" />
+                <marker date="1523443945436" expanded="true" signature="10151:10685" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="admin-index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/manager/js/admin-index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="873">
+              <caret line="110" column="36" lean-forward="true" selection-start-line="110" selection-start-column="36" selection-end-line="110" selection-end-column="36" />
+              <folding>
+                <marker date="1523443945440" expanded="true" signature="4061:4127" ph="{...}" />
+                <marker date="1523443945440" expanded="true" signature="4133:4424" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="admin-table.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/manager/pages/admin-table.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="395">
+              <caret line="111" column="43" lean-forward="false" selection-start-line="111" selection-start-column="43" selection-end-line="111" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -39,36 +63,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>window.location.protocol</find>
-      <find>protocol</find>
-      <find>weixinShareMethod</find>
-      <find>1px</find>
-      <find>search-btn</find>
-      <find>.admin-content-body</find>
-      <find>table</find>
-      <find>v=4.6.</find>
-      <find>listItem</find>
-      <find>doc-modal-list</find>
-      <find>RandomTokenCode</find>
-      <find>getIdentifycode</find>
-      <find>$</find>
-      <find>搜索</find>
-      <find>table-check</find>
-      <find>batchAgreebtnMethod</find>
-      <find>setTime</find>
-      <find>initalPlayerMethod</find>
-      <find>checkbox</find>
       <find>checkboxName</find>
       <find>disposeResultMethod</find>
       <find>sendPhoneCode</find>
       <find>imgTip-icon</find>
       <find>timerTimeOutTip</find>
-      <find>refuseItemTibiMethod</find>
-      <find>refuse-btn</find>
       <find>initalIssueReviewDataMethod</find>
-      <find>agreeItemTibiMethod</find>
       <find>登出</find>
       <find>next-btn</find>
+      <find>list</find>
+      <find>admin/task/data</find>
+      <find>refuseItemTibiMethod</find>
+      <find>aggree-btn</find>
+      <find>refuse-btn</find>
+      <find>#my-alert</find>
+      <find>添加规则</find>
+      <find>editStatus</find>
+      <find>addTask</find>
+      <find>data-am-modal-confirm</find>
+      <find>my-popover</find>
+      <find>check_content</find>
+      <find>am_form</find>
+      <find>replycontent</find>
+      <find>data_status</find>
+      <find>data_id</find>
+      <find>btn_switch</find>
+      <find>dataOfWeek</find>
+      <find>batch-exportEXCEL</find>
+      <find>batch-agreeBtn</find>
+      <find>agreeItemTibiMethod</find>
+      <find>手机号</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -95,14 +119,16 @@
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/public/common/js/common.js" />
         <option value="$PROJECT_DIR$/public/common/css/common1.css" />
-        <option value="$PROJECT_DIR$/public/manager/pages/add_Qunfa.html" />
-        <option value="$PROJECT_DIR$/public/manager/pages/keyword_Set.html" />
-        <option value="$PROJECT_DIR$/public/manager/js/issueReview.js" />
-        <option value="$PROJECT_DIR$/public/manager/js/admin-index.js" />
         <option value="$PROJECT_DIR$/public/manager/js/ajaxhook.min.js" />
         <option value="$PROJECT_DIR$/public/manager/pages/admin-index.html" />
         <option value="$PROJECT_DIR$/public/manager/js/ajaxIntercept.js" />
         <option value="$PROJECT_DIR$/public/manager/pages/login.html" />
+        <option value="$PROJECT_DIR$/public/manager/js/pagination.js" />
+        <option value="$USER_HOME$/Downloads/Vue_pagination/index.html" />
+        <option value="$PROJECT_DIR$/public/manager/pages/keyword_Set.html" />
+        <option value="$PROJECT_DIR$/public/manager/pages/add_Qunfa.html" />
+        <option value="$PROJECT_DIR$/public/manager/js/issueReview.js" />
+        <option value="$PROJECT_DIR$/public/manager/js/admin-index.js" />
         <option value="$PROJECT_DIR$/public/manager/pages/admin-table.html" />
       </list>
     </option>
@@ -216,19 +242,6 @@
               <item name="manager" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="telegraph" type="b2602c69:ProjectViewProjectNode" />
-              <item name="telegraph" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="telegraph" type="b2602c69:ProjectViewProjectNode" />
-              <item name="telegraph" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -245,8 +258,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public/manager/css" />
       <recent name="$PROJECT_DIR$/public/manager/js" />
+      <recent name="$PROJECT_DIR$/public/manager/css" />
       <recent name="$PROJECT_DIR$/public/manager/pages" />
       <recent name="$PROJECT_DIR$/public/common/images" />
     </key>
@@ -276,15 +289,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1522735439719</updated>
-      <workItem from="1522735441257" duration="90091000" />
+      <workItem from="1522735441257" duration="107270000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="90091000" />
+    <option name="totallyTimeSpent" value="107270000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947146" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -295,7 +309,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26602176" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26602176" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -346,28 +360,24 @@
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/public/manager/pages/add_Qunfa.html</url>
+          <line>342</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/public/manager/pages/add_Qunfa.html</url>
+          <line>379</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="2" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/views/applycan.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-67">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/admin/task.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -717,16 +727,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/manager/pages/add_Qunfa.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding>
-            <element signature="n#table#0;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/manager/js/ajaxhook.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -735,34 +735,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/manager/pages/admin-table.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="219" column="68" lean-forward="false" selection-start-line="219" selection-start-column="68" selection-end-line="219" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/manager/js/ajaxIntercept.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/manager/js/admin-index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/manager/js/issueReview.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3945">
-          <caret line="263" column="78" lean-forward="true" selection-start-line="263" selection-start-column="78" selection-end-line="263" selection-end-column="78" />
           <folding />
         </state>
       </provider>
@@ -783,10 +759,81 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/Downloads/Vue_pagination/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="21" column="24" lean-forward="false" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/manager/pages/keyword_Set.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-810">
-          <caret line="29" column="112" lean-forward="false" selection-start-line="29" selection-start-column="112" selection-end-line="29" selection-end-column="112" />
+        <state relative-caret-position="-2323">
+          <caret line="99" column="94" lean-forward="true" selection-start-line="99" selection-start-column="94" selection-end-line="99" selection-end-column="113" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#td#3;n#tr#0;n#tbody#0;n#table#0;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/manager/js/pagination.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="111">
+          <caret line="9" column="30" lean-forward="false" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+          <folding>
+            <marker date="1523428992433" expanded="true" signature="173:1044" ph="..." />
+            <marker date="1523428992433" expanded="true" signature="236:255" ph="..." />
+            <marker date="1523428992433" expanded="true" signature="256:1033" ph="..." />
+            <marker date="1523428992433" expanded="true" signature="311:512" ph="..." />
+            <marker date="1523428992433" expanded="true" signature="413:494" ph="..." />
+            <marker date="1523428992433" expanded="false" signature="460:467" ph="«" />
+            <marker date="1523428992433" expanded="true" signature="596:755" ph="..." />
+            <marker date="1523428992433" expanded="true" signature="814:1019" ph="..." />
+            <marker date="1523428992433" expanded="true" signature="920:1001" ph="..." />
+            <marker date="1523428992433" expanded="false" signature="967:974" ph="»" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/manager/pages/add_Qunfa.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1590">
+          <caret line="106" column="97" lean-forward="false" selection-start-line="106" selection-start-column="97" selection-end-line="106" selection-end-column="97" />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#4;n#form#0;n#div#1;n#div#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/manager/js/issueReview.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="252" column="22" lean-forward="true" selection-start-line="252" selection-start-column="22" selection-end-line="252" selection-end-column="22" />
+          <folding>
+            <marker date="1523443945436" expanded="true" signature="9977:10043" ph="{...}" />
+            <marker date="1523443945436" expanded="true" signature="10089:10145" ph="{...}" />
+            <marker date="1523443945436" expanded="true" signature="10151:10685" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/manager/js/admin-index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="873">
+          <caret line="110" column="36" lean-forward="true" selection-start-line="110" selection-start-column="36" selection-end-line="110" selection-end-column="36" />
+          <folding>
+            <marker date="1523443945440" expanded="true" signature="4061:4127" ph="{...}" />
+            <marker date="1523443945440" expanded="true" signature="4133:4424" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/manager/pages/admin-table.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="111" column="43" lean-forward="false" selection-start-line="111" selection-start-column="43" selection-end-line="111" selection-end-column="43" />
           <folding />
         </state>
       </provider>

@@ -109,8 +109,7 @@
               <option value="0">全部</option>
               <option value="1">未处理</option>
               <option value="2">同意</option>
-              <option value="2">拒绝</option>
-
+              <option value="3">拒绝</option>
             </select>
 
           </div>
@@ -164,7 +163,7 @@
                     <div class="am-btn-toolbar">
                       <div class="am-btn-group am-btn-group-xs">
                         <div class="am-btn am-btn-default am-btn-xs am-text-secondary aggree-btn"><span class="am-icon-pencil-square-o"></span> 同意</div>
-                        <div class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only refuse-btn"><span class="am-icon-trash-o"></span> 拒绝</div>
+                        <div class="am-btn am-btn-default am-btn-xs am-text-danger  refuse-btn"><span class="am-icon-trash-o"></span> 拒绝</div>
                       </div>
                     </div>
                   </td>
@@ -201,7 +200,19 @@
     <div class="am-modal-dialog">
       <div class="am-modal-hd">hello world</div>
       <div class="am-modal-bd">
-        你，确定要 <span class="wordsIsAR-text">同意</span> 提币吗？
+        你，确定要同意提币吗？
+      </div>
+      <div class="am-modal-footer">
+        <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+        <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+      </div>
+    </div>
+  </div>
+  <div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm2">
+    <div class="am-modal-dialog">
+      <div class="am-modal-hd">hello world</div>
+      <div class="am-modal-bd">
+        你，确定要拒绝提币吗？
       </div>
       <div class="am-modal-footer">
         <span class="am-modal-btn" data-am-modal-cancel>取消</span>
