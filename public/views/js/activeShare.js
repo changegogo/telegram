@@ -8,7 +8,7 @@ $(function () {
     //click
     var canUserBi
     $(".quicklyGetCanBtn").click(function () {
-        if (canUserBi < 1880) {
+        if (canUserBi < 188) {
             $('.model').show()
             return false
         } else {
