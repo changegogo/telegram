@@ -112,23 +112,28 @@ router.post('/', function(req, res, next) {
         // 邀请人判断应该添加多少奖励
     let p2 = function(){
         return new Promise(function(resolve, reject){
-            Player.findOne({
-                telphone: player12[0]
-            }, function(err, player){
-                if(!err && player){
-                    let reward = 0;
-                    if(player.invitcount < commonUtils.oneDot){
-                        reward = commonUtils.oneReward;
-                    }else if(player.invitcount < commonUtils.twoDot){
-                        reward = commonUtils.twoReward;
-                    }else {
-                        reward = commonUtils.threeReward;
+            if(player12[0] == '110'){
+                reject({code: 200, msg: '奖励已发放'});
+            }else{
+                Player.findOne({
+                    telphone: player12[0]
+                }, function(err, player){
+                    if(!err && player){
+                        let reward = 0;
+                        if(player.invitcount < commonUtils.oneDot){
+                            reward = commonUtils.oneReward;
+                        }else if(player.invitcount < commonUtils.twoDot){
+                            reward = commonUtils.twoReward;
+                        }else {
+                            reward = commonUtils.threeReward;
+                        }
+                        resolve(reward);
+                    }else{
+                        reject({code: 201, msg: '邀请人查询失败'});
                     }
-                    resolve(reward);
-                }else{
-                    reject({code: 201, msg: '邀请人查询失败'});
-                }
-            });
+                });
+            }
+            
         });
     }
     // 邀请人添加奖励
@@ -175,6 +180,7 @@ router.post('/', function(req, res, next) {
         replyrobot(chatid, data.msg, function(val){
             res.end(val);
         });
+        
     });
 });
 
