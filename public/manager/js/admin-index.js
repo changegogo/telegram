@@ -65,7 +65,7 @@ $(function () {
                     var trItem = $(".listItem").eq(0).clone() ;
                     trItem.find(".user-telephone").text(listArray[i].telphone) ;
                     trItem.find(".invit-count").text(listArray[i].invitcount) ;
-                    trItem.find(".totalcan-count").text(listArray[i].totalcancount) ;
+                    trItem.find(".totalcan-count").text(listArray[i].totalcancount /10) ;
                     if (listArray[i].ispickup === true) {
                         trItem.find(".is-pickup").text('是') ;
                     } else {
