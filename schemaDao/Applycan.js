@@ -24,7 +24,7 @@ var ApplycanSchema = new Schema({
   },
   createtime: { // 创建时间
     type: Date,
-    default: Date.now()
+    default: Date.now
   },
   isdeal: { // 是否未处理、同意、拒绝 1 2 3
     type: Number,

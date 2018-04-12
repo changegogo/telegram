@@ -6,7 +6,6 @@ const router = express.Router();
 const commonUtils = require('../utils/commonUtils');
 const Player = require('../schemaDao/Player');
 const Applycan = require('../schemaDao/Applycan');
-const threshold = 1880; // 提币阀值
 
 const accessKeyId = commonUtils.accessKeyId;
 const secretAccessKey = commonUtils.secretAccessKey;
@@ -37,29 +36,29 @@ router.post('/smsapi', function(req, res, next){
                 TemplateParam: `{"code": "${code}"}`
             };
             //初始化sms_client
-            let smsClient = new SMSClient({accessKeyId, secretAccessKey});
-            let promise = new Promise(function(resolve, reject){
-                smsClient.sendSMS(postData)
-                .then(function (res) {
-                    let {Code}=res
-                    if (Code === 'OK') {
-                        //处理返回参数
-                        console.log(res);
-                        resolve({code: 200, msg: "短信验证码获取成功", results: []});
-                    }else {
-                        resolve(res);
-                    }
-                }, function (err) {
-                    console.log(err);
-                    reject(err);
-                });
-            })
-            promise.then(function(value){
-                res.json(value);
-            }).catch(function(err){
-                res.json(err);
-            });
-           // res.json({code: 200, msg: "短信验证码获取成功", smscode: req.session.smscode});
+            // let smsClient = new SMSClient({accessKeyId, secretAccessKey});
+            // let promise = new Promise(function(resolve, reject){
+            //     smsClient.sendSMS(postData)
+            //     .then(function (res) {
+            //         let {Code}=res
+            //         if (Code === 'OK') {
+            //             //处理返回参数
+            //             console.log(res);
+            //             resolve({code: 200, msg: "短信验证码获取成功", results: []});
+            //         }else {
+            //             resolve(res);
+            //         }
+            //     }, function (err) {
+            //         console.log(err);
+            //         reject(err);
+            //     });
+            // })
+            // promise.then(function(value){
+            //     res.json(value);
+            // }).catch(function(err){
+            //     res.json(err);
+            // });
+            res.json({code: 200, msg: "短信验证码获取成功", results: [], smscode: code});
         }else {
             // 用户识别码无效
             res.json({code: 10014, msg: "用户识别码无效"});
@@ -117,7 +116,7 @@ router.post('/', function(req, res, next){
                 let haspickupcount = player.haspickupcount;
                 //  当前未提币的数量
                 let offsetcount = totalcancount - haspickupcount;
-                if(offsetcount >= threshold) {
+                if(offsetcount >= commonUtils.threshold) {
                     // 修改Player库中的已提币数目
                     let sum = haspickupcount + offsetcount;
                     Player.updateOne(query, {

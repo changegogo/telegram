@@ -36,29 +36,29 @@ router.get('/smsapi', function(req, res, next){
             TemplateParam: `{"code": "${code}"}`
         };
         //初始化sms_client
-        let smsClient = new SMSClient({accessKeyId, secretAccessKey});
-        let promise = new Promise(function(resolve, reject){
-            smsClient.sendSMS(postData)
-            .then(function (res) {
-                let {Code}=res
-                if (Code === 'OK') {
-                    //处理返回参数
-                    console.log(res);
-                    resolve({code: 200, msg: "短信验证码获取成功", results: []});
-                }else {
-                    resolve(res);
-                }
-            }, function (err) {
-                console.log(err);
-                reject(err);
-            });
-        })
-        promise.then(function(value){
-            res.json(value);
-        }).catch(function(err){
-            res.json(err);
-        });
-        //res.json({code: 200, msg: "短信验证码获取成功", results: [], smscode: code, telphone: telphone});
+        // let smsClient = new SMSClient({accessKeyId, secretAccessKey});
+        // let promise = new Promise(function(resolve, reject){
+        //     smsClient.sendSMS(postData)
+        //     .then(function (res) {
+        //         let {Code}=res
+        //         if (Code === 'OK') {
+        //             //处理返回参数
+        //             console.log(res);
+        //             resolve({code: 200, msg: "短信验证码获取成功", results: []});
+        //         }else {
+        //             resolve({code:201, msg: '短信验证码获取失败'});
+        //         }
+        //     }, function (err) {
+        //         console.log(err);
+        //         reject(err);
+        //     });
+        // })
+        // promise.then(function(value){
+        //     res.json(value);
+        // }).catch(function(err){
+        //     res.json(err);
+        // });
+        res.json({code: 200, msg: "短信验证码获取成功", results: [], smscode: code, telphone: telphone});
     }else if(!telphone){
         // 手机号码为空
         res.json({code: 201, msg: "手机号码不能为空", results: []});
