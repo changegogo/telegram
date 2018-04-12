@@ -46,7 +46,7 @@ router.get('/smsapi', function(req, res, next){
                     console.log(res);
                     resolve({code: 200, msg: "短信验证码获取成功", results: []});
                 }else {
-                    resolve(res);
+                    resolve({code:201, msg: '短信验证码获取失败'});
                 }
             }, function (err) {
                 console.log(err);
