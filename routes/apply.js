@@ -6,7 +6,6 @@ const router = express.Router();
 const commonUtils = require('../utils/commonUtils');
 const Player = require('../schemaDao/Player');
 const Applycan = require('../schemaDao/Applycan');
-const threshold = 1880; // 提币阀值
 
 const accessKeyId = commonUtils.accessKeyId;
 const secretAccessKey = commonUtils.secretAccessKey;
@@ -117,7 +116,7 @@ router.post('/', function(req, res, next){
                 let haspickupcount = player.haspickupcount;
                 //  当前未提币的数量
                 let offsetcount = totalcancount - haspickupcount;
-                if(offsetcount >= threshold) {
+                if(offsetcount >= commonUtils.threshold) {
                     // 修改Player库中的已提币数目
                     let sum = haspickupcount + offsetcount;
                     Player.updateOne(query, {

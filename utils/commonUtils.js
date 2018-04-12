@@ -5,14 +5,24 @@ function commonUtils(){
     this.secretAccessKey = "mCzYRqE6yM6XtqF2UlJVSs8J74j8vV";
     this.SignName = "CAN星际宝盒";
     this.TemplateCode = "SMS_129746026";
-    
+    this.pagesize = 10; // 分页每页的数据条数
     this.suffix = "can_robot"; // 邀请码后缀
     this.key = "youlan123";    // 密钥
-    this.iptop = 20; // ip绑定上限
+
+    // this.iptop = 20; // ip绑定上限
+    // this.oneReward = 188; // 1-30人
+    // this.twoReward = 108; // 31-100人
+    // this.threeReward = 58; //100人之后
+    // this.oneDot = 30; // 邀请30人
+    // this.twoDot = 100; //邀请100人
+    // this.threshold = 1880; // 提币阀值
+    this.iptop = 3; // ip绑定上限
     this.oneReward = 188; // 1-30人
     this.twoReward = 108; // 31-100人
     this.threeReward = 58; //100人之后
-    this.pagesize = 10; // 分页每页的数据条数
+    this.oneDot = 3; // 邀请30人
+    this.twoDot = 5; //邀请100人
+    this.threshold = 188; // 提币阀值
 }
 /**
  * 验证手机号码是否合法

@@ -17,6 +17,7 @@ router.post('/', function(req, res, next) {
   // 获取内容
   let text = req.body.message.text;
   let chatid = req.body.message.chat.id;
+  console.log('聊天id：',chatid);
   
   // 遍历每一个回复规则，查询是否有匹配的规则 还未测试
   function valuesArr(map){
@@ -72,9 +73,9 @@ router.post('/', function(req, res, next) {
         Player.findOne(query, function(err, player){
             if(!err && player){
                 let reward = 0;
-                if(player.invitcount <= 30){
+                if(player.invitcount <= commonUtils.oneDot){
                     reward = commonUtils.oneReward;
-                }else if(player.invitcount <= 100){
+                }else if(player.invitcount <= commonUtils.twoDot){
                     reward = commonUtils.twoReward;
                 }else {
                     reward = commonUtils.threeReward;
@@ -160,18 +161,5 @@ router.post('/', function(req, res, next) {
         });
     }
 });
-
-// router.get('/test', function(req, res, next){
-//     Player.updateOne({
-//         "telphone": '15383830806'
-//     },{
-//         "$inc": {
-//             totalcancount: 188,
-//             invitcount: 1 // 邀请的人数+1
-//         }
-//     },function(err, c){
-//             res.end();
-//         });
-//     });
 
 module.exports = router;
