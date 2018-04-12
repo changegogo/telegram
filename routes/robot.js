@@ -43,7 +43,7 @@ router.post('/', function(req, res, next) {
                 if(text.includes(keys[j])){
                     out = true;
                     // 机器人回复
-                    //console.log('robot:',rule.replycontent);
+                    console.log('robot规则回复:',rule.replycontent);
                     replyrobot(chatid, rule.replycontent,function(val){
                         res.end(val);
                     });
@@ -165,11 +165,13 @@ router.post('/', function(req, res, next) {
         return p3(reward);
     })
     .then(function(c){
+        console.log('奖励已发放');
         replyrobot(chatid, '奖励已发放', function(val){
             res.end(val);
         });
     })
     .catch(function(data){
+        console.log(data);
         replyrobot(chatid, data.msg, function(val){
             res.end(val);
         });
