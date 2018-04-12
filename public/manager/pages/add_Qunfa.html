@@ -170,17 +170,17 @@
               时：
               <select class="confirm_hh" multiple data-am-selected>
                 <!-- <option value="" selected>时</option> -->
-                <option :value="key" v-for='(value, key) in 23'> {{ value }} </option>
+                <option :value="key" v-for='(value, key) in 24'> {{ value -1 }} </option>
               </select>
               分：
               <select class="confirm_mm" multiple data-am-selected>
                 <!-- <option value="" selected>分</option> -->
-                <option :value="key" v-for='(value, key) in 59'> {{ value }} </option>
+                <option :value="key" v-for='(value, key) in 60'> {{ value -1 }} </option>
               </select>
               秒：
               <select class="confirm_ss" multiple data-am-selected>
                 <!-- <option value="" selected>秒</option> -->
-                <option :value="key" v-for='(value, key) in 59'> {{ value }} </option>
+                <option :value="key" v-for='(value, key) in 60'> {{ value -1 }} </option>
               </select>
               <div id="#js-selected-info"></div>
             </div>
@@ -316,7 +316,7 @@
             second: second, //取值 0-59
           }
           console.log(data);
-        }else if (self.send_mode == 'send_3') {
+        }else if (this.send_mode == 'send_3') {
           var data = {
             tasktype: 2,
             tasktext: this.tasktext,
