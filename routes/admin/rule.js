@@ -94,8 +94,10 @@ router.get('/editstatus', function(req, res, next){
         if(!err && c){
             // 修改global缓存
             console.log(global.replyrules.get(id));
-            global.replyrules.get(id).status = status;
-            
+            let task = global.replyrules.get(id);
+            if(task){
+                global.replyrules.get(id).status = status;
+            }
             res.json({code: 200, msg: '修改成功'});
         }else{
             res.json({code: 201, msg: '修改失败'});
