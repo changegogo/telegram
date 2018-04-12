@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Promise = require('Promise');
+const Promise = require('promise');
 
 const Task = require('../../schemaDao/Task');
 const schedule = require('node-schedule');
@@ -10,7 +10,7 @@ const replyrobot = require('../../utils/replyrobot');
 
 // 日期正则验证 2018-04-03 12:20:35
 const timere = /^(((20[0-3][0-9]-(0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|(20[0-3][0-9]-(0[2469]|11)-(0[1-9]|[12][0-9]|30))) (20|21|22|23|[0-1][0-9]):[0-5][0-9]:[0-5][0-9])$/;
-const chat_id = '123213';
+const chat_id = -1001206231635;
 // 程序启动时，加载任务
 global.taskMap = new Map();
 /**

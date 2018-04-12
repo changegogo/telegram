@@ -36,24 +36,24 @@ router.post('/', function(req, res, next) {
     for(let i=0;i<rulescount;i++){
         let rule = values[i];
         if(rule.status===0){
-        let keys = rule.keywords;
-        //console.log(keys);
-        let keyscount = keys.length;
-        for(let j=0;j<keyscount;j++){
-            if(keys[j].includes(text)){
-                out = true;
-                // 机器人回复
-                //console.log('robot:',rule.replycontent);
-                replyrobot(chatid, rule.replycontent,function(val){
-                    res.end(val);
-                });
-                break;// 终止内层循环
+            let keys = rule.keywords;
+            //console.log(keys);
+            let keyscount = keys.length;
+            for(let j=0;j<keyscount;j++){
+                if(text.includes(keys[j])){
+                    out = true;
+                    // 机器人回复
+                    console.log('robot规则回复:',rule.replycontent);
+                    replyrobot(chatid, rule.replycontent,function(val){
+                        res.end(val);
+                    });
+                    break;// 终止内层循环
+                }
             }
         }
+        if(out){
+            break; // 终止外层循环
         }
-    if(out){
-        break; // 终止外层循环
-    }
     }
     if(out){
         return;
@@ -112,23 +112,28 @@ router.post('/', function(req, res, next) {
         // 邀请人判断应该添加多少奖励
     let p2 = function(){
         return new Promise(function(resolve, reject){
-            Player.findOne({
-                telphone: player12[0]
-            }, function(err, player){
-                if(!err && player){
-                    let reward = 0;
-                    if(player.invitcount < commonUtils.oneDot){
-                        reward = commonUtils.oneReward;
-                    }else if(player.invitcount < commonUtils.twoDot){
-                        reward = commonUtils.twoReward;
-                    }else {
-                        reward = commonUtils.threeReward;
+            if(player12[0] == '110'){
+                reject({code: 200, msg: '奖励已发放'});
+            }else{
+                Player.findOne({
+                    telphone: player12[0]
+                }, function(err, player){
+                    if(!err && player){
+                        let reward = 0;
+                        if(player.invitcount < commonUtils.oneDot){
+                            reward = commonUtils.oneReward;
+                        }else if(player.invitcount < commonUtils.twoDot){
+                            reward = commonUtils.twoReward;
+                        }else {
+                            reward = commonUtils.threeReward;
+                        }
+                        resolve(reward);
+                    }else{
+                        reject({code: 201, msg: '邀请人查询失败'});
                     }
-                    resolve(reward);
-                }else{
-                    reject({code: 201, msg: '邀请人查询失败'});
-                }
-            });
+                });
+            }
+            
         });
     }
     // 邀请人添加奖励
@@ -165,14 +170,17 @@ router.post('/', function(req, res, next) {
         return p3(reward);
     })
     .then(function(c){
+        console.log('奖励已发放');
         replyrobot(chatid, '奖励已发放', function(val){
             res.end(val);
         });
     })
     .catch(function(data){
+        console.log(data);
         replyrobot(chatid, data.msg, function(val){
             res.end(val);
         });
+        
     });
 });
 
