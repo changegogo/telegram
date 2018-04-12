@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Promise = require('Promise');
+const Promise = require('promise');
 
 const Task = require('../../schemaDao/Task');
 const schedule = require('node-schedule');
