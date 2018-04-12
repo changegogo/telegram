@@ -61,6 +61,9 @@ $(function () {
                 }
             },
             error: function (error) {
+                $(".sendcode-error").html(res.message).show();
+                settime($(".getNoteCode-container") , 0 ) ;
+                return false
                 console.log(error)
             }
         });
@@ -84,7 +87,7 @@ $(function () {
                     window.location.href = './views/pages/activeShare.html?identitycode=' + res.identitycode ;
                     return true
                 } else {
-                    // $(".unkow-error").html(res.msg).show() ;
+                    timerTimeOutTip('./common/images/error_icon.png', res.msg) ;
                     return false
                 }
             },
