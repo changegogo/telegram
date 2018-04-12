@@ -53,7 +53,7 @@ router.get('/add', function(req, res, next){
    Replyrule.create(obj, function(err, replyrules){
         if(!err && replyrules){
             // 添加到global缓存
-            global.replyrules.set(replyrules._id, replyrules);
+            global.replyrules.set(replyrules.id, replyrules);
             res.json({code: 200, msg: '添加成功'});
         }else{
             res.json({code: 201, msg: '添加失败'});
