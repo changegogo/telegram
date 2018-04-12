@@ -24,7 +24,8 @@ for(let i=0;i<25; i++){
         imtoken: imtoken,
         identitycode: 'shibiema'+imtoken,
         bindip: '192.168.0.191',
-        invitcode: 'yaoqingma'+imtoken
+        invitcode: 'yaoqingma'+imtoken,
+        createtime: Date.now()+i*100000
     };
     objs.push(playerObj);
 }

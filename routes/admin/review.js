@@ -14,7 +14,7 @@ router.get('/', function(req, res, next){
     // 是点击的上一页还是下一页
     let isnext = req.query.isnext || req.body.isnext || "0";// 0表示请求下一页 1表示请求上一页
     // 上一页的最后一条记录的id
-    let lastid = req.query.lastid;
+    let lastid = req.query.lastid || req.body.lastid;
     if(lastid){
         if(isnext=="0"){
             query._id = {
@@ -179,7 +179,7 @@ router.get('/xlsx', function(req, res, next){
             }else{
                 reject({code: 204, msg: '导出表格时数据查询失败'});
             }
-        }).limit(commonUtils.pagesize);
+        }).sort({createtime: -1});
     });
 
     promise

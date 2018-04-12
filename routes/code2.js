@@ -58,7 +58,7 @@ router.get('/smsapi', function(req, res, next){
         }).catch(function(err){
             res.json(err);
         });
-        //res.json({code: 200, msg: "短信验证码获取成功", results: [], code: code, telphone: telphone});
+        //res.json({code: 200, msg: "短信验证码获取成功", results: [], smscode: code, telphone: telphone});
     }else if(!telphone){
         // 手机号码为空
         res.json({code: 201, msg: "手机号码不能为空", results: []});
