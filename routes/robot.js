@@ -21,7 +21,7 @@ router.post('/', function(req, res, next) {
 
     // 遍历每一个回复规则，查询是否有匹配的规则 还未测试
     function valuesArr(map){
-        let valuesArray = new Array();
+    let valuesArray = new Array();
         for (let kv of map) {
             if(!(typeof(kv[1])=="function")){     
                 valuesArray.push(kv[1]);     
