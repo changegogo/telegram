@@ -36,24 +36,24 @@ router.post('/', function(req, res, next) {
     for(let i=0;i<rulescount;i++){
         let rule = values[i];
         if(rule.status===0){
-        let keys = rule.keywords;
-        //console.log(keys);
-        let keyscount = keys.length;
-        for(let j=0;j<keyscount;j++){
-            if(keys[j].includes(text)){
-                out = true;
-                // 机器人回复
-                //console.log('robot:',rule.replycontent);
-                replyrobot(chatid, rule.replycontent,function(val){
-                    res.end(val);
-                });
-                break;// 终止内层循环
+            let keys = rule.keywords;
+            //console.log(keys);
+            let keyscount = keys.length;
+            for(let j=0;j<keyscount;j++){
+                if(text.includes(keys[j])){
+                    out = true;
+                    // 机器人回复
+                    //console.log('robot:',rule.replycontent);
+                    replyrobot(chatid, rule.replycontent,function(val){
+                        res.end(val);
+                    });
+                    break;// 终止内层循环
+                }
             }
         }
+        if(out){
+            break; // 终止外层循环
         }
-    if(out){
-        break; // 终止外层循环
-    }
     }
     if(out){
         return;
