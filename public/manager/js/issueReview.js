@@ -73,7 +73,7 @@ $(function () {
                     trItem.find(".apply-date").text(GMTToStr(listArray[i].createtime)) ;
                     trItem.find(".eth-address").text(listArray[i].imtoken) ;
                     trItem.find(".ip-address").text(listArray[i].ip) ;
-                    trItem.find(".applyCan-account").text(listArray[i].cancount) ;
+                    trItem.find(".applyCan-account").text(listArray[i].cancount / 10) ;
                     trItem.find(".status-nowing").text(isDealStatusMethod(listArray[i].isdeal)) ;
                     trItem.attr({dataid: listArray[i]._id}) ;
                     $(".listTbody").append(trItem) ;

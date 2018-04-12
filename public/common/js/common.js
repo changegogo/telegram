@@ -33,12 +33,12 @@ function settime(obj ,countDown) { //发送验证码倒计时
 }
 function modelSuccessMethod(res, bol) {
     if (bol) {
-        $(".dialog-img-marking").attr({src: 'telegram/common/images/Success_ok.png'}) ;
+        $(".dialog-img-marking").attr({src: '../../common/images/Success_ok.png'}) ;
         $(".tibi-result-title").text('提币成功') ;
         $(".desc-dialogInfo>p").text(res.msg) ;
         $(".model").show() ;
     } else {
-        $(".dialog-img-marking").attr({src: 'telegram/common/images/Question.png'}) ;
+        $(".dialog-img-marking").attr({src: '../../common/images/Question.png'}) ;
         $(".tibi-result-title").text('提币失败') ;
         $(".desc-dialogInfo>p").text(res.msg) ;
         $(".model").show() ;
