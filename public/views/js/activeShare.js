@@ -42,8 +42,10 @@ $(function () {
                         });
                     }
                     return true
-                } else {
+                } else if (res.code === 10004 ) {
                     RemoveLocalStorage('identitycode') ;
+                    getIdentifycode() ;
+                }else {
                     window.location.href =  window.location.protocol + '//' + window.location.host + "/telegram/index.html?identitycode=" + getIdentifycode() ;
                     return false
                 }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Amaze UI Admin table Examples</title>
+  <title>电报后台管理系统</title>
   <meta name="description" content="这是一个 table 页面">
   <meta name="keywords" content="table">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,6 +25,22 @@
       height: 230px;
       overflow-y: scroll;
     }
+    .show {
+      display: block;
+    }
+    .hidden {
+      display: none;
+    }
+    .am-dimmer-activeModal {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: #6666;
+      z-index: 99999;
+    }
+
     @media only screen and (min-width: 641px) {
       .am-modal-dialog {
         width: 600px;
@@ -55,13 +71,6 @@
     <div class="am-offcanvas-bar admin-offcanvas-bar">
       <ul class="am-list admin-sidebar-list">
         <li><a href="admin-index.html"><span class="am-icon-home"></span> 首页</a></li>
-        <!--<li class="admin-parent" disabled="disabled">-->
-          <!--<a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 短信群发 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>-->
-          <!--<ul class="am-list am-collapse admin-sidebar-sub " id="collapse-nav">-->
-            <!--<li><a href="#" class="am-cf"><span class="am-icon-check"></span> 重新发送<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>-->
-            <!--<li><a href="#"><span class="am-icon-puzzle-piece"></span> 新增</a></li>-->
-          <!--</ul>-->
-        <!--</li>-->
         <li><a href="admin-table.html" class=""><span class="am-icon-table"></span> 发布审核</a></li>
         <li><a href="add_Qunfa.html" style="color: #0e90d2"><span class="am-icon-pencil-square-o"></span> 群发消息</a></li>
         <li><a href="keyword_Set.html"><span class="am-icon-sign-out"></span> 关键词设置</a></li>
@@ -81,11 +90,13 @@
   <!-- content start -->
   <div class="admin-content" id="am_form" v-cloak>
     <div class="add-qunfa-wrapper">
+      <!--data-am-modal="{target: '#my-alert', closeViaDimmer: 0}"-->
       <button
           type="button"
           class="am-btn am-btn-primary"
-          data-am-modal="{target: '#my-alert'}"
-          style="margin: 20px;">
+          style="margin: 20px;"
+          @click="clickAddTaskMethod"
+      >
         添加消息群发
       </button>
       <form class="am-form" style="margin-left: 20px;margin-right: 20px;">
@@ -93,9 +104,10 @@
           <thead>
           <tr>
             <th>序号</th>
+            <th>任务类型</th>
             <th>日期</th>
-            <th>状态</th>
             <th>发送结果</th>
+            <th>状态</th>
             <th>操作</th>
 
           </tr>
@@ -103,13 +115,14 @@
           <tbody>
           <tr v-for='(item,key) in list'>
             <td> {{ key + 1 }} </td>
-            <td v-if="item.tasktype == 0" > {{ item.year.toString() }}年{{ item.month.toString() }}月{{ item.day.toString() }}日{{ item.hour.toString() }}时{{ item.minute.toString() }}分{{ item.second.toString()}}秒</td>
-            <td v-else-if="item.tasktype == 1" > {{ item.dayOfWeek.length ? item.dayOfWeek.join() : '每天'}} </td>
-            <td v-else-if="item.tasktype == 2" > {{ item.createtime }} </td>
-            <td> {{ item.taskstatus ? '开启' : '关闭' }} </td>
+            <td> {{ item.tasktype | taskType }} </td>
+            <td v-if="item.tasktype == 0" > {{ item.year.toString() }}年 {{ Number(item.month.toString())+1 < 10 ? '0'+ (Number(item.month.toString())+1) : Number(item.month.toString())+1 }}月 {{ item.day.toString() }}日 {{ item.hour.toString() }}时 {{ item.minute.toString() }}分 {{ item.second.toString()}} 秒</td>
+            <td v-else-if="item.tasktype == 1" > {{ item.dayOfWeek | weekSplit}} </td>
+            <td v-else-if="item.tasktype == 2" > {{ item.createtime.substring(0,4) }}年 {{ item.createtime.substring(5,7) }}月 {{ item.createtime.substring(8,10) }}日 {{ item.createtime.substring(11,13) }}时 {{ item.createtime.substring(14,16) }}分 {{ item.createtime.substring(17,19) }} 秒</td>
             <td>
-              <div class="am-btn am-btn-primary am-btn-xs" :id="'my-popover'+key">查看</div>
+              <div class="" style="width:300px;overflow-y: hidden;white-space: nowrap;text-overflow: ellipsis;" :title="item.tasktext">{{ item.tasktext }}</div>
             </td>
+            <td> {{ item.taskstatus ? '开启' : '关闭' }} </td>
             <td>
               <div class="am-btn-toolbar">
                 <div class="am-btn-group am-btn-group-xs">
@@ -124,95 +137,98 @@
       </form>
       
     </div>
-    <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
-      <div class="am-modal-dialog">
-        <div class="am-modal-hd">群发消息</div>
-        <div class="am-modal-bd">
-          <form class="am-form am-form-horizontal">
-            <div class="am-form-group">
-              <label  class="am-u-sm-3 am-form-label">发送时间:</label>
-              <div class="am-u-sm-9">
-                <div class="am-radio am-u-sm-4">
-                  <label>
-                    <input type="radio" name="doc-radio-1" v-model='send_mode' value="send_1" checked="checked">
-                    定时发送
-                  </label>
+    <!--:class="{'am-modal-active': myAlertModal,'show': myAlertModal, 'am-modal-out': !myAlertModal,'hidden': !myAlertModal}"-->
+    <div :class="{'am-dimmer-activeModal': myAlertModal}">
+      <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert" :class="{'am-modal-active': myAlertModal,'show': myAlertModal, 'am-modal-out': !myAlertModal,'hidden': !myAlertModal}">
+        <div class="am-modal-dialog">
+          <div class="am-modal-hd">群发消息</div>
+          <div class="am-modal-bd">
+            <form class="am-form am-form-horizontal">
+              <div class="am-form-group">
+                <label  class="am-u-sm-3 am-form-label">发送时间:</label>
+                <div class="am-u-sm-9">
+                  <div class="am-radio am-u-sm-4">
+                    <label>
+                      <input type="radio"  v-model='send_mode' value="send_1">
+                      定时发送
+                    </label>
+                  </div>
+                  <div class="am-radio am-u-sm-4">
+                    <label>
+                      <input type="radio" name="doc-radio-1" v-model='send_mode' value="send_2">
+                      重复发送
+                    </label>
+                  </div>
+                  <div class="am-radio am-u-sm-4">
+                    <label>
+                      <input type="radio" name="doc-radio-1" v-model='send_mode' value="send_3">
+                      即时发送
+                    </label>
+                  </div>
                 </div>
-                <div class="am-radio am-u-sm-4">
-                  <label>
-                    <input type="radio" name="doc-radio-1" v-model='send_mode' value="send_2">
-                    重复发送
-                  </label>
-                </div>
-                <div class="am-radio am-u-sm-4">
-                  <label>
-                    <input type="radio" name="doc-radio-1" v-model='send_mode' value="send_3">
-                    即时发送
-                  </label>
-                </div>
-              </div>
 
-            </div>
-            <div class="am-form-group" v-show="send_mode == 'send_1'">
-              <div class="am-input-group am-datepicker-date am-u-sm-6 am-u-sm-offset-3">
-                <input type="text" class="am-form-field" placeholder="日历组件" v-model="send_time_exact" id="test" readonly>
-                <span class="am-input-group-btn">
+              </div>
+              <div class="am-form-group" v-show="send_mode == 'send_1'">
+                <div class="am-input-group am-datepicker-date am-u-sm-6 am-u-sm-offset-3">
+                  <input type="text" class="am-form-field" placeholder="日历组件" v-model="send_time_exact" id="test" readonly>
+                  <span class="am-input-group-btn">
                   <button class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
                 </span>
-              </div>
-            </div>
-            <div class="am-form-group selectGroup-wrapper" v-show="send_mode == 'send_2'">
-              周：
-              <select class="confirm_dd" multiple data-am-selected>
-                <!-- <option value="" selected>星期</option> -->
-                <option :value="key" v-for='(value, key) in weekList'> {{ value }} </option>
-              </select>
-              时：
-              <select class="confirm_hh" multiple data-am-selected>
-                <!-- <option value="" selected>时</option> -->
-                <option :value="key" v-for='(value, key) in 24'> {{ value -1 }} </option>
-              </select>
-              分：
-              <select class="confirm_mm" multiple data-am-selected>
-                <!-- <option value="" selected>分</option> -->
-                <option :value="key" v-for='(value, key) in 60'> {{ value -1 }} </option>
-              </select>
-              秒：
-              <select class="confirm_ss" multiple data-am-selected>
-                <!-- <option value="" selected>秒</option> -->
-                <option :value="key" v-for='(value, key) in 60'> {{ value -1 }} </option>
-              </select>
-              <div id="#js-selected-info"></div>
-            </div>
-            <div class="am-form-group" v-show="send_mode == 'send_3'"></div>
-            <div class="am-form-group">
-              <label  class="am-u-sm-3 am-form-label">是否开启</label>
-              <div class="am-u-sm-9">
-                <div class="am-radio am-u-sm-4">
-                  <label>
-                    <input type="radio" v-model='status' name="doc-radio-2" value="1" checked>
-                    开启
-                  </label>
-                </div>
-                <div class="am-radio am-u-sm-4" style="float: left;">
-                  <label>
-                    <input type="radio" v-model='status' name="doc-radio-2" value="0">
-                    关闭
-                  </label>
                 </div>
               </div>
-            </div>
-            <div class="am-form-group">
-              <label  class="am-u-sm-3 am-form-label">内容</label>
-              <div class="am-u-sm-9">
-                <textarea class="tasktext" v-model='tasktext' rows="5" id="doc-ta-1"></textarea>
+              <div class="am-form-group selectGroup-wrapper" v-show="send_mode == 'send_2'">
+                周：
+                <select class="confirm_dd" multiple data-am-selected>
+                  <!-- <option value="" selected>星期</option> -->
+                  <option :value="value" v-for='(value, key) in weekList'> {{ value }} </option>
+                </select>
+                时：
+                <select class="confirm_hh" multiple data-am-selected>
+                  <!-- <option value="" selected>时</option> -->
+                  <option :value="key" v-for='(value, key) in 24'> {{ value -1 }} </option>
+                </select>
+                分：
+                <select class="confirm_mm" multiple data-am-selected>
+                  <!-- <option value="" selected>分</option> -->
+                  <option :value="key" v-for='(value, key) in 60'> {{ value -1 }} </option>
+                </select>
+                秒：
+                <select class="confirm_ss" multiple data-am-selected>
+                  <!-- <option value="" selected>秒</option> -->
+                  <option :value="key" v-for='(value, key) in 60'> {{ value -1 }} </option>
+                </select>
+                <div id="#js-selected-info"></div>
               </div>
-            </div>
-          </form>
-        </div>
-        <div class="am-modal-footer">
-          <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-          <span class="am-modal-btn" @click='addTask()' data-am-modal-confirm>确定</span>
+              <div class="am-form-group" v-show="send_mode == 'send_3'"></div>
+              <div class="am-form-group">
+                <label  class="am-u-sm-3 am-form-label">是否开启</label>
+                <div class="am-u-sm-9">
+                  <div class="am-radio am-u-sm-4">
+                    <label>
+                      <input type="radio" v-model='status' name="doc-radio-2" value="1" checked>
+                      开启
+                    </label>
+                  </div>
+                  <div class="am-radio am-u-sm-4" style="float: left;">
+                    <label>
+                      <input type="radio" v-model='status' name="doc-radio-2" value="0">
+                      关闭
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="am-form-group">
+                <label  class="am-u-sm-3 am-form-label">内容</label>
+                <div class="am-u-sm-9">
+                  <textarea class="tasktext" v-model='tasktext' rows="5" id="doc-ta-1"></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-cancel @click="myAlertModal=false">取消</span>
+            <span class="am-modal-btn" @click='addTask()' data-am-modal-confirm>确定</span>
+          </div>
         </div>
       </div>
     </div>
@@ -248,33 +264,51 @@
 
     }
   });
-
+  Vue.filter('weekSplit', function (value) {
+      if (value.length) {
+          var weekStr = ''
+          for (let i=0; i<value.length; i++) {
+              weekStr += ('周'+value[i]+'、')
+          }
+          weekStr = weekStr.substring(0, weekStr.length -1)
+          return weekStr
+      } else {
+          return '每天'
+      }
+  })
+  Vue.filter('taskType', function (value) {
+     switch (value) {
+         case 0: {
+             return '定时发送'
+         }
+         break;
+         case 1: {
+             return '重复发送'
+         }
+         break;
+         case 2: {
+             return '即时发送'
+         }
+         break;
+     }
+  })
   var am_form = new Vue({
     el: '#am_form',
     data: {
       list: '',
-      send_mode: '',
+      send_mode: 'send_1',
       send_time_exact: '',
-      send_time_confirm: {
-        dd: '',
-        hh: '',
-        mm: '',
-        ss: ''
-      },
-      status: '',
+      status: 1,
       tasktext: '',
       pageNo: 1,
       pages:10,
-      weekList: ['日', '一' ,'二' ,'三' ,'四' ,'五' ,'六']
-
+      weekList: ['日', '一' ,'二' ,'三' ,'四' ,'五' ,'六'],
+      myAlertModal: false
     },
     mounted () {
       this.getList();
     },
     updated () {
-      this.check_content();
-      
-      // $('#my-popover').popover()
     },
     methods: {
       getList () {
@@ -287,13 +321,27 @@
             offset: 20,
           },
           success: function(data) {
-            console.log(data)
             self.list = data.rows;
           }
         })
       },
+      clickAddTaskMethod () {
+          this.myAlertModal = true
+      },
       addTask () {
+        if (!this.tasktext) {
+            alert ('回复内容不能为空')
+            return false
+        }
         if (this.send_mode == 'send_1') {
+          if(!this.send_time_exact) {
+              alert('日期时间不能为空') ;
+              return false
+          }
+          $('.confirm_dd').empty() ;
+          $('.confirm_hh').empty() ;
+          $('.confirm_mm').empty() ;
+          $('.confirm_ss').empty() ;
           var data = {
             tasktype: 0,
             tasktext: this.tasktext,
@@ -302,14 +350,19 @@
           }
           console.log(data)
         }else if (this.send_mode == 'send_2') {
+          if($('.confirm_hh').val().toString() === '' || $('.confirm_mm').val().toString() === '' || $('.confirm_ss').val().toString() === '') {
+              alert('时分秒不能为空') ;
+              return false
+          }
           var dataOfWeek = $('.confirm_dd').val().toString(),
           hour = $('.confirm_hh').val().toString(),
           minute = $('.confirm_mm').val().toString(),
           second = $('.confirm_ss').val().toString()
+            console.log(dataOfWeek, hour)
           var data = {
             tasktype: 1,
             tasktext: this.tasktext,
-            taskstatus: this.taskstatus,
+            taskstatus: this.status,
             dayOfWeek: dataOfWeek, //取值 0-6，0代表周日
             hour: hour, //取值 0-23
             minute: minute, //取值 0-59
@@ -317,10 +370,14 @@
           }
           console.log(data);
         }else if (this.send_mode == 'send_3') {
+            $('.confirm_dd').empty() ;
+            $('.confirm_hh').empty() ;
+            $('.confirm_mm').empty() ;
+            $('.confirm_ss').empty() ;
           var data = {
             tasktype: 2,
             tasktext: this.tasktext,
-            taskstatus: this.taskstatus,
+            taskstatus: this.status,
           }
         }else {
           alert('fail');
@@ -332,7 +389,7 @@
           url: '../../admin/task/add',
           data: data,
           success(data) {
-            console.log(data.msg)
+            self.myAlertModal = false ;
             self.getList();
           },
           error(err) {
@@ -340,6 +397,8 @@
           }
         })
       },
+
+
       btn_switch (e) {
         var self = this;
         let id = e.target.getAttribute('data_id')
@@ -376,20 +435,6 @@
             self.getList();
           }
         })
-      },
-      check_content () {
-        let tip_length = this.list.length;
-        for(let i=0; i<tip_length; i++) {
-          let result_length = this.list[i].taskresults.length;
-          let tip_content = '';
-          for(let j=0; j<result_length; j++){
-            tip_content += this.list[i].taskresults[j].msg + new Date(this.list[i].taskresults[j].time).toLocaleTimeString() + '<br />'
-           }
-          $('#my-popover'+i).popover({
-            content: tip_content,
-            trigger: 'hover'
-          });
-        }
       },
       msgListView(curPage){
           //根据当前页获取数据

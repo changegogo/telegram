@@ -299,7 +299,7 @@ $(function () {
                     idList += ($(":checkbox[name=checkboxName]").eq(i).parent().parent().attr('dataid') + ',') ;
                 }
                 idList = idList.substring(0, idList.length -1) ;
-                window.location.href = window.location.protocol + '//' + window.location.host +'telegram/admin/review/xlsx?ids=' + idList ;
+                window.location.href = window.location.protocol + '//' + window.location.host +'/telegram/admin/review/xlsx?ids=' + idList ;
             }
 
 

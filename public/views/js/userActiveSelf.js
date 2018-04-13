@@ -1,7 +1,11 @@
-// getIdentifycode() ;
+getIdentifycode() ;
 $(function () {
-    // $("#bigbig-img").css({height: document.body.clientHeight + 'px'})
+    // $("#bigbig-img img").css({height: document.body.clientHeight + 'px'})
     // document.body.style.overflow='hidden';
+    window.onunload = function () { /*你的事件*/;
+        document.body.scrollTop = 0 ;
+    }
+    productImgMethod()
     function productImgMethod() {
         var qrCodeimgUrl = window.location.protocol + '//' + window.location.host + "/telegram/index.html?identitycode=" +getIdentifycode();
         var qrcode = $('.qrCode-img-container').qrcode({
@@ -17,15 +21,14 @@ $(function () {
     }
    function htmlFomatCanvasMethod() {
        html2canvas(document.querySelector("#userActiveSelf"),{
-           allowTaint:true,
-           height: $("#userActiveSelf").outerHeight() + 100,
+           // allowTaint:true,
+           // height: $("#userActiveSelf").outerHeight() + 100,
        }).then(canvas => {
            console.log($("#userActiveSelf").outerHeight())
            $("#userActiveSelf").hide() ;
            var image = new Image();
            image.src = canvas.toDataURL("image/png");
            $("#bigbig-img").append(image);
-           // document.body.appendChild(canvas)
        });
    }
 

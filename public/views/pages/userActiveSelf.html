@@ -14,27 +14,24 @@
     <title>活动规则</title>
     <script src="../../common/js/jquery-3.3.1.min.js"></script>
     <script src="../../common/js/jquery.qrcode.min.js"></script>
-    <style type="text/css">
-        body {
-            /*overflow:hidden ;*/
-            background:-webkit-radial-gradient(left, #5920B2 71%, #371379 36%);
-        }
-    </style>
 </head>
 <body>
 <div id="userActiveSelf">
     <div class="main-container">
-        <div class="main-contentBg-container" style="position: relative">
-            <img src="../../common/images/poster1.png" alt="" style="width: 100%">
-            <div class="qrCode-container" style="position: absolute;left: 50%;transform: translateX(-50%);-webkit-transform: translateX(-50%);text-align: center;bottom: 20%;">
-                <p class="qrCode-img-container"></p>
-                <p class="flex flex-pack-center flex-align-center qr-porduct-wrapper" ><img src="" alt="" id="qrcodeImg"></p>
-                <p style="font-size: 11px;opacity: 0.5;color: #ffffff;margin-top: 8px;">长按识别二维码进入活动页面</p>
-            </div>
+        <div class="top-img-wrapper"></div>
+        <div class="center-img-wrapper"></div>
+        <div class="qrCode-container">
+            <p class="qrCode-img-container"></p>
+            <p class="flex flex-pack-center flex-align-center qr-porduct-wrapper" >
+                <img src="" alt="" id="qrcodeImg">
+            </p>
+            <p style="font-size: 11px;opacity: 0.5;color: #ffffff;margin-top: 8px;">长按识别二维码进入活动页面</p>
         </div>
     </div>
 </div>
-<div id="bigbig-img" style="overflow:hidden;"></div>
+<div id="bigbig-img">
+
+</div>
 <script type="text/javascript" src="../../common/js/Util.js"></script>
 <script type="text/javascript" src="../../common/js/common.js"></script>
 <script type="text/javascript" src="../../common/js/html2canvas.js"></script>

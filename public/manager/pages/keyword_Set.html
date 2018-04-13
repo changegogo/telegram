@@ -266,6 +266,10 @@
           this.editItemStatus = status ;
       },
       add_rule () {
+          if (this.rulename === '' || this.keywords === '' || this.replycontent === '') {
+              alert('规则名称、 关键词、回复内容不能为空') ;
+              return false
+          }
           if (this.editStatus) {
               let data = {
                   id: this.editId, //任务id
