@@ -43,6 +43,7 @@ $(function () {
                     }
                     return true
                 } else {
+                    RemoveLocalStorage('identitycode') ;
                     window.location.href =  window.location.protocol + '//' + window.location.host + "/telegram/index.html?identitycode=" + getIdentifycode() ;
                     return false
                 }
@@ -100,10 +101,10 @@ $(function () {
     $("#copy-statement").click(function () {
         if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) { //ios兼容
             window.getSelection().removeAllRanges();//这段代码必须放在前面否则无效
-            var Url2=document.getElementById("copy-statement");//要复制文字的节点
+            var Url3=document.getElementById("copy-statement");//要复制文字的节点
             var range = document.createRange();
             // 选中需要复制的节点
-            range.selectNode(Url2);
+            range.selectNode(Url3);
             // 执行选中元素
             window.getSelection().addRange(range);
             // 执行 copy 操作
