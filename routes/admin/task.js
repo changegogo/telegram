@@ -181,11 +181,14 @@ router.get('/add', function(req, res, next){
     };
     if(tasktype == 0){
         // 定时任务
-        let datatime = req.query.datatime || req.body.datatime; // 2018/04/03 19:28:30
+        let datatime = req.query.datatime || req.body.datatime; // 2018-04-03 19:28:30
         if(!timere.test(datatime)){
             res.json({code: 201, msg: '日期格式不正确'});
             return;
         }
+        //let dt = new Date(datatime);
+
+        ///////////////////////////
         let dt = datatime.split(' ');
         let [d, t] = dt;
         let [nian, yue, ri] = d.split('-');
@@ -196,6 +199,7 @@ router.get('/add', function(req, res, next){
         obj.hour.push(parseInt(shi));
         obj.minute.push(parseInt(fen));
         obj.second.push(parseInt(miao));
+        ////////////////////////////////
         
         // 添加到数据库
         Task.create(obj, function(err, task){
@@ -205,8 +209,10 @@ router.get('/add', function(req, res, next){
                     res.json({code: 200, msg: '定时任务创建成功'});
                     return;
                 }
+
                 // 开启定时任务
                 let time = new Date(task.year[0], task.month[0], task.day[0], task.hour[0], task.minute[0], task.second[0]);
+                time.setHours(time.getHours()-8);
                 let job = schedule.scheduleJob(time, function(idtext){
                     console.log('任务执行了');
                     // 从缓存中移除任务
@@ -308,7 +314,10 @@ router.get('/add', function(req, res, next){
 
         }else{
             // 天任务
-            rule.hour = hour;
+            //rule.hour = hour;
+            rule.hour = hour.map((item)=>{
+                return item>=8?item-8:24+(item-8);
+            });
             rule.minute = minute;
             rule.second = second;
             // 添加到数据库
