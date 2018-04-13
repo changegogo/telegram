@@ -21,7 +21,7 @@ router.post('/', function(req, res, next){
         };
         Player.findOne(query, function(err, player){
             if(!err){
-                if(player.length>0){
+                if(player){
                     var p = player;
                     res.json({code: 200, msg:"success", results: [p]});
                 }else{
