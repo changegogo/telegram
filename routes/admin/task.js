@@ -34,7 +34,7 @@ global.taskMap = new Map();
                         global.taskMap.delete(idtext.id);
                         let chatid = chat_id;
                         // 机器人发送信息
-                        replyrobot(chatid, idtext.tasktext,function(val){
+                        replyrobot(chatid, idtext.text,function(val){
                             // 添加任务结果
                             Task.updateById(mongoose.Types.ObjectId(idtext.id),{
                                 $push: {
@@ -71,7 +71,7 @@ global.taskMap = new Map();
                         console.log('周任务执行');
                         let chatid = chat_id;
                         // 机器人发送信息
-                        replyrobot(chatid, idtext.tasktext,function(val){
+                        replyrobot(chatid, idtext.text,function(val){
                             // 添加任务结果
                             Task.updateById(mongoose.Types.ObjectId(idtext.id),{
                                 $push: {
@@ -213,7 +213,7 @@ router.get('/add', function(req, res, next){
                     global.taskMap.delete(idtext.id);
                     let chatid = chat_id;
                     // 机器人发送信息
-                    replyrobot(chatid, idtext.tasktext,function(val){
+                    replyrobot(chatid, idtext.text,function(val){
                         // 添加任务结果
                         Task.updateById(mongoose.Types.ObjectId(idtext.id),{
                             $push: {
@@ -284,7 +284,7 @@ router.get('/add', function(req, res, next){
                         console.log('周任务执行');
                         let chatid = chat_id;
                         // 机器人发送信息
-                        replyrobot(chatid, idtext.tasktext,function(val){
+                        replyrobot(chatid, idtext.text,function(val){
                             // 添加任务结果
                             Task.updateById(mongoose.Types.ObjectId(idtext.id),{
                                 $push: {
@@ -327,7 +327,7 @@ router.get('/add', function(req, res, next){
                         console.log('天任务执行');
                         let chatid = chat_id;
                         // 机器人发送信息
-                        replyrobot(chatid, idtext.tasktext,function(val){
+                        replyrobot(chatid, idtext.text,function(val){
                             // 添加任务结果
                             Task.updateById(mongoose.Types.ObjectId(idtext.id),{
                                 $push: {
@@ -459,7 +459,7 @@ router.get('/onoff', function(req, res, next){
                     global.taskMap.delete(idtext.id);
                     let chatid = chat_id;
                     // 机器人发送信息
-                    replyrobot(chatid, idtext.tasktext,function(val){
+                    replyrobot(chatid, idtext.text,function(val){
                         // 添加任务结果
                         Task.updateById(mongoose.Types.ObjectId(idtext.id),{
                             $push: {
