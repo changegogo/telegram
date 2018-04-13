@@ -221,7 +221,7 @@ router.get('/xlsx', function(req, res, next){
             newobj.createtime = ele.createtime;
             newobj.imtoken = ele.imtoken;
             newobj.ip = ele.ip;
-            newobj.cancount = ele.cancount;
+            newobj.cancount = ele.cancount/10;
             isdeal==1?newobj.isdeal='未处理':(isdeal==2?newobj.isdeal='同意':newobj.isdeal='拒绝');
             return newobj;
         });

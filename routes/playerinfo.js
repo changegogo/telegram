@@ -20,13 +20,18 @@ router.post('/', function(req, res, next){
             identitycode: identitycode
         };
         Player.findOne(query, function(err, player){
-            if(player){
-                var p = player;
-                res.json({code: 200, msg:"success", results: [p]});
+            if(!err){
+                if(player.length>0){
+                    var p = player;
+                    res.json({code: 200, msg:"success", results: [p]});
+                }else{
+                   // 查询的用户不存在
+                   res.json({code: 10004, msg: "用户不存在", results: []});
+                }
             }else{
-               // 查询的用户不存在
-               res.json({code: 10004, msg: "用户不存在", results: []});
+                res.json({code: 10004, msg: "用户不存在", results: []});
             }
+            
         });
     }else {
         res.json({code: 10005, msg: "识别码不能为空", results: []});
