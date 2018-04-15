@@ -9,7 +9,7 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 
 const indexRouter = require('./routes/index');
-const codeRouter = require('./routes/code2');
+const codeRouter = require('./routes/code');
 const robotRouter = require('./routes/robot');
 const infoRouter = require('./routes/playerinfo');
 const applyRouter = require('./routes/apply');
