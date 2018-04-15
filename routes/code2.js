@@ -25,6 +25,7 @@ router.get('/smsapi', function(req, res, next){
         let code = commonUtils.generateCode();
         console.log(code);
         // 将验证码存入session
+        req.session.cookie.maxAge = 5 * 60 * 1000;
         req.session.smscode = code;
         // 将手机号存入session
         req.session.telphone = telphone;
@@ -43,7 +44,7 @@ router.get('/smsapi', function(req, res, next){
                 let {Code}=res
                 if (Code === 'OK') {
                     //处理返回参数
-                    console.log(res);
+                    //console.log(res);
                     resolve({code: 200, msg: "短信验证码获取成功", results: []});
                 }else {
                     resolve({code:201, msg: '短信验证码获取失败'});

@@ -51,8 +51,9 @@ app.use(session({
   name: identityKey,
   secret: 'youlan',
   store: new FileStore(),
-  saveUninitialized: false,
-  resave: false,
+  saveUninitialized: true,
+  resave: true,
+  rolling: true,
   cookie: {
     maxAge: 8 * 60 * 60 * 1000 //单位时ms
   }

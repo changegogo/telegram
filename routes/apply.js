@@ -26,6 +26,7 @@ router.post('/smsapi', function(req, res, next){
             // 随机生成验证码
             let code = commonUtils.generateCode();
             // 写入session
+            req.session.cookie.maxAge = 5 * 60 * 1000;
             req.session.smscode = code;
 
              // 封装请求体
