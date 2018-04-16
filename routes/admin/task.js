@@ -271,7 +271,10 @@ router.get('/add', function(req, res, next){
         if(dayOfWeek.length>0){
             // 周任务 hour: 14, minute: 30, dayOfWeek: 0
             rule.dayOfWeek = dayOfWeek;
-            rule.hour = hour;
+            //rule.hour = hour;
+            rule.hour = hour.map((item)=>{
+                return item>=8?item-8:24+(item-8);
+            });
             rule.minute = minute;
             rule.second = second;
             // 添加到数据库
@@ -324,7 +327,7 @@ router.get('/add', function(req, res, next){
             obj.hour = obj.hour.concat(hour);
             obj.minute = obj.minute.concat(minute);
             obj.second = obj.second.concat(second);
-            console.log(obj);
+            //console.log(obj);
             Task.create(obj, function(err, task){
                 if(!err && task){
                     if(!task.taskstatus){
