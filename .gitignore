@@ -6,3 +6,5 @@ public/.DS_Store
 dai
 log
 record
+public/poster/*.png
+public/img.html

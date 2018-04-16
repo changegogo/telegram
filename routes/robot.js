@@ -13,54 +13,52 @@ const replyrobot = require('../utils/replyrobot');
  * 解析邀请码
  */
 router.post('/', function(req, res, next) {
-    //console.log(req.body);
     // 获取内容
     let text = req.body.message.text;
     let chatid = req.body.message.chat.id;
-    console.log('聊天id：',chatid);
+    //console.log('聊天id：',chatid);
 
-    // 遍历每一个回复规则，查询是否有匹配的规则 还未测试
-    function valuesArr(map){
-    let valuesArray = new Array();
-        for (let kv of map) {
-            if(!(typeof(kv[1])=="function")){     
-                valuesArray.push(kv[1]);     
-            }
-        }
-        return valuesArray;
-    }
-    //console.log(global.replyrules);
-    let values = valuesArr(global.replyrules);
-    let rulescount = values.length;
-    let out = false;
-    for(let i=0;i<rulescount;i++){
-        let rule = values[i];
-        if(rule.status===0){
-            let keys = rule.keywords;
-            //console.log(keys);
-            let keyscount = keys.length;
-            for(let j=0;j<keyscount;j++){
-                if(text.includes(keys[j])){
-                    out = true;
-                    // 机器人回复
-                    console.log('robot规则回复:',rule.replycontent);
-                    replyrobot(chatid, rule.replycontent,function(val){
-                        res.end(val);
-                    });
-                    break;// 终止内层循环
+    // 不是邀请码的后缀
+    if(!text.endsWith(commonUtils.suffix)){
+        // 遍历每一个回复规则，查询是否有匹配的规则
+        function valuesArr(map){
+            let valuesArray = new Array();
+            for (let kv of map) {
+                if(!(typeof(kv[1])=="function")){     
+                    valuesArray.push(kv[1]);     
                 }
             }
+            return valuesArray;
         }
-        if(out){
-            break; // 终止外层循环
+        // 检测是否有符合的规则
+        let values = valuesArr(global.replyrules);
+        let rulescount = values.length;
+        let out = false;
+        for(let i=0;i<rulescount;i++){
+            let rule = values[i];
+            if(rule.status===0){
+                let keys = rule.keywords;
+                //console.log(keys);
+                let keyscount = keys.length;
+                for(let j=0;j<keyscount;j++){
+                    if(text.includes(keys[j])){
+                        out = true;
+                        // 机器人回复
+                        console.log('robot规则回复:',rule.replycontent);
+                        replyrobot(chatid, rule.replycontent,function(val){
+                            res.end(val);
+                        });
+                        break;// 终止内层循环
+                    }
+                }
+            }
+            if(out){
+                break; // 终止外层循环
+            }
         }
-    }
-    if(out){
-        return;
-    }
-    // 不是邀请码
-    if(!text.endsWith(commonUtils.suffix)){
-        res.end();
+        if(!out){
+            res.end();
+        }
         return;
     }
     // 解析邀请码
@@ -88,7 +86,7 @@ router.post('/', function(req, res, next) {
             });
         });
     };
-    //设置邀请码无效，被邀请人添加奖励
+    //设置邀请码已经被使用，被邀请人添加奖励
     let p1 = function(){
         return new Promise(function(resolve, reject){
             Player.updateOne({
