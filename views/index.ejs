@@ -10,7 +10,9 @@
     <p>Welcome to <%= title %></p>
     <button id="btn">一键生成海报</button>
     <span id="content">返回的数据</span>
-    <a id="imga" href="" target="_blank">点击</a>
+    <a id="imga" href="" target="_blank">点击</a><br>
+    <input type="text" placeholder="邀请码" id="canbot"/>
+    <button id="submit">提交</button>
     <script>
       $(function(){
        var code = '123456789';
@@ -29,6 +31,24 @@
               console.log(err);
             }
           });
+       });
+
+       $('#submit').click(function(){
+         var canbot = $('#canbot').val();
+         $.ajax({
+           url: 'robot',
+           type: 'post',
+           data: {
+               text: canbot,
+               id: 123456
+           },
+           success: function(res){
+             console.log(res);
+           },
+           error: function(err){
+            console.log(err);
+           }
+         });
        });
       });
     </script>

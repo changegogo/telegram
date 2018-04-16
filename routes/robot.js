@@ -17,35 +17,9 @@ router.post('/', function(req, res, next) {
     // 获取内容
     let text = req.body.message.text;
     let chatid = req.body.message.chat.id;
-    console.log('聊天id：',chatid);
-    /*let values = valuesArr(global.replyrules);
-    let rulescount = values.length;
-    let out = false;
-    for(let i=0;i<rulescount;i++){
-        let rule = values[i];
-        if(rule.status===0){
-            let keys = rule.keywords;
-            //console.log(keys);
-            let keyscount = keys.length;
-            for(let j=0;j<keyscount;j++){
-                if(text.includes(keys[j])){
-                    out = true;
-                    // 机器人回复
-                    console.log('robot规则回复:',rule.replycontent);
-                    replyrobot(chatid, rule.replycontent,function(val){
-                        res.end(val);
-                    });
-                    break;// 终止内层循环
-                }
-            }
-        }
-        if(out){
-            break; // 终止外层循环
-        }
-    }
-    if(out){
-        return;
-    }*/
+    //let text = req.body.text;
+    //let chatid = req.body.id;
+    //console.log('聊天id：',chatid);
 
     // 不是邀请码的后缀
     if(!text.endsWith(commonUtils.suffix)){
