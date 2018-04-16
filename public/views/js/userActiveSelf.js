@@ -1,8 +1,11 @@
-// getIdentifycode() ;
 $(function () {
     productImgMethod()
     function productImgMethod() {
-        var qrCodeimgUrl = window.location.protocol + '//' + window.location.host + "/telegram/index.html?identitycode=" +getIdentifycode();
+        if (getQueryString('identitycode')) {
+            var qrCodeimgUrl = window.location.protocol + '//' + window.location.host + "/telegram/index.html?identitycode=" +getQueryString('identitycode');
+        } else {
+            window.location.href = window.location.protocol + '//' + window.location.host + "/telegram/index.html"
+        }
         var qrcode = $('.qrCode-img-container').qrcode({
             render: "canvas", //也可以替换为table
             width: 100,
