@@ -35,9 +35,9 @@ qrUtils.createQr = function(url,imgName, callback){
 qrUtils.addWater = function(sourceImg, waterImg, callback){ 
     images(sourceImg)                     //Load image from file   
                                             //加载图像文件  
-        .size(768)                          //Geometric scaling the image to 400 pixels width  
+        .size(750)                          //Geometric scaling the image to 400 pixels width  
                                             //等比缩放图像到400像素宽  
-        .draw(images(waterImg), 213, 978)   //Drawn logo at coordinates (70,260)//为了遮住不该看的东西..  
+        .draw(images(waterImg), 213, 908)   //Drawn logo at coordinates (70,260)//为了遮住不该看的东西..  
                                             //在(10,10)处绘制Logo  
         .save(waterImg, {               //Save the image to a file,whih quality 50  
             quality : 50                    //保存图片到文件,图片质量为50  

@@ -13,12 +13,9 @@ const replyrobot = require('../utils/replyrobot');
  * 解析邀请码
  */
 router.post('/', function(req, res, next) {
-    //console.log(req.body);
     // 获取内容
     let text = req.body.message.text;
     let chatid = req.body.message.chat.id;
-    //let text = req.body.text;
-    //let chatid = req.body.id;
     //console.log('聊天id：',chatid);
 
     // 不是邀请码的后缀
