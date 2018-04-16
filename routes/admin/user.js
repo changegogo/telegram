@@ -36,6 +36,7 @@ router.post('/loginin', function(req, res, next){
         password: password
     },function(err, user){
         if(!err && user){
+            req.session.cookie.maxAge = 8 * 60 * 60 * 1000;
             req.session.username = username;
             req.session.password = password;
             res.json({code: 200, msg: '登录成功'});
