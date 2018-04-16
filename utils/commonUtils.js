@@ -16,7 +16,7 @@ function commonUtils(){
     // this.oneDot = 30; // 邀请30人
     // this.twoDot = 100; //邀请100人
     // this.threshold = 1880; // 提币阀值
-    this.iptop = 7; // ip绑定上限
+    this.iptop = 5; // ip绑定上限
     this.oneReward = 188; // 1-30人
     this.twoReward = 108; // 31-100人
     this.threeReward = 58; //100人之后
