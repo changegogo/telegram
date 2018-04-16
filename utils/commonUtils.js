@@ -18,10 +18,10 @@ function commonUtils(){
     // this.threshold = 1880; // 提币阀值
     this.iptop = 5; // ip绑定上限
     this.oneReward = 188; // 1-30人
-    this.twoReward = 108; // 31-100人
-    this.threeReward = 58; //100人之后
-    this.oneDot = 3; // 邀请30人
-    this.twoDot = 5; //邀请100人
+    //this.twoReward = 108; // 31-100人
+    //this.threeReward = 58; //100人之后
+    //this.oneDot = 3; // 邀请30人
+    //this.twoDot = 5; //邀请100人
     this.threshold = 188; // 提币阀值
 }
 /**
