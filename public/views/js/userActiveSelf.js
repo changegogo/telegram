@@ -1,10 +1,5 @@
-getIdentifycode() ;
+// getIdentifycode() ;
 $(function () {
-    // $("#bigbig-img img").css({height: document.body.clientHeight + 'px'})
-    // document.body.style.overflow='hidden';
-    window.onunload = function () { /*你的事件*/;
-        document.body.scrollTop = 0 ;
-    }
     productImgMethod()
     function productImgMethod() {
         var qrCodeimgUrl = window.location.protocol + '//' + window.location.host + "/telegram/index.html?identitycode=" +getIdentifycode();
@@ -17,20 +12,18 @@ $(function () {
         //将生成的二维码转换成图片格式
         var canvas = qrcode.find('canvas').get(0);
         $('#qrcodeImg').attr('src', canvas.toDataURL('image/jpg'));
+        $(document).click(function (event) {
+            event.preventDefault();
+        }) ;
         htmlFomatCanvasMethod() ;
     }
    function htmlFomatCanvasMethod() {
-       html2canvas(document.querySelector("#userActiveSelf"),{
-           // allowTaint:true,
-           // height: $("#userActiveSelf").outerHeight() + 100,
-       }).then(canvas => {
-           console.log($("#userActiveSelf").outerHeight())
+       html2canvas($("#userActiveSelf"),{
+       }).success(function (canvas) {
            $("#userActiveSelf").hide() ;
            var image = new Image();
            image.src = canvas.toDataURL("image/png");
            $("#bigbig-img").append(image);
        });
    }
-
-
 });
