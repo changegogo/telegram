@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="fcc66186-4822-49a8-8d71-eb4ce0911bf6" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/public/views/css/userActiveSelf.css" afterPath="$PROJECT_DIR$/public/views/css/userActiveSelf.css" />
       <change beforePath="$PROJECT_DIR$/public/views/js/userActiveSelf.js" afterPath="$PROJECT_DIR$/public/views/js/userActiveSelf.js" />
+      <change beforePath="$PROJECT_DIR$/public/views/pages/activeShare.html" afterPath="$PROJECT_DIR$/public/views/pages/activeShare.html" />
+      <change beforePath="$PROJECT_DIR$/public/views/pages/userActiveSelf.html" afterPath="$PROJECT_DIR$/public/views/pages/userActiveSelf.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -16,7 +19,40 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="userActiveSelf.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/views/pages/userActiveSelf.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="242">
+              <caret line="22" column="45" lean-forward="false" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="userActiveSelf.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/views/css/userActiveSelf.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="userActiveSelf.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/views/js/userActiveSelf.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="383">
+              <caret line="46" column="71" lean-forward="false" selection-start-line="46" selection-start-column="71" selection-end-line="46" selection-end-column="71" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -77,17 +113,17 @@
         <option value="$USER_HOME$/Downloads/Vue_pagination/index.html" />
         <option value="$PROJECT_DIR$/public/manager/js/admin-index.js" />
         <option value="$PROJECT_DIR$/public/views/js/index.js" />
-        <option value="$PROJECT_DIR$/public/views/pages/activeShare.html" />
         <option value="$PROJECT_DIR$/public/common/js/common.js" />
         <option value="$PROJECT_DIR$/public/views/pages/drawcoin.html" />
         <option value="$PROJECT_DIR$/public/manager/pages/admin-table.html" />
-        <option value="$PROJECT_DIR$/public/views/css/userActiveSelf.css" />
         <option value="$PROJECT_DIR$/public/manager/js/issueReview.js" />
         <option value="$PROJECT_DIR$/public/manager/pages/keyword_Set.html" />
         <option value="$PROJECT_DIR$/public/manager/pages/add_Qunfa.html" />
         <option value="$PROJECT_DIR$/public/views/js/activeShare.js" />
-        <option value="$PROJECT_DIR$/public/views/pages/userActiveSelf.html" />
+        <option value="$PROJECT_DIR$/public/views/pages/activeShare.html" />
         <option value="$PROJECT_DIR$/public/views/js/userActiveSelf.js" />
+        <option value="$PROJECT_DIR$/public/views/pages/userActiveSelf.html" />
+        <option value="$PROJECT_DIR$/public/views/css/userActiveSelf.css" />
       </list>
     </option>
   </component>
@@ -180,39 +216,6 @@
               <item name="telegraph" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="telegraph" type="b2602c69:ProjectViewProjectNode" />
-              <item name="telegraph" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="telegraph" type="b2602c69:ProjectViewProjectNode" />
-              <item name="telegraph" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="telegraph" type="b2602c69:ProjectViewProjectNode" />
-              <item name="telegraph" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="telegraph" type="b2602c69:ProjectViewProjectNode" />
-              <item name="telegraph" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="telegraph" type="b2602c69:ProjectViewProjectNode" />
-              <item name="telegraph" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -261,17 +264,18 @@
       <option name="presentableId" value="Default" />
       <updated>1522735439719</updated>
       <workItem from="1522735441257" duration="139461000" />
-      <workItem from="1523627745263" duration="2886000" />
+      <workItem from="1523627745263" duration="8204000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="142347000" />
+    <option name="totallyTimeSpent" value="147665000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947146" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947146" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -279,7 +283,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26602176" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26602176" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -340,13 +344,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/common/js/weixin.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="422">
@@ -358,6 +355,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7322">
           <caret line="3" column="10415" lean-forward="false" selection-start-line="3" selection-start-column="10415" selection-end-line="3" selection-end-column="10415" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -589,13 +587,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/views/css/userActiveSelf.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
-          <caret line="50" column="33" lean-forward="false" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/manager/pages/admin-table.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="402">
@@ -630,14 +621,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/views/pages/userActiveSelf.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="24" lean-forward="false" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/common/js/Util.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -656,22 +639,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/views/js/userActiveSelf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/views/pages/activeShare.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="27" column="59" lean-forward="false" selection-start-line="27" selection-start-column="46" selection-end-line="27" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -684,8 +651,52 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/views/js/activeShare.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-268">
+          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+          <folding>
+            <element signature="e#419#2349#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/views/pages/promo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/views/pages/activeShare.html">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="291">
-          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <caret line="38" column="131" lean-forward="false" selection-start-line="38" selection-start-column="131" selection-end-line="38" selection-end-column="131" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/views/js/userActiveSelf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="46" column="71" lean-forward="false" selection-start-line="46" selection-start-column="71" selection-end-line="46" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/views/pages/userActiveSelf.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="22" column="45" lean-forward="false" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/views/css/userActiveSelf.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
           <folding />
         </state>
       </provider>

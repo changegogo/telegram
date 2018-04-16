@@ -5,12 +5,16 @@ body,#userActiveSelf,.main-container {
 
 #bigbig-img {
     position: relative;
+    /*overflow-y: hidden;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
 }
 #bigbig-img > img {
     width: 100%;
     height: 100%;
     vertical-align: bottom;
 }
+
 .main-container {
     background-image: url("../../common/images/bgself.png");
     background-size: 100%;
