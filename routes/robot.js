@@ -109,7 +109,7 @@ router.post('/', function(req, res, next) {
             })
         });
     }
-        // 邀请人判断应该添加多少奖励
+    // 邀请人判断应该添加多少奖励
     let p2 = function(){
         return new Promise(function(resolve, reject){
             if(player12[0] == '110'){
@@ -119,15 +119,15 @@ router.post('/', function(req, res, next) {
                     telphone: player12[0]
                 }, function(err, player){
                     if(!err && player){
-                        let reward = 0;
-                        if(player.invitcount < commonUtils.oneDot){
-                            reward = commonUtils.oneReward;
-                        }else if(player.invitcount < commonUtils.twoDot){
-                            reward = commonUtils.twoReward;
-                        }else {
-                            reward = commonUtils.threeReward;
-                        }
-                        resolve(reward);
+                        // let reward = 0;
+                        // if(player.invitcount < commonUtils.oneDot){
+                        //     reward = commonUtils.oneReward;
+                        // }else if(player.invitcount < commonUtils.twoDot){
+                        //     reward = commonUtils.twoReward;
+                        // }else {
+                        //     reward = commonUtils.threeReward;
+                        // }
+                        resolve(commonUtils.oneReward);
                     }else{
                         reject({code: 201, msg: '邀请人查询失败'});
                     }

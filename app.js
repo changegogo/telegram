@@ -9,7 +9,7 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 
 const indexRouter = require('./routes/index');
-const codeRouter = require('./routes/code2');
+const codeRouter = require('./routes/code');
 const robotRouter = require('./routes/robot');
 const infoRouter = require('./routes/playerinfo');
 const applyRouter = require('./routes/apply');
@@ -51,8 +51,9 @@ app.use(session({
   name: identityKey,
   secret: 'youlan',
   store: new FileStore(),
-  saveUninitialized: false,
-  resave: false,
+  saveUninitialized: true,
+  resave: true,
+  rolling: true,
   cookie: {
     maxAge: 8 * 60 * 60 * 1000 //单位时ms
   }

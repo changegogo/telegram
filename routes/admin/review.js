@@ -201,22 +201,24 @@ router.get('/xlsx', function(req, res, next){
 
         let worksheet = workbook.addWorksheet('Sheet1');
         let headers = [
-            { header: '序号', key: '_id',width: 10 },
-            { header: '绑定手机号', key: 'telphone',width: 10 },
-            { header: '申请日期',  key: 'createtime',width: 20 },
+            { header: '序号', key: 'num',width: 5 },
+            { header: 'id', key: 'id',width: 10 },
+            { header: '绑定手机号', key: 'telphone',width: 13 },
             { header: 'ETH地址', key: 'imtoken',width: 10 },
             { header: 'IP地址', key: 'ip',width: 10 },
-            { header: '申请CAN数量', key: 'cancount', width: 20 },
-            { header: '状态', key: 'isdeal', width: 20 }
+            { header: '申请CAN数量', key: 'cancount', width: 13 },
+            { header: '申请日期',  key: 'createtime',width: 13 },
+            { header: '状态', key: 'isdeal', width: 10 }
         ]
 
         // 生成标题头
         worksheet.columns = headers;
         let rows = value.results;
-        let rows2 = rows.map(function(ele){
+        let rows2 = rows.map((ele, index)=>{
             let newobj = {};
             let isdeal = ele.isdeal;
-            newobj._id = ele._id;
+            newobj.num = index + 1;
+            newobj.id = ele.id;
             newobj.telphone = ele.telphone;
             newobj.createtime = ele.createtime;
             newobj.imtoken = ele.imtoken;

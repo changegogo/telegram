@@ -16,12 +16,12 @@ function commonUtils(){
     // this.oneDot = 30; // 邀请30人
     // this.twoDot = 100; //邀请100人
     // this.threshold = 1880; // 提币阀值
-    this.iptop = 7; // ip绑定上限
+    this.iptop = 5; // ip绑定上限
     this.oneReward = 188; // 1-30人
-    this.twoReward = 108; // 31-100人
-    this.threeReward = 58; //100人之后
-    this.oneDot = 3; // 邀请30人
-    this.twoDot = 5; //邀请100人
+    //this.twoReward = 108; // 31-100人
+    //this.threeReward = 58; //100人之后
+    //this.oneDot = 3; // 邀请30人
+    //this.twoDot = 5; //邀请100人
     this.threshold = 188; // 提币阀值
 }
 /**
@@ -30,7 +30,7 @@ function commonUtils(){
  * @param {*} phone
  */
 commonUtils.prototype.verifyPhone = function(phone){
-    if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))){ 
+    if(!(/^1(3|4|5|6|7|8)\d{9}$/.test(phone))){ 
         return false; 
     }
     return true;
@@ -48,8 +48,8 @@ commonUtils.prototype.generateCode = function(){
  * @param {*} smscode
  */
 commonUtils.prototype.verifySmscode = function(smscode, sessioncode){
-    console.log("验证码为：",smscode);
-    console.log("session验证码为：",sessioncode);
+    //console.log("验证码为：",smscode);
+    //console.log("session验证码为：",sessioncode);
     // 从session中取出验证码 
     if(sessioncode == smscode){
         return true;
@@ -62,8 +62,8 @@ commonUtils.prototype.verifySmscode = function(smscode, sessioncode){
  * @param {*} telphone
  */
 commonUtils.prototype.verifyTelphone = function(telphone, sessiontelphone){
-    console.log("手机号为：",telphone);
-    console.log("session手机号为：",sessiontelphone);
+    //console.log("手机号为：",telphone);
+    //console.log("session手机号为：",sessiontelphone);
     // 从session中取出验证码 
     if(sessiontelphone == telphone){
         return true;
@@ -77,7 +77,7 @@ commonUtils.prototype.verifyTelphone = function(telphone, sessiontelphone){
  * @param {*} imtoken
  */
 commonUtils.prototype.verifyImtoken = function(imtoken){
-    console.log("imtoken：",imtoken);
+    //console.log("imtoken：",imtoken);
     
     if(imtoken.startsWith('0x') && imtoken.length === 42){
         return true;
@@ -104,7 +104,6 @@ commonUtils.prototype.generateidentitycode = function(telphone, imtoken){
     const cipher = crypto.createCipher('aes192', this.key);
     var crypted = cipher.update(data, 'utf8', 'base64');
     crypted += cipher.final('base64');
-    //crypted = this.URLencode(crypted);
     return crypted;
 }
 
@@ -113,15 +112,12 @@ commonUtils.prototype.generateidentitycode = function(telphone, imtoken){
  * 屏蔽伪造的邀请码****
  */
 commonUtils.prototype.aesidentitycode = function(identitycode){
-    //identitycode = this.URLdecode(identitycode);
     try{
         const decipher = crypto.createDecipher('aes192', this.key);
         var decrypted = decipher.update(identitycode, 'base64', 'utf8');
         decrypted += decipher.final('utf8');
         return decrypted.split('|');
     }catch(error){
-       // console.log(err);
-       //return "非法用户识别码";
        return [];
     }
     
@@ -138,7 +134,6 @@ commonUtils.prototype.generateinvitcode = function(telphone1, telphone2){
     const cipher = crypto.createCipher('aes192', this.key);
     var crypted = cipher.update(data, 'utf8', 'base64');
     crypted += cipher.final('base64');
-    //crypted = this.URLencode(crypted);
     return crypted + this.suffix;
 }
 
@@ -146,14 +141,12 @@ commonUtils.prototype.generateinvitcode = function(telphone1, telphone2){
  * 解析邀请码invitcode
  */
 commonUtils.prototype.aesinvitcode = function(invitcode){
-    //invitcode = this.URLdecode(invitcode);
     try {
         const decipher = crypto.createDecipher('aes192', this.key);
         var decrypted = decipher.update(invitcode, 'base64', 'utf8');
         decrypted += decipher.final('utf8');
         return decrypted.split('|');
     } catch (error) {
-        //return "非法邀请码";
         return [];
     }
 }
