@@ -1,7 +1,11 @@
 function getIdentifycode() { //获取用户识别码
     var identitycode ;
     if (GetLocalStorage('identitycode') === null) {
-        window.location.href = window.location.protocol + '//' + window.location.host + '/telegram/index.html'
+        if (getQueryString('identitycode') !== null) {
+            window.location.href = window.location.protocol + '//' + window.location.host + '/telegram/index.html?identitycode=' + getQueryString('identitycode')
+        } else {
+            window.location.href = window.location.protocol + '//' + window.location.host + '/telegram/index.html';
+        }
     } else {
         if (GetLocalStorage('identitycode') !== null) {
             return identitycode = GetLocalStorage('identitycode');
