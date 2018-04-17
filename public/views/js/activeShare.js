@@ -9,7 +9,7 @@ $(function () {
 
     $(".sureDialog-btn").click(function () {
         $('.model').hide()
-    })
+    }) ;
     $(".generate-active-page-btn").click(function () {
         window.location.href = './userActiveSelf.html?identitycode=' + getIdentifycode();
     });
@@ -30,7 +30,7 @@ $(function () {
                         $("#hasPickupCount").text(haspickupcount) ; // 已经提取币的数目
                         $("#RandomTokenCode").text(res.results[0].invitcode) ; // 邀请码
                         var canUserBi = totalcancount - haspickupcount ;
-                        console.log(canUserBi + '===========')
+
                         $(".quicklyGetCanBtn").click(function () {
                             if (canUserBi < 18.8) {
                                 $('.model').show()
