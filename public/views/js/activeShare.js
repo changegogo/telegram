@@ -19,16 +19,16 @@ $(function () {
             success: function (res) {
                 if (res.code === 200) {
                     if(res.results) {
-                        var totalcancount = ((res.results[0].totalcancount)/10).toFixed(1);
-                        var haspickupcount = ((res.results[0].haspickupcount)/10).toFixed(1)
+                        var totalcancount = res.results[0].totalcancount
+                        var haspickupcount = res.results[0].haspickupcount
                         $("#invitCountPerson").text(res.results[0].invitcount) ; //邀请人数
-                        $("#totalCanCount").text(totalcancount) ; // 累计获得CAN币的数目
-                        $("#hasPickupCount").text(haspickupcount) ; // 已经提取币的数目
+                        $("#totalCanCount").text((Number(totalcancount) / 10).toFixed(1)) ; // 累计获得CAN币的数目
+                        $("#hasPickupCount").text((Number(haspickupcount) / 10).toFixed(1)) ; // 已经提取币的数目
                         $("#RandomTokenCode").text(res.results[0].invitcode) ; // 邀请码
-                        var canUserBi = totalcancount - haspickupcount ;
 
                         $(".quicklyGetCanBtn").click(function () {
-                            if (canUserBi < 18.8) {
+                            var canUserBi = Number(totalcancount) - Number(haspickupcount) ;
+                            if (canUserBi < 188) {
                                 $('.model').show()
                                 return false
                             } else {
