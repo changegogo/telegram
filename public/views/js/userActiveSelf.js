@@ -1,14 +1,14 @@
 $(function () {
-    productImgMethod()
+    versionController() ;
+    productImgMethod() ;
     function productImgMethod() {
         if (getQueryString('identitycode')) {
-            var qrCodeimgUrl = window.location.protocol + '//' + window.location.host + "/telegram/index.html?identitycode=" +getQueryString('identitycode');
+            imgMethodAjax () ;
         } else {
             window.location.href = window.location.protocol + '//' + window.location.host + "/telegram/index.html"
         }
     }
 
-    imgMethodAjax () ;
     function imgMethodAjax() {
        $.ajax({
            url: '../../genposter',
@@ -17,9 +17,14 @@ $(function () {
                identitycode: getQueryString('identitycode')
            },
            success: function(res){
-               console.log(JSON.stringify(res));
-               $('#tuiguangImg').attr('src', '../../poster/'+res.path);
-               // $('#tuiguangImg').attr('src', 'http://192.168.1.141:8890/poster/'+res.path);
+               console.log(res);
+               if (res.code == 200) {
+                   $('#tuiguangImg').attr('src', '../../poster/'+res.path);
+               } else {
+                   window.location.href = window.location.protocol + '//' + window.location.host + "/telegram/index.html"
+               }
+
+
            },
            error: function(err){
                console.log(err);

@@ -8,6 +8,27 @@
     <meta content="telephone=no" name="format-detection"/>
     <meta name="format-detection" content="email=no"/>
     <meta http-equiv="Cache-Control" content="no-cache"/>
+    <script type="text/javascript">
+        getIdentifycode() ;
+        function getIdentifycode() { //获取用户识别码
+            var identitycode ;
+            if (GetLocalStorage('identitycode') === null) {
+                if (getQueryString('identitycode') !== null) {
+                    window.location.href = window.location.protocol + '//' + window.location.host + '/telegram/index.html?identitycode=' + getQueryString('identitycode')
+                } else {
+                    window.location.href = window.location.protocol + '//' + window.location.host + '/telegram/index.html';
+                }
+            } else {
+                if (GetLocalStorage('identitycode') !== null) {
+                    return identitycode = GetLocalStorage('identitycode');
+                } else if(getQueryString('identitycode') !== null) {
+                    return identitycode = getQueryString('identitycode');
+                } else {
+                    window.location.href = window.location.protocol + '//' + window.location.host + '/telegram/index.html';
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="../../common/css/common1.css">
     <link rel="stylesheet" href="../../common/css/flex.css">
     <link rel="stylesheet" href="../css/activeShare.css">
@@ -20,7 +41,7 @@
         <div class="header-content-container theme-linear-bgColor fontsize13 text-center">
             <div class="flex" style="padding-top: 36px">
                 <div class="header-left-section flex-1 text-center">
-                    <p style="padding-bottom: 8px">已成功邀请人数(位)</p>
+                    <p style=" padding-bottom: 8px">已成功邀请人数(位)</p>
                     <p class="fontsize48" id="invitCountPerson"></p>
                 </div>
                 <div class="header-right-section flex-1 text-center">

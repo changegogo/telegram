@@ -1,8 +1,6 @@
-if (GetLocalStorage('identitycode') !== null) {
-    window.location.href = './views/pages/activeShare.html?identitycode=' + GetLocalStorage('identitycode');
-}
+
 $(function () {
-    // weixinShareMethod('weixin/signture')
+    versionController() ;
     $(".getNoteCode-container").click(function () {    // 点击获取验证码展示倒计时
         if (verifyMobileFormatter()) {
             settime($(this) , 60);
@@ -75,7 +73,7 @@ $(function () {
             type: 'POST',
             url: 'code/smsbind',
             data: {
-                identitycode: getIdentitycode(), //用户标识码，从本地存储或者url参数中获取
+                identitycode: getUrlIdentitycode(), //用户标识码，从本地存储或者url参数中获取
                 telphone: $("#mobilephone").val() ,// 用户手机号
                 smscode: $("#noteCode").val(),// 验证码
                 imtoken: $("#imtokenAddress").val() // 以太坊地址
@@ -97,13 +95,13 @@ $(function () {
         });
     }
 
-    function getIdentitycode() { //获取地址栏的 identitycode
+    function getUrlIdentitycode() { //获取地址栏的 identitycode
         var identitycode;
         if (getQueryString('identitycode') !== null) {
             identitycode = getQueryString('identitycode');
             return identitycode ;
         } else {
-            return identitycode = '' ;
+            return '' ;
         }
     }
 });

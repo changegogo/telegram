@@ -1,11 +1,8 @@
-getIdentifycode();
+
 $(function () {
     userInfoConector();
-    // weixinShareMethod('../../weixin/signture') ;
-
-
     //click
-
+    versionController() ;
     $(".sureDialog-btn").click(function () {
         $('.model').hide()
     }) ;
@@ -41,7 +38,7 @@ $(function () {
                         });
                     }
                     return true
-                } else if (res.code === 10004 ) {
+                } else if (res.code == 10004 ) {
                     RemoveLocalStorage('identitycode') ;
                     getIdentifycode() ;
                 }else {

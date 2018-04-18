@@ -130,3 +130,26 @@ function timerTimeOutTip(imgSrc, titleWords) {//延时定时器
         $(".diaLog-tip").hide();
     },1000)
 }
+function versionController() {
+    var version = '1.1.1';
+    var links = document.getElementsByTagName('link');
+    var scripts = document.getElementsByTagName('script');
+    // es6可以换种语法针对domlist集合做处理
+    var linkItem ,scriptItem;
+    for (var i=0; i<links.length; i++) {
+        linkItem = links[i].getAttribute('href');
+        if (linkItem !== null) {
+            links[i].setAttribute('href', linkItem + '?version=' + version)
+        } else {
+            // console.log('true is null')
+        }
+    }
+    for (var i=0; i<scripts.length; i++) {
+        scriptItem = scripts[i].getAttribute('src');
+        if (scriptItem !== null) {
+            scripts[i].setAttribute('src', scriptItem + '?version=' + version)
+        } else {
+            // console.log('true is null')
+        }
+    }
+}
