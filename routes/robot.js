@@ -16,8 +16,9 @@ router.post('/', function(req, res, next) {
     // 获取内容
     let text = req.body.message.text;
     let chatid = req.body.message.chat.id;
-    //console.log('聊天id：',chatid);
-
+    //let text = req.body.text;
+    //let chatid = req.body.chatid;
+    
     // 不是邀请码的后缀
     if(!text.endsWith(commonUtils.suffix)){
         // 遍历每一个回复规则，查询是否有匹配的规则
@@ -168,10 +169,17 @@ router.post('/', function(req, res, next) {
         return p3(reward);
     })
     .then(function(c){
-        console.log('奖励已发放');
-        replyrobot(chatid, '奖励已发放', function(val){
-            res.end(val);
-        });
+        //console.log('奖励已发放');
+        if(c === 0){
+            replyrobot(chatid, '奖励已发放', function(val){
+                res.end(val);
+            });
+        }else{
+            replyrobot(chatid, '邀请人和被邀请人奖励已发放', function(val){
+                res.end(val);
+            });
+        }
+        
     })
     .catch(function(data){
         console.log(data);

@@ -59,7 +59,7 @@ router.get('/smsapi', function(req, res, next){
         }).catch(function(err){
             res.json(err);
         });
-        //res.json({code: 200, msg: "短信验证码获取成功", results: [], smscode: code, telphone: telphone});
+        //res.json({code: 200, msg: "短信验证码获取成功", smscode: code, telphone: telphone});
     }else if(!telphone){
         // 手机号码为空
         res.json({code: 201, msg: "手机号码不能为空", results: []});
@@ -203,7 +203,11 @@ router.post('/smsbind', function(req, res, next){
                 if(phone.length>0){
                     phone = phone[0];
                     // 生成邀请码
-                    invitcode = commonUtils.generateinvitcode(phone, telphone); 
+                    if(phone != telphone){
+                        invitcode = commonUtils.generateinvitcode(phone, telphone); 
+                    }else{
+                        invitcode = commonUtils.generateinvitcode('110', telphone);
+                    }
                 }else {
                     // 生成邀请码,表示第一次注册
                     invitcode = commonUtils.generateinvitcode('110', telphone);
