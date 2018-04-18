@@ -40,7 +40,11 @@ $(function () {
                     return true
                 } else {
                     RemoveLocalStorage('identitycode') ;
-                    getIdentifycode() ;
+                    if (getQueryString('identitycode') !== null) {
+                        window.location.href = window.location.protocol + '//' + window.location.host + '/telegram/index.html?identitycode=' + getQueryString('identitycode')
+                    } else {
+                        window.location.href = window.location.protocol + '//' + window.location.host + '/telegram/index.html';
+                    }
                     return false
                 }
             },
