@@ -1,5 +1,4 @@
 getIdentifycode();
-
 $(function () {
     userInfoConector();
     // weixinShareMethod('../../weixin/signture') ;
@@ -9,7 +8,7 @@ $(function () {
 
     $(".sureDialog-btn").click(function () {
         $('.model').hide()
-    })
+    }) ;
     $(".generate-active-page-btn").click(function () {
         window.location.href = './userActiveSelf.html?identitycode=' + getIdentifycode();
     });
@@ -30,7 +29,7 @@ $(function () {
                         $("#hasPickupCount").text(haspickupcount) ; // 已经提取币的数目
                         $("#RandomTokenCode").text(res.results[0].invitcode) ; // 邀请码
                         var canUserBi = totalcancount - haspickupcount ;
-                        console.log(canUserBi + '===========')
+
                         $(".quicklyGetCanBtn").click(function () {
                             if (canUserBi < 18.8) {
                                 $('.model').show()
@@ -64,7 +63,7 @@ $(function () {
         });
         var clipboardUrl = new ClipboardJS('#copy-linkbtn' , {
             text: function () {
-                return window.location.protocol + '//' + window.location.host + "/telegram/index.html?identitycode=" + getIdentifycode() ;
+                return 'CAN空投活动。双料豪礼等你来拿，加入电报群获得18.8CAN！每邀请一位朋友加入CAN电报群，按阶梯发放奖励！ 😍 😘 ' + window.location.protocol + '//' + window.location.host + "/telegram/index.html?identitycode=" + getIdentifycode() ;
             }
         });
         clipboard.on('success', function(e) {
@@ -87,7 +86,7 @@ $(function () {
         if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) { //ios兼容
             window.getSelection().removeAllRanges();//这段代码必须放在前面否则无效
             var Url2=document.getElementById("biaoios");//要复制文字的节点
-            Url2.innerText = window.location.protocol + '//' + window.location.host + "/telegram/index.html?identitycode=" + getIdentifycode() ;
+            Url2.innerText = 'CAN空投活动。双料豪礼等你来拿，加入电报群获得18.8CAN！每邀请一位朋友加入CAN电报群，按阶梯发放奖励！ 😍 😘 ' + window.location.protocol + '//' + window.location.host + "/telegram/index.html?identitycode=" + getIdentifycode() ;
             var range = document.createRange();
             // 选中需要复制的节点
             range.selectNode(Url2);
