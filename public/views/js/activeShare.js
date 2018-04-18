@@ -41,7 +41,6 @@ $(function () {
                 } else {
                     RemoveLocalStorage('identitycode') ;
                     if (getQueryString('identitycode') !== null) {
-                        alert(getQueryString('identitycode')) ;
                         window.location.href = window.location.protocol + '//' + window.location.host + '/telegram/index.html?identitycode=' + getQueryString('identitycode')
                     } else {
                         window.location.href = window.location.protocol + '//' + window.location.host + '/telegram/index.html';

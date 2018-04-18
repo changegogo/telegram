@@ -7,20 +7,6 @@
     <meta content="telephone=no" name="format-detection" />
     <meta name="format-detection" content="email=no" />
     <meta http-equiv="Cache-Control" content="no-cache"/>
-    <script type="text/javascript">
-        function GetLocalStorage(name){//name
-            var value = '';
-            if (window.localStorage) {
-                value = localStorage.getItem(name);
-            } else {
-                alert("不支持Web sessionStorage");
-            }
-            return value;
-        }
-        if (GetLocalStorage('identitycode') !== null) {
-            window.location.href = './views/pages/activeShare.html?identitycode=' + GetLocalStorage('identitycode');
-        }
-    </script>
     <link rel="stylesheet" href="common/css/common1.css">
     <link rel="stylesheet" href="common/css/flex.css">
     <link rel="stylesheet" href="views/css/index.css">

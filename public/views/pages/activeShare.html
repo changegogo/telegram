@@ -9,27 +9,10 @@
     <meta name="format-detection" content="email=no"/>
     <meta http-equiv="Cache-Control" content="no-cache"/>
     <script type="text/javascript" src="../../common/js/Util.js"></script>
+    <script type="text/javascript" src="../../common/js/common.js"></script>
+
     <script type="text/javascript">
         getIdentifycode() ;
-
-        function getIdentifycode() { //获取用户识别码
-            var identitycode ;
-            if (GetLocalStorage('identitycode') === null) {
-                if (getQueryString('identitycode') !== null) {
-                    window.location.href = window.location.protocol + '//' + window.location.host + '/telegram/index.html?identitycode=' + getQueryString('identitycode')
-                } else {
-                    window.location.href = window.location.protocol + '//' + window.location.host + '/telegram/index.html';
-                }
-            } else {
-                if (GetLocalStorage('identitycode') !== null) {
-                    return identitycode = GetLocalStorage('identitycode');
-                } else if(getQueryString('identitycode') !== null) {
-                    return identitycode = getQueryString('identitycode');
-                } else {
-                    window.location.href = window.location.protocol + '//' + window.location.host + '/telegram/index.html';
-                }
-            }
-        }
     </script>
     <link rel="stylesheet" href="../../common/css/common1.css">
     <link rel="stylesheet" href="../../common/css/flex.css">
@@ -96,7 +79,6 @@
     </div>
     <div id="biaoios" style="display:none"></div>
 </div>
-<script type="text/javascript" src="../../common/js/common.js"></script>
 <script type="text/javascript" src="../../common/js/clipboard.min.js"></script>
 <script type="text/javascript" src="../../common/js/weixin.min.js"></script>
 <script type="text/javascript" src="../js/activeShare.js"></script>
