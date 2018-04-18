@@ -7,10 +7,38 @@
     <meta content="telephone=no" name="format-detection" />
     <meta name="format-detection" content="email=no" />
     <meta http-equiv="Cache-Control" content="no-cache"/>
+
+    <script type="text/javascript" src="common/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="common/js/Util.js"></script>
+    <script type="text/javascript">
+        if (GetLocalStorage('identitycode') !== null) {
+            userInfoConector() ;
+        }
+        function userInfoConector() { //info接口获取
+            $.ajax({
+                type: 'POST',
+                url: 'info',
+                data: {
+                    identitycode: getIdentifycode()
+                },
+                success: function (res) {
+                    if (res.code === 200) {
+                        window.location.href = './views/pages/activeShare.html?identitycode=' + GetLocalStorage('identitycode');
+                        return true
+                    } else {
+                        RemoveLocalStorage('identitycode') ;
+                        return false
+                    }
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            });
+        }
+    </script>
     <link rel="stylesheet" href="common/css/common1.css">
     <link rel="stylesheet" href="common/css/flex.css">
     <link rel="stylesheet" href="views/css/index.css">
-    <script type="text/javascript" src="common/js/jquery-3.3.1.min.js"></script>
     <title>电报推广</title>
 </head>
 <body>
@@ -44,7 +72,6 @@
         <p class="titleWords"></p>
     </div>
 </div>
-<script type="text/javascript" src="common/js/Util.js"></script>
 <script type="text/javascript" src="common/js/common.js"></script>
 <script type="text/javascript" src="views/js/index.js"></script>
 </body>

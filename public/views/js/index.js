@@ -1,29 +1,5 @@
 
 $(function () {
-    if (GetLocalStorage('identitycode') !== null) {
-        userInfoConector() ;
-    }
-    function userInfoConector() { //info接口获取
-        $.ajax({
-            type: 'POST',
-            url: 'info',
-            data: {
-                identitycode: getIdentifycode()
-            },
-            success: function (res) {
-                if (res.code === 200) {
-                    window.location.href = './views/pages/activeShare.html?identitycode=' + GetLocalStorage('identitycode');
-                    return true
-                } else {
-                    RemoveLocalStorage('identitycode') ;
-                    return false
-                }
-            },
-            error: function (error) {
-                console.log(error)
-            }
-        });
-    }
     versionController() ;
     $(".getNoteCode-container").click(function () {    // 点击获取验证码展示倒计时
         if (verifyMobileFormatter()) {
