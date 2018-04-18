@@ -269,8 +269,19 @@ router.get('/add', function(req, res, next){
 
         let rule = {};
         if(dayOfWeek.length>0){
+            let daymapnum = new Map([
+                ['日', 0],
+                ['一', 1],
+                ['二', 2],
+                ['三', 3],
+                ['四', 4],
+                ['五', 5],
+                ['六', 6]
+            ]);
             // 周任务 hour: 14, minute: 30, dayOfWeek: 0
-            rule.dayOfWeek = dayOfWeek;
+            rule.dayOfWeek = dayOfWeek.map((item, index)=>{
+                return daymapnum.get(item)?daymapnum.get(item):0;
+            });
             //rule.hour = hour;
             rule.hour = hour.map((item)=>{
                 return item>=8?item-8:24+(item-8);
@@ -278,7 +289,7 @@ router.get('/add', function(req, res, next){
             rule.minute = minute;
             rule.second = second;
             // 添加到数据库
-            obj.dayOfWeek = obj.dayOfWeek.concat(dayOfWeek);
+            obj.dayOfWeek = obj.dayOfWeek.concat(rule.dayOfWeek);
             obj.hour = obj.hour.concat(hour);
             obj.minute = obj.minute.concat(minute);
             obj.second = obj.second.concat(second);

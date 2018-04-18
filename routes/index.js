@@ -39,11 +39,10 @@ router.post('/genposter', function(req, res, next){
   }
 
   // 1.生成二维码图 function(url,imgName, callback)
-  //https://mobipromo.io/telegram/index.html?identitycode=C0xZdh9XdwhZs+X/waxQQVs2FT1y7PEf3qFR1DEnSC3noATU4Ok5Zc4IYrl58uTT0Rx7M9GvWiCMrzEDeGazDQ==
   let p1 = function(){
     return new Promise(function(resolve, reject){
       qrUtils.createQr('https://mobipromo.io/telegram/index.html?identitycode='+identitycode, telphone+'.png', function(err, data){
-        if(err){  
+        if(err){
           console.log(err);
           reject({code: 201, msg: '创建二维码失败'});
         }else{
