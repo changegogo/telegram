@@ -1,6 +1,5 @@
 let axios = require('axios');
 
-//const bottoken = "588581588:AAHcWKRK5ufqyhjgGfgylyuK_RnwlDkhNbI";
 const bottoken = "596747985:AAFIX5UzClfopoT2PFwdP8FbPyJL2oGn03s";
 const telegramBaseUrl = 'https://api.telegram.org/bot' + bottoken;
 const sendMessage = '/sendMessage';
