@@ -10,20 +10,20 @@ function commonUtils(){
     this.suffix = "can_robot"; // 邀请码后缀
     this.key = "youlan123";    // 密钥
 
-    // this.iptop = 20; // ip绑定上限
-    // this.oneReward = 188; // 1-30人
+     this.iptop = 20; // ip绑定上限
+     this.oneReward = 188; // 1-30人
     // this.twoReward = 108; // 31-100人
     // this.threeReward = 58; //100人之后
     // this.oneDot = 30; // 邀请30人
     // this.twoDot = 100; //邀请100人
-    // this.threshold = 1880; // 提币阀值
-    this.iptop = 5; // ip绑定上限
-    this.oneReward = 188; // 1-30人
+    this.threshold = 1880; // 提币阀值
+    //this.iptop = 5; // ip绑定上限
+    //this.oneReward = 188; // 1-30人
     //this.twoReward = 108; // 31-100人
     //this.threeReward = 58; //100人之后
     //this.oneDot = 3; // 邀请30人
     //this.twoDot = 5; //邀请100人
-    this.threshold = 188; // 提币阀值
+    //this.threshold = 188; // 提币阀值
 }
 /**
  * 验证手机号码是否合法
