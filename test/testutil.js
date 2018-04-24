@@ -1,49 +1,63 @@
-var commonUtils = require('../utils/commonUtils');
+//var commonUtils = require('../utils/commonUtils');
+const crypto = require('crypto');
+const URLSafeBase64 = require('urlsafe-base64');
 
-// var s = '+YJqDG8+"\'/5kdCB3dG5L"E/5pg==';
-// console.log(s);
-// var en = commonUtils.URLencode(s);
-// console.log(en);
+let generateidentitycode = function(telphone, imtoken){
+    var data = telphone + "|" + imtoken;
+    const cipher = crypto.createCipher('aes192', 'youlan123');
+    var crypted = cipher.update(data, 'utf8', 'base64');
+    crypted += cipher.final('base64');
+    console.log(crypted);
+    crypted = URLSafeBase64.encode(crypted);
+    return crypted;
+}
 
-// var de = commonUtils.URLdecode(en);
-// console.log(de);
+/**
+ * 解析身份识别码
+ * 屏蔽伪造的邀请码****
+ */
+let aesidentitycode = function(identitycode){
+    try{
+        const decipher = crypto.createDecipher('aes192', 'youlan123');
+        var decrypted = decipher.update(identitycode, 'base64', 'utf8');
+        decrypted += decipher.final('utf8');
+        return decrypted.split('|');
+    }catch(error){
+       return [];
+    }
+}
+let phone = '15383830596';
+let imtoken = '1538383+=/90123';
+let crypted = generateidentitycode(phone, imtoken);
+console.log(crypted);
+let arr = aesidentitycode('Bkh7re6X-K2R7-PkHaYLXfTywPcHGc4z3L3FiTVCWHyqRvvBkDqprrV5z7V437JqrvoeZCuVe873cMFmsw7n-Q');
 
-// let invitcode = "OVbta2z4+m9imQT5ATMxnnnk2jIhuLHCLJwpsvZkl7w=can_robot";
-// let arr = commonUtils.aesinvitcode(invitcode);
-// console.log(arr);
-
-//var crypto = require('crypto');
-//let salt = '123';
-// let hash, encode, password;
-// password = 'dailiwang';
-// password = password + salt;
-// for(let i=0; i<3; i++){
-//     hash = crypto.createHash('md5');
-//     hash.update(new Buffer(password, 'binary'));
-//     encode = hash.digest('hex');
-//     password = encode;
-// }
-
-//console.log(encode);
-//06a6ab779825446f8783fbeaf8703533
-// let hash, encode;
-// function encryption(password){
-//     password = password + salt;
-//     for(let i=0; i<3; i++){
-//         hash = crypto.createHash('md5');
-//         hash.update(new Buffer(password, 'binary'));
-//         encode = hash.digest('hex');
-//         password = encode;
-//     }
-//     return encode;
-// }
-
-// console.log(encryption('dailiwang'))
-
-let arr = commonUtils.aesinvitcode(`rF2J/ZRHuKB18N2DBHJf/OKp682rk4NbcZxZ6L1MEbM=can_robot`);
-console.log(arr);
-arr = commonUtils.aesinvitcode(`1uoz88Fg+h+n8YG2DAHMG/DmzWCmh+GNP+ssfQGGm0k=can_robot`);
-console.log(arr);
-arr = commonUtils.aesinvitcode(`X7R4I/3/l2vP8yyWBK7OrTds+/xIOvYDzQ3uyoxmaek=can_robot`);
 console.log(arr);
 
+let generateinvitcode = function(telphone1, telphone2){
+    var data = telphone1 + "|" + telphone2;
+    const cipher = crypto.createCipher('aes192', 'youlan123');
+    var crypted = cipher.update(data, 'utf8', 'base64');
+    crypted += cipher.final('base64');
+    crypted = URLSafeBase64.encode(crypted);
+    return crypted + 'can_robot';
+}
+
+/**
+ * 解析邀请码invitcode
+ */
+let aesinvitcode = function(invitcode){
+    try {
+        invitcode = invitcode.split('can_robot')[0];
+        const decipher = crypto.createDecipher('aes192','youlan123');
+        var decrypted = decipher.update(invitcode, 'base64', 'utf8');
+        decrypted += decipher.final('utf8');
+        return decrypted.split('|');
+    } catch (error) {
+        return [];
+    }
+}
+
+let mi = generateinvitcode('15383830596', '15801419993');
+let jie = aesinvitcode(mi);
+console.log(jie);

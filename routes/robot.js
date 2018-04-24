@@ -16,6 +16,12 @@ router.post('/', function(req, res, next) {
     // 获取内容
     let text = req.body.message.text;
     let chatid = req.body.message.chat.id;
+    //console.log(text);
+    //console.log(chatid);
+    if(!text){
+        res.end();
+        return;
+    }
     //let text = req.body.text;
     //let chatid = req.body.chatid;
     

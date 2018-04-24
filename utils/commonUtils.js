@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const URLSafeBase64 = require('urlsafe-base64');
 
 function commonUtils(){
     this.accessKeyId = "LTAIZz2ZirPgMdKX"; // 短信验证码服务
@@ -9,20 +10,20 @@ function commonUtils(){
     this.suffix = "can_robot"; // 邀请码后缀
     this.key = "youlan123";    // 密钥
 
-    // this.iptop = 20; // ip绑定上限
-    // this.oneReward = 188; // 1-30人
+     this.iptop = 20; // ip绑定上限
+     this.oneReward = 188; // 1-30人
     // this.twoReward = 108; // 31-100人
     // this.threeReward = 58; //100人之后
     // this.oneDot = 30; // 邀请30人
     // this.twoDot = 100; //邀请100人
-    // this.threshold = 1880; // 提币阀值
-    this.iptop = 5; // ip绑定上限
-    this.oneReward = 188; // 1-30人
+    this.threshold = 1880; // 提币阀值
+    //this.iptop = 5; // ip绑定上限
+    //this.oneReward = 188; // 1-30人
     //this.twoReward = 108; // 31-100人
     //this.threeReward = 58; //100人之后
     //this.oneDot = 3; // 邀请30人
     //this.twoDot = 5; //邀请100人
-    this.threshold = 188; // 提币阀值
+    //this.threshold = 188; // 提币阀值
 }
 /**
  * 验证手机号码是否合法
@@ -104,6 +105,7 @@ commonUtils.prototype.generateidentitycode = function(telphone, imtoken){
     const cipher = crypto.createCipher('aes192', this.key);
     var crypted = cipher.update(data, 'utf8', 'base64');
     crypted += cipher.final('base64');
+    crypted = URLSafeBase64.encode(crypted);
     return crypted;
 }
 
@@ -134,6 +136,7 @@ commonUtils.prototype.generateinvitcode = function(telphone1, telphone2){
     const cipher = crypto.createCipher('aes192', this.key);
     var crypted = cipher.update(data, 'utf8', 'base64');
     crypted += cipher.final('base64');
+    crypted = URLSafeBase64.encode(crypted);
     return crypted + this.suffix;
 }
 
@@ -142,6 +145,7 @@ commonUtils.prototype.generateinvitcode = function(telphone1, telphone2){
  */
 commonUtils.prototype.aesinvitcode = function(invitcode){
     try {
+        invitcode = invitcode.split(this.suffix)[0];
         const decipher = crypto.createDecipher('aes192', this.key);
         var decrypted = decipher.update(invitcode, 'base64', 'utf8');
         decrypted += decipher.final('utf8');
