@@ -28,7 +28,7 @@ $(function () {
 
                         $(".quicklyGetCanBtn").click(function () {
                             var canUserBi = Number(totalcancount) - Number(haspickupcount) ;
-                            if (canUserBi < 188) {
+                            if (canUserBi < 1880) {
                                 $('.model').show()
                                 return false
                             } else {
